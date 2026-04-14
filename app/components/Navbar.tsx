@@ -1,42 +1,40 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/app/components/ui/button";
+import BrandLogo from "@/app/components/BrandLogo";
+import { useI18n } from "@/app/i18n/I18nProvider";
 
 const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/services", label: "Service" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact Us" },
+  { href: "/", key: "nav.home" },
+  { href: "/services", key: "nav.services" },
+  { href: "/about", key: "nav.about" },
+  { href: "/issuer", key: "nav.issuer" },
+  { href: "/contact", key: "nav.contact" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { locale, setLocale, t } = useI18n();
 
   return (
     <header className="sticky top-0 z-50 w-full">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mt-4 flex items-center justify-between rounded-3xl border border-black/10 bg-white/70 px-3 py-3 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <div className="mt-4 flex items-center justify-between rounded-3xl border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_20%)] px-3 py-3 backdrop-blur supports-[backdrop-filter]:bg-[color-mix(in_oklab,var(--brand-surface),transparent_35%)]">
           <Link href="/" className="flex items-center gap-3 pl-2">
-            <span className="relative h-8 w-8 overflow-hidden rounded-xl bg-black/5">
-              <Image
-                src="/images/logo.png"
-                alt="BPR Bonding"
-                fill
-                className="object-contain"
-              />
-            </span>
-            <span className="hidden text-sm font-semibold tracking-tight text-black sm:inline">
-              BPR Bonding
-            </span>
+            <BrandLogo
+              kind="full"
+              height={28}
+              width={112}
+              className="drop-shadow-[0_12px_32px_rgba(0,0,0,0.18)]"
+              priority
+            />
+            <span className="sr-only">BPR Bonding</span>
           </Link>
 
-          <nav className="hidden items-center rounded-full border border-black/10 bg-white/60 px-2 py-2 md:flex">
+          <nav className="hidden items-center rounded-full border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_30%)] px-2 py-2 md:flex">
             {navItems.map((item) => {
               const active = item.href === "/" ? pathname === "/" : pathname?.startsWith(item.href);
               return (
@@ -46,21 +44,44 @@ export default function Navbar() {
                   className={cn(
                     "rounded-full px-4 py-2 text-sm font-medium transition-colors",
                     active
-                      ? "bg-black text-white"
-                      : "text-black/70 hover:text-black"
+                      ? "bg-[var(--brand-brown)] text-white"
+                      : "text-black/70 hover:text-black hover:bg-black/5"
                   )}
                 >
-                  {item.label}
+                  {t(item.key)}
                 </Link>
               );
             })}
           </nav>
 
-          <Button asChild className="h-10 px-5">
-            <Link href="/contact">
-              Book a Call <ArrowUpRight className="opacity-90" />
-            </Link>
-          </Button>
+          <div className="flex items-center rounded-full border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_30%)] p-1">
+            <button
+              type="button"
+              onClick={() => setLocale("id")}
+              aria-label={t("nav.indonesian")}
+              className={cn(
+                "rounded-full px-3 py-1 text-xs font-semibold transition-colors",
+                locale === "id"
+                  ? "bg-[var(--brand-brown)] text-white"
+                  : "text-black/60 hover:text-black hover:bg-black/5"
+              )}
+            >
+              ID
+            </button>
+            <button
+              type="button"
+              onClick={() => setLocale("en")}
+              aria-label={t("nav.english")}
+              className={cn(
+                "rounded-full px-3 py-1 text-xs font-semibold transition-colors",
+                locale === "en"
+                  ? "bg-[var(--brand-brown)] text-white"
+                  : "text-black/60 hover:text-black hover:bg-black/5"
+              )}
+            >
+              EN
+            </button>
+          </div>
         </div>
       </div>
     </header>

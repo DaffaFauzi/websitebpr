@@ -10,7 +10,7 @@ export function Card({
     <div
       data-slot="card"
       className={cn(
-        "rounded-3xl border border-black/10 bg-white shadow-[0_12px_40px_-24px_rgba(0,0,0,0.25)]",
+        "rounded-3xl border border-[var(--brand-border)] bg-[var(--brand-surface)] shadow-[0_12px_40px_-24px_rgba(0,0,0,0.25)]",
         className
       )}
       {...props}

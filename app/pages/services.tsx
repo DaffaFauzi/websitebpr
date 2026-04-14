@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
+
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
-import { Button } from "@/app/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
+import { useI18n } from "@/app/i18n/I18nProvider";
 
 const services = [
   {
@@ -15,6 +18,9 @@ const services = [
       "Jaminan Pemeliharaan",
       "BG Akhir Tahun",
     ],
+    iconSrc: "/icons/bank-garansi.svg",
+    imageTheme:
+      "bg-[radial-gradient(circle_at_30%_20%,rgba(139,29,29,0.16),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(11,11,11,0.10),transparent_60%)]",
   },
   {
     title: "Surety Bond",
@@ -26,11 +32,17 @@ const services = [
       "Jaminan Pelaksanaan",
       "Jaminan Uang Muka",
     ],
+    iconSrc: "/icons/surety-bond.svg",
+    imageTheme:
+      "bg-[radial-gradient(circle_at_30%_20%,rgba(11,11,11,0.12),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(139,29,29,0.12),transparent_60%)]",
   },
   {
-    title: "Custom Garansi",
-    desc: "Custom Garansi adalah jaminan pelaksanaan kepabeanan yang diterbitkan oleh perusahaan asuransi atau lembaga penjaminan.",
-    items: ["KITE", "KABER", "Vooruitslag", "SPKPBM", "TPS", "Impor Sementara (OB 23)"],
+    title: "Custom Bond",
+    desc: "Jaminan kepabeanan untuk pemenuhan kewajiban bea masuk dan pajak impor sesuai ketentuan kepabeanan.",
+    items: ["Fasilitas KITE", "Penangguhan Bea Masuk", "Impor Sementara (OB 23)", "Jaminan Kepabeanan"],
+    iconSrc: "/icons/custom-bond.svg",
+    imageTheme:
+      "bg-[radial-gradient(circle_at_30%_20%,rgba(139,29,29,0.14),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(11,11,11,0.10),transparent_60%)]",
   },
   {
     title: "Asuransi Umum",
@@ -43,73 +55,118 @@ const services = [
       "Third Party Liability",
       "Marine Cargo",
     ],
+    iconSrc: "/icons/asuransi-umum.svg",
+    imageTheme:
+      "bg-[radial-gradient(circle_at_30%_20%,rgba(11,11,11,0.12),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(139,29,29,0.10),transparent_60%)]",
   },
 ];
 
+function splitInTwo<T>(items: T[]) {
+  const mid = Math.ceil(items.length / 2);
+  return [items.slice(0, mid), items.slice(mid)];
+}
+
 export default function ServicesPage() {
+  const { t } = useI18n();
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-transparent">
       <Navbar />
       <main>
-        <section className="bg-white">
-          <div className="mx-auto max-w-6xl px-4 pt-24 pb-12 sm:px-6 sm:pt-28">
-            <div className="max-w-3xl">
-              <div className="text-sm font-medium text-black/50">Layanan Kami</div>
-              <h1 className="mt-4 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-black sm:text-6xl">
-                Kami memberikan solusi terbaik untuk masalah Anda
-              </h1>
-              <p className="mt-6 text-pretty text-base leading-7 text-black/60">
-                Pilih layanan sesuai kebutuhan penjaminan, kepabeanan, maupun
-                perlindungan aset. Tim kami membantu analisa risiko, pemilihan
-                produk, hingga layanan purna jual.
-              </p>
-            </div>
-
-            <div className="mt-12 grid gap-6 lg:grid-cols-2">
-              {services.map((s) => (
-                <Card key={s.title}>
-                  <CardHeader className="p-7 pb-0">
-                    <div className="text-xl font-semibold tracking-tight text-black">
-                      {s.title}
-                    </div>
-                    <div className="mt-2 text-sm leading-6 text-black/60">
-                      {s.desc}
-                    </div>
-                  </CardHeader>
-                  <CardContent className="p-7 pt-5">
-                    <div className="grid gap-2 sm:grid-cols-2">
-                      {s.items.map((it) => (
-                        <div
-                          key={it}
-                          className="rounded-2xl border border-black/10 bg-black/5 px-4 py-3 text-sm font-medium text-black/80"
-                        >
-                          {it}
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+        <section className="relative overflow-hidden bg-[var(--brand-soft)]">
+          <div className="absolute inset-0">
+            <div className="absolute -left-24 top-0 h-full w-[520px] rotate-[20deg] bg-[repeating-linear-gradient(135deg,rgba(139,29,29,0.16)_0_6px,transparent_6px_14px)] opacity-60" />
+          </div>
+          <div className="relative mx-auto max-w-6xl px-4 pt-24 pb-14 sm:px-6 sm:pt-28">
+            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <div>
+                <div className="text-sm font-medium text-black/50">
+                  {t("servicesPage.headerTitle")}
+                </div>
+                <h1 className="mt-3 text-4xl font-semibold tracking-tight text-black sm:text-5xl">
+                  {t("servicesPage.headerTitle")}
+                </h1>
+              </div>
+              <div className="text-sm text-black/60">
+                <Link href="/" className="hover:text-black">
+                  {t("common.home")}
+                </Link>
+                <span className="mx-2 text-black/30">›</span>
+                <span className="text-[var(--brand-brown)]">
+                  {t("servicesPage.headerBreadcrumb")}
+                </span>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="bg-[var(--brand-black)]">
-          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-            <div className="rounded-[32px] border border-white/10 bg-white/5 px-6 py-10 sm:px-10">
-              <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
-                <div>
-                  <div className="text-sm font-medium text-white/60">
-                    Butuh bantuan memilih produk?
+        <section className="bg-[var(--brand-surface)]">
+          <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20">
+            <div className="space-y-12 pt-4 sm:space-y-16 sm:pt-6">
+              {services.map((s, idx) => {
+                const [leftItems, rightItems] = splitInTwo(s.items);
+                const reverse = idx % 2 === 1;
+
+                return (
+                  <div
+                    key={s.title}
+                    className="grid gap-10 lg:grid-cols-2 lg:items-center"
+                  >
+                    <div className={reverse ? "lg:order-2" : ""}>
+                      <div className="overflow-hidden rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] shadow-[0_22px_70px_-44px_rgba(0,0,0,0.35)]">
+                        <div className={`relative ${s.imageTheme}`}>
+                          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.20),transparent_45%)]" />
+                          <div className="aspect-[4/3] w-full">
+                            <div className="flex h-full w-full items-center justify-center">
+                              <div className="relative flex h-44 w-44 items-center justify-center rounded-[36px] border border-[var(--brand-border)] bg-white/55 shadow-[0_24px_80px_-56px_rgba(0,0,0,0.55)] backdrop-blur-sm sm:h-52 sm:w-52">
+                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(178,34,34,0.14),transparent_58%)]" />
+                                <div className="relative">
+                                  <Image alt={s.title} src={s.iconSrc} width={160} height={160} />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={reverse ? "lg:order-1" : ""}>
+                      <div className="max-w-xl">
+                        <div className="flex items-center gap-3">
+                          <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[var(--brand-border)] bg-[var(--brand-soft)]">
+                            <Image alt={s.title} src={s.iconSrc} width={24} height={24} />
+                          </span>
+                          <div className="text-xl font-semibold tracking-tight text-black">
+                            {s.title}
+                          </div>
+                        </div>
+
+                        <p className="mt-4 text-sm leading-6 text-black/60">
+                          {s.desc}
+                        </p>
+
+                        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+                          <ul className="space-y-2 text-sm text-black/65">
+                            {leftItems.map((it) => (
+                              <li key={it} className="flex items-start gap-3">
+                                <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
+                                <span>{it}</span>
+                              </li>
+                            ))}
+                          </ul>
+                          <ul className="space-y-2 text-sm text-black/65">
+                            {rightItems.map((it) => (
+                              <li key={it} className="flex items-start gap-3">
+                                <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
+                                <span>{it}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="mt-3 text-balance text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                    Konsultasikan kebutuhan Anda dengan tim BPR Bonding.
-                  </div>
-                </div>
-                <Button asChild variant="secondary" size="lg">
-                  <Link href="/contact">Hubungi Kami</Link>
-                </Button>
-              </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -118,4 +175,3 @@ export default function ServicesPage() {
     </div>
   );
 }
-
