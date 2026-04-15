@@ -19,11 +19,15 @@ const services = [
     iconSrc: "/icons/bank-garansi.svg",
     title: { id: "Bank Garansi", en: "Bank Guarantee" },
     desc: {
-      id: "Jaminan keuangan dari bank untuk mendukung pelaksanaan proyek dan kontrak bisnis Anda.",
+      id: "Jaminan dari bank untuk mendukung kelancaran proyek dan meningkatkan kepercayaan dalam kerja sama bisnis.",
       en: "A bank-issued financial guarantee to support project execution and business contracts.",
     },
     bullets: {
-      id: ["Proses persetujuan cepat", "Berlaku untuk tender pemerintah", "Biaya kompetitif"],
+      id: [
+        "Mendukung proses tender dan kontrak proyek",
+        "Meningkatkan kredibilitas perusahaan Anda",
+        "Proses pengajuan yang cepat dan efisien",
+      ],
       en: ["Fast approval process", "Valid for public tenders", "Competitive fees"],
     },
   },
@@ -33,11 +37,15 @@ const services = [
     iconSrc: "/icons/surety-bond.svg",
     title: { id: "Surety Bond", en: "Surety Bond" },
     desc: {
-      id: "Penjaminan profesional untuk kontrak konstruksi, pengadaan, dan proyek infrastruktur.",
+      id: "Solusi penjaminan tanpa jaminan tunai untuk berbagai kebutuhan proyek konstruksi dan pengadaan.",
       en: "Professional surety for construction, procurement, and infrastructure projects.",
     },
     bullets: {
-      id: ["Tanpa jaminan tunai", "Fleksibel untuk berbagai proyek", "Dukungan konsultasi gratis"],
+      id: [
+        "Alternatif bank garansi tanpa collateral",
+        "Fleksibel untuk berbagai jenis proyek",
+        "Proses lebih cepat dan ringan",
+      ],
       en: ["No cash collateral", "Flexible for various projects", "Free consultation support"],
     },
   },
@@ -47,11 +55,15 @@ const services = [
     iconSrc: "/icons/custom-bond.svg",
     title: { id: "Custom Bond", en: "Custom Bond" },
     desc: {
-      id: "Solusi penjaminan yang disesuaikan dengan kebutuhan spesifik bisnis dan proyek Anda.",
+      id: "Layanan penjaminan yang dirancang khusus sesuai kebutuhan bisnis dan karakter proyek Anda.",
       en: "Tailored guarantee solutions aligned with your business and project requirements.",
     },
     bullets: {
-      id: ["Disesuaikan dengan kebutuhan", "Konsultasi mendalam", "Solusi inovatif"],
+      id: [
+        "Disesuaikan dengan kebutuhan spesifik",
+        "Pendekatan konsultatif dan fleksibel",
+        "Solusi inovatif dan kompetitif",
+      ],
       en: ["Tailored to your needs", "In-depth consultation", "Innovative solutions"],
     },
   },
@@ -61,11 +73,11 @@ const services = [
     iconSrc: "/icons/asuransi-umum.svg",
     title: { id: "Asuransi Umum", en: "General Insurance" },
     desc: {
-      id: "Perlindungan menyeluruh untuk aset, properti, dan operasional bisnis Anda.",
+      id: "Perlindungan menyeluruh untuk aset dan operasional bisnis Anda dari berbagai risiko.",
       en: "Comprehensive protection for your assets, property, and business operations.",
     },
     bullets: {
-      id: ["Cakupan komprehensif", "Klaim mudah dan cepat", "Premi terjangkau"],
+      id: ["Cakupan perlindungan yang luas", "Proses klaim yang mudah", "Premi kompetitif"],
       en: ["Comprehensive coverage", "Easy and fast claims", "Affordable premiums"],
     },
   },

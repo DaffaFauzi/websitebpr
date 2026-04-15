@@ -5,6 +5,7 @@ export const messages = {
     nav: {
       home: "Beranda",
       services: "Layanan",
+      calculator: "Kalkulator",
       about: "Tentang Kami",
       issuer: "Penerbit",
       contact: "Kontak",
@@ -16,6 +17,7 @@ export const messages = {
     common: {
       home: "Beranda",
       services: "Layanan",
+      calculator: "Kalkulator Premi",
       about: "Tentang Kami",
       contact: "Kontak",
       issuer: "Penerbit",
@@ -78,11 +80,30 @@ export const messages = {
     },
     hero: {
       since: "Tim Bonding sejak 2023",
-      subtitle: "Solusi Penjaminan Terpercaya untuk Kebutuhan Finansial Anda",
-      desc:
-        "Pendampingan end-to-end untuk Bank Garansi, Surety Bond, Custom Bond, dan Asuransi Umum dengan proses yang cepat, transparan, dan sesuai kebutuhan.",
+      title: "Solusi Penjaminan Terpercaya",
+      tagline: "Tagline resmi BPR Bonding",
+      support:
+        "Pendampingan end-to-end untuk Bank Garansi, Surety Bond, Custom Bond, dan Asuransi Umum dengan proses yang rapi, transparan, dan sesuai kebutuhan.",
       ctaServices: "Lihat Layanan",
       ctaConsult: "Konsultasi",
+    },
+    homePartner: {
+      label: "Mitra Utama",
+      title: "PT Jasa Tania Tbk (Jastan)",
+      desc:
+        "Mitra strategis kami untuk mendukung layanan penjaminan dan asuransi secara profesional, terarah, dan terpercaya.",
+    },
+    homePartners: {
+      label: "Mitra",
+      title: "Penerbit rekanan yang dapat diandalkan.",
+      subtitle:
+        "Kami bekerja sama dengan bank dan asuransi penerbit untuk mendukung kebutuhan penjaminan Anda.",
+    },
+    homeActivities: {
+      label: "Kegiatan",
+      title: "Kegiatan Kami",
+      subtitle: "Placeholder untuk dokumentasi kegiatan dan kolaborasi. Konten segera ditambahkan.",
+      placeholder: "Segera hadir",
     },
     homeServices: {
       label: "Layanan",
@@ -90,6 +111,7 @@ export const messages = {
       desc:
         "Kami memberikan solusi terbaik untuk kebutuhan Anda melalui layanan penjaminan dan asuransi yang tepat sasaran.",
       explore: "Lihat Selengkapnya",
+      calcCta: "Hitung Estimasi Premi",
     },
     homeGallery: {
       label: "Galeri",
@@ -101,13 +123,28 @@ export const messages = {
       headerBreadcrumb: "Layanan",
       heroTitle: "Layanan Kami",
       heroDesc:
-        "Berbagai solusi penjaminan profesional untuk mendukung pertumbuhan dan keberhasilan bisnis Anda",
+        "Solusi penjaminan dan asuransi yang dirancang untuk mendukung kebutuhan bisnis Anda secara profesional dan terpercaya",
       sectionLabel: "Layanan Kami",
       sectionTitle: "Solusi Penjaminan Terpadu",
       sectionSubtitle:
         "Kami menyediakan berbagai layanan penjaminan profesional untuk mendukung pertumbuhan dan keberhasilan bisnis Anda",
       ctaTitle: "Butuh konsultasi untuk menentukan layanan yang tepat?",
       ctaButton: "Hubungi Kami",
+    },
+    calculatorPage: {
+      title: "Kalkulator Premi",
+      description:
+        "Hitung estimasi premi penjaminan dengan mudah dan cepat sesuai kebutuhan bisnis Anda",
+      resultLabel: "Estimasi Premi",
+      cta: "Konsultasikan Sekarang",
+      disclaimer:
+        "Hasil perhitungan ini merupakan estimasi dan dapat berbeda sesuai kebijakan masing-masing penerbit.",
+      fields: {
+        projectValue: "Nilai Proyek",
+        projectPlaceholder: "Masukkan nilai proyek (Rp)",
+        guaranteeType: "Jenis Jaminan",
+        duration: "Durasi",
+      },
     },
     aboutPage: {
       headerTitle: "Tentang Kami",
@@ -152,6 +189,7 @@ export const messages = {
     nav: {
       home: "Home",
       services: "Services",
+      calculator: "Calculator",
       about: "About",
       issuer: "Issuers",
       contact: "Contact",
@@ -163,6 +201,7 @@ export const messages = {
     common: {
       home: "Home",
       services: "Services",
+      calculator: "Premium Calculator",
       about: "About",
       contact: "Contact",
       issuer: "Issuers",
@@ -225,11 +264,30 @@ export const messages = {
     },
     hero: {
       since: "Bonding Team Since 2023",
-      subtitle: "Trusted Guarantee Solutions for Your Financial Needs",
-      desc:
-        "End-to-end support for Bank Guarantees, Surety Bonds, Custom Bonds, and General Insurance with a fast and transparent process.",
+      title: "Trusted Guarantee Solutions",
+      tagline: "Official BPR Bonding tagline",
+      support:
+        "End-to-end support for Bank Guarantee, Surety Bond, Custom Bond, and General Insurance with a structured, transparent, and tailored process.",
       ctaServices: "View Services",
       ctaConsult: "Consultation",
+    },
+    homePartner: {
+      label: "Key Partner",
+      title: "PT Jasa Tania Tbk (Jastan)",
+      desc:
+        "Our strategic partner to support surety and insurance services with clear coordination and dependable execution.",
+    },
+    homePartners: {
+      label: "Partners",
+      title: "Issuer partners you can rely on.",
+      subtitle:
+        "We work with banks and insurance issuers to support your guarantee needs.",
+    },
+    homeActivities: {
+      label: "Activities",
+      title: "Our Activities",
+      subtitle: "Placeholder for future activity documentation. Content will be added soon.",
+      placeholder: "Coming soon",
     },
     homeServices: {
       label: "Services",
@@ -237,6 +295,7 @@ export const messages = {
       desc:
         "We provide the best solutions through targeted surety and insurance services.",
       explore: "Explore More",
+      calcCta: "Calculate Premium Estimate",
     },
     homeGallery: {
       label: "Gallery",
@@ -255,6 +314,20 @@ export const messages = {
         "We provide professional guarantee services to support your business growth and success.",
       ctaTitle: "Need a consultation to choose the right service?",
       ctaButton: "Contact Us",
+    },
+    calculatorPage: {
+      title: "Premium Calculator",
+      description: "Estimate your guarantee premium quickly based on your business needs.",
+      resultLabel: "Estimated Premium",
+      cta: "Consult Now",
+      disclaimer:
+        "This calculation is an estimate and may vary based on each issuer’s policy.",
+      fields: {
+        projectValue: "Project Value",
+        projectPlaceholder: "Enter project value (IDR)",
+        guaranteeType: "Guarantee Type",
+        duration: "Duration",
+      },
     },
     aboutPage: {
       headerTitle: "About",

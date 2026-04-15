@@ -14,6 +14,7 @@ import { Button } from "@/app/components/ui/button";
 const navItems = [
   { href: "/", key: "nav.home" },
   { href: "/services", key: "nav.services" },
+  { href: "/kalkulator-premi", key: "nav.calculator" },
   { href: "/about", key: "nav.about" },
   { href: "/issuer", key: "nav.issuer" },
   { href: "/contact", key: "nav.contact" },
@@ -179,4 +180,3 @@ export default function Navbar() {
     </header>
   );
 }
-

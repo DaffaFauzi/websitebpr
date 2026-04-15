@@ -190,6 +190,12 @@ export default function Services() {
             <div className="hidden lg:grid lg:gap-6">{rightServices.map((s, i) => renderServiceCard(s, i + 3))}</div>
           </div>
         </div>
+
+        <div className="mt-8 flex justify-center">
+          <Button asChild variant="secondary">
+            <Link href="/kalkulator-premi">{t("homeServices.calcCta")}</Link>
+          </Button>
+        </div>
       </Container>
     </Section>
   );

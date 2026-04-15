@@ -49,11 +49,11 @@ export default function AboutPage() {
           name: "Mesaliani Negara",
         },
         financeHead: {
-          title: "Head of Finance Division",
+          title: "Finance Supervisor",
           name: "Cucuk Suratningsih",
         },
         engHead: {
-          title: "Head of Engineering Division",
+          title: "Technical Supervisor",
           name: "Lilik Amaliya Putri",
         },
       }
@@ -71,11 +71,11 @@ export default function AboutPage() {
           name: "Mesaliani Negara",
         },
         financeHead: {
-          title: "Kepala Divisi Keuangan",
+          title: "SPV Keuangan",
           name: "Cucuk Suratningsih",
         },
         engHead: {
-          title: "Kepala Divisi Teknik",
+          title: "SPV Teknik",
           name: "Lilik Amalia Putri",
         },
       };
@@ -104,6 +104,7 @@ export default function AboutPage() {
     ],
     []
   );
+  const branchCount = branches.length;
 
   const filteredBranches = useMemo(() => {
     const q = branchQuery.trim().toLowerCase();
@@ -182,7 +183,11 @@ export default function AboutPage() {
                 <div className="mt-6 grid gap-4 sm:grid-cols-3">
                   {[
                     { Icon: Users, value: "1000+", label: locale === "en" ? "Clients" : "Klien" },
-                    { Icon: Building2, value: "15+", label: locale === "en" ? "Years Experience" : "Tahun Pengalaman" },
+                    {
+                      Icon: Building2,
+                      value: `${branchCount}`,
+                      label: locale === "en" ? "Branches" : "Jumlah Cabang",
+                    },
                     { Icon: Award, value: "98%", label: locale === "en" ? "Success Rate" : "Tingkat Keberhasilan" },
                   ].map(({ Icon, value, label }) => (
                     <div

@@ -61,11 +61,11 @@ export default function Footer() {
             <div className="mt-6 space-y-3 text-sm text-white/70">
               <div className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-white/60" />
-                <span>info@bprbonding.com</span>
+                <span>bprbonding@gmail.com</span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-white/60" />
-                <span>+62 21 0000 0000</span>
+                <span>+62 82123038542</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 text-white/60" />
@@ -96,10 +96,10 @@ export default function Footer() {
 
         <div className="mt-8 flex items-center gap-3">
           {[
-            { Icon: Facebook, href: "https://facebook.com" },
-            { Icon: Instagram, href: "https://instagram.com" },
-            { Icon: Linkedin, href: "https://linkedin.com" },
-            { Icon: Youtube, href: "https://youtube.com" },
+            { Icon: Facebook, href: "https://www.facebook.com/bprbonding" },
+            { Icon: Instagram, href: "https://www.instagram.com/bprbonding" },
+            { Icon: Linkedin, href: "https://www.linkedin.com/company/bprbonding" },
+            { Icon: Youtube, href: "https://www.youtube.com/@bprbonding" },
           ].map(({ Icon, href }) => (
             <Link
               key={href}
