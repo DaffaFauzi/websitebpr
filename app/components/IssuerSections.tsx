@@ -6,6 +6,7 @@ import ErrorBoundary from "@/app/components/ErrorBoundary";
 import { LogoCategory, LogoMeta } from "@/app/data/logoCatalog";
 import { useIssuerLogos } from "@/app/hooks/useIssuerLogos";
 import { useI18n } from "@/app/i18n/I18nProvider";
+import { Container, Section } from "@/app/components/ui/section";
 import { motion } from "framer-motion";
 
 const DURATION_LEFT_MS = 30000;
@@ -95,8 +96,8 @@ function CategorySection({
       : "bg-[linear-gradient(180deg,transparent,rgba(11,11,11,0.03))]";
 
   return (
-    <section className={`py-16 sm:py-24 ${bannerBg}`}>
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+    <Section className={bannerBg}>
+      <Container>
         <motion.h3 
           className="text-center text-xl font-semibold tracking-tight text-black sm:text-2xl"
           initial={{ opacity: 0, y: 20 }}
@@ -108,7 +109,7 @@ function CategorySection({
         </motion.h3>
 
         <motion.div 
-          className="mt-8 rounded-[44px] border border-[var(--brand-border)] bg-[var(--brand-surface)] p-4 shadow-[0_30px_80px_rgba(0,0,0,0.10)] sm:p-6"
+          className="mt-6 bg-[var(--brand-surface)] py-2"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -116,7 +117,7 @@ function CategorySection({
         >
           <div style={{ minHeight: 220 }}>
             {status === "error" ? (
-              <div className="rounded-2xl border border-[var(--brand-border)] bg-[var(--brand-soft)] px-6 py-6">
+              <div className="border-y border-[var(--brand-border)] bg-[var(--brand-soft)] px-6 py-6">
                 <div className="text-sm font-semibold text-black/80">Gagal memuat.</div>
                 <div className="mt-2 text-sm text-black/60">{error}</div>
                 <button
@@ -152,8 +153,8 @@ function CategorySection({
             )}
           </div>
         </motion.div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }
 
@@ -161,11 +162,11 @@ export default function IssuerSections() {
   return (
     <ErrorBoundary
       fallback={
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <Container>
           <div className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-6 py-6 text-sm text-black/70">
             Terjadi kendala saat menampilkan daftar logo.
           </div>
-        </div>
+        </Container>
       }
     >
       <CategorySection

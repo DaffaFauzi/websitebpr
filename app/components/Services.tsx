@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 import { Button } from "@/app/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
+import { Container, Section } from "@/app/components/ui/section";
 import { useI18n } from "@/app/i18n/I18nProvider";
 
 const services = [
@@ -63,13 +64,14 @@ export default function Services() {
   const renderServiceCard = (s: (typeof services)[number], index: number = 0) => (
     <motion.div
       key={s.title}
+      className="h-full"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
       <Card
-        className="overflow-hidden border-[var(--brand-border)] bg-[var(--brand-surface)] shadow-none transition-transform duration-300 hover:-translate-y-0.5"
+        className="flex h-full flex-col overflow-hidden border-[var(--brand-border)] bg-[var(--brand-surface)] shadow-none transition-transform duration-300 hover:-translate-y-0.5"
       >
         <CardHeader className="p-7 pb-0">
           <div className="flex items-center justify-between gap-4">
@@ -81,9 +83,9 @@ export default function Services() {
             </div>
             <span className="h-2 w-2 rounded-full bg-[var(--brand-brown)]" />
           </div>
-          <div className="mt-2 text-sm leading-6 text-black/60">{s.desc}</div>
+          <div className="mt-2 min-h-[3rem] text-sm leading-6 text-black/60 line-clamp-2">{s.desc}</div>
         </CardHeader>
-        <CardContent className="p-7 pt-5">
+        <CardContent className="mt-auto p-7 pt-5">
           <div className="flex flex-wrap gap-2">
             {s.items.map((it) => (
               <div
@@ -99,8 +101,8 @@ export default function Services() {
     </motion.div>
   );
   return (
-    <section className="bg-[var(--brand-surface)] overflow-hidden">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+    <Section className="overflow-hidden">
+      <Container>
         <motion.div 
           className="flex flex-col justify-between gap-6 md:flex-row md:items-end"
           initial={{ opacity: 0, y: 20 }}
@@ -124,7 +126,7 @@ export default function Services() {
           </Button>
         </motion.div>
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-2 lg:items-start">
+        <div className="mt-8 lg:mt-10 grid gap-6 lg:gap-8 lg:grid-cols-2 lg:items-start">
           <div className="grid gap-6">
             <motion.div 
               className="rounded-[36px] border border-[var(--brand-border)] bg-[var(--brand-soft)] p-8"
@@ -188,7 +190,7 @@ export default function Services() {
             <div className="hidden lg:grid lg:gap-6">{rightServices.map((s, i) => renderServiceCard(s, i + 3))}</div>
           </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

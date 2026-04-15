@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useI18n } from "@/app/i18n/I18nProvider";
+import { Container, Section } from "@/app/components/ui/section";
 
 type GalleryItem = {
   id: string;
@@ -80,8 +81,8 @@ export default function Gallery() {
   );
 
   return (
-    <section className="bg-[var(--brand-surface)] overflow-hidden">
-      <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20">
+    <Section className="overflow-hidden">
+      <Container>
         <motion.div 
           className="text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -101,8 +102,8 @@ export default function Gallery() {
           </p>
         </motion.div>
 
-        <motion.div 
-          className="mt-12 rounded-[44px] border border-[var(--brand-border)] bg-[var(--brand-soft)] p-4 shadow-[0_30px_80px_rgba(0,0,0,0.10)] sm:p-6"
+        <motion.div
+          className="mt-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -141,7 +142,7 @@ export default function Gallery() {
             ))}
           </div>
         </motion.div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

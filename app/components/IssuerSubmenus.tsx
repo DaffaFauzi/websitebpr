@@ -7,6 +7,7 @@ import ErrorBoundary from "@/app/components/ErrorBoundary";
 import { LogoCategory, LogoMeta, getLogosByCategory } from "@/app/data/logoCatalog";
 import { useIssuerLogos } from "@/app/hooks/useIssuerLogos";
 import { writeCache } from "@/app/lib/storageCache";
+import { Container, Section } from "@/app/components/ui/section";
 import { useI18n } from "@/app/i18n/I18nProvider";
 
 type Tab = {
@@ -145,9 +146,9 @@ function TabPanel({
       : "bg-[linear-gradient(180deg,transparent,rgba(11,11,11,0.03))]";
 
   return (
-    <section className={`${bannerBg}`}>
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14">
-        <div className="rounded-[44px] border border-[var(--brand-border)] bg-[var(--brand-surface)] px-4 py-10 shadow-[0_30px_80px_rgba(0,0,0,0.10)] sm:px-8">
+    <Section className={bannerBg}>
+      <Container>
+        <div className="bg-[var(--brand-surface)]">
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
             <div>
               <div className="text-sm font-medium text-black/50">{t(tab.titleKey)}</div>
@@ -165,7 +166,7 @@ function TabPanel({
 
           <div className={cn("mt-8 fade-in")} key={`${tab.key}-${page}-${status}`} style={{ minHeight: 240 }}>
             {status === "error" ? (
-              <div className="rounded-2xl border border-[var(--brand-border)] bg-[var(--brand-soft)] px-6 py-6">
+              <div className="border-y border-[var(--brand-border)] bg-[var(--brand-soft)] px-6 py-6">
                 <div className="text-sm font-semibold text-black/80">Gagal memuat.</div>
                 <div className="mt-2 text-sm text-black/60">{error}</div>
                 <button
@@ -201,8 +202,8 @@ function TabPanel({
             )}
           </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }
 
@@ -222,8 +223,8 @@ export default function IssuerSubmenus() {
   const [active, setActive] = useState<LogoCategory>("bank-pemerintah");
 
   return (
-    <section className="bg-[var(--brand-surface)]">
-      <div className="mx-auto max-w-6xl px-4 pt-6 sm:px-6">
+    <Section>
+      <Container spacing="none" className="pt-6">
         <div className="flex flex-wrap items-center justify-center gap-2">
           {tabs.map((tab) => (
             <button
@@ -243,19 +244,19 @@ export default function IssuerSubmenus() {
             </button>
           ))}
         </div>
-      </div>
+      </Container>
 
       <ErrorBoundary
         fallback={
-          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+          <Container>
             <div className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-6 py-6 text-sm text-black/70">
               Terjadi kendala saat menampilkan daftar logo.
             </div>
-          </div>
+          </Container>
         }
       >
         <TabPanel tab={tabs.find((x) => x.key === active) ?? tabs[0]} />
       </ErrorBoundary>
-    </section>
+    </Section>
   );
 }

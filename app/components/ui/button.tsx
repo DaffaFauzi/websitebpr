@@ -5,16 +5,16 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-brown)] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-pill)] text-sm font-semibold transition-[color,background-color,border-color,box-shadow,transform] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_oklab,var(--brand-brown),transparent_65%)] disabled:pointer-events-none disabled:opacity-50 hover:-translate-y-0.5 active:translate-y-0 [&_svg]:pointer-events-none [&_svg]:size-4",
   {
     variants: {
       variant: {
         default:
-          "bg-[var(--brand-brown)] text-white hover:bg-[color-mix(in_oklab,var(--brand-brown),black_10%)]",
+          "bg-[var(--brand-brown)] text-white shadow-[0_14px_40px_-24px_rgba(139,29,29,0.55)] hover:bg-[color-mix(in_oklab,var(--brand-brown),black_10%)]",
         secondary:
-          "bg-black text-white hover:bg-zinc-800 border border-white/10",
+          "bg-[var(--brand-accent)] text-black hover:bg-[color-mix(in_oklab,var(--brand-accent),white_10%)]",
         outline:
-          "border border-black/15 bg-white text-black hover:bg-black/5",
+          "border border-black/15 bg-[var(--brand-surface)] text-black hover:bg-black/5",
         ghost: "bg-transparent text-black hover:bg-black/5",
       },
       size: {

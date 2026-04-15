@@ -5,171 +5,164 @@ import Image from "next/image";
 
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
+import { PageHero } from "@/app/components/ui/page-hero";
+import { Badge } from "@/app/components/ui/badge";
+import { Button } from "@/app/components/ui/button";
+import { Card, CardContent } from "@/app/components/ui/card";
+import { Container, Section } from "@/app/components/ui/section";
 import { useI18n } from "@/app/i18n/I18nProvider";
 
 const services = [
   {
-    title: "Bank Garansi",
-    desc: "Bank Garansi adalah produk tepercaya yang menawarkan jaminan dan keamanan finansial, memberikan ketenangan dan perlindungan untuk transaksi keuangan.",
-    items: [
-      "Jaminan Penawaran",
-      "Jaminan Pelaksanaan",
-      "Jaminan Uang Muka",
-      "Jaminan Pemeliharaan",
-      "BG Akhir Tahun",
-    ],
+    key: "bank-garansi",
+    imageSrc: "/logos/bg.png",
     iconSrc: "/icons/bank-garansi.svg",
-    imageTheme:
-      "bg-[radial-gradient(circle_at_30%_20%,rgba(139,29,29,0.16),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(11,11,11,0.10),transparent_60%)]",
+    title: { id: "Bank Garansi", en: "Bank Guarantee" },
+    desc: {
+      id: "Jaminan keuangan dari bank untuk mendukung pelaksanaan proyek dan kontrak bisnis Anda.",
+      en: "A bank-issued financial guarantee to support project execution and business contracts.",
+    },
+    bullets: {
+      id: ["Proses persetujuan cepat", "Berlaku untuk tender pemerintah", "Biaya kompetitif"],
+      en: ["Fast approval process", "Valid for public tenders", "Competitive fees"],
+    },
   },
   {
-    title: "Surety Bond",
-    desc: "Surety Bond adalah jaminan keuangan yang dapat diandalkan dan aman yang menjamin kinerja dan penyelesaian kontrak atau kewajiban.",
-    items: [
-      "Jaminan Pemeliharaan",
-      "Jaminan Pembayaran",
-      "Jaminan Penawaran",
-      "Jaminan Pelaksanaan",
-      "Jaminan Uang Muka",
-    ],
+    key: "surety-bond",
+    imageSrc: "/logos/surety.png",
     iconSrc: "/icons/surety-bond.svg",
-    imageTheme:
-      "bg-[radial-gradient(circle_at_30%_20%,rgba(11,11,11,0.12),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(139,29,29,0.12),transparent_60%)]",
+    title: { id: "Surety Bond", en: "Surety Bond" },
+    desc: {
+      id: "Penjaminan profesional untuk kontrak konstruksi, pengadaan, dan proyek infrastruktur.",
+      en: "Professional surety for construction, procurement, and infrastructure projects.",
+    },
+    bullets: {
+      id: ["Tanpa jaminan tunai", "Fleksibel untuk berbagai proyek", "Dukungan konsultasi gratis"],
+      en: ["No cash collateral", "Flexible for various projects", "Free consultation support"],
+    },
   },
   {
-    title: "Custom Bond",
-    desc: "Jaminan kepabeanan untuk pemenuhan kewajiban bea masuk dan pajak impor sesuai ketentuan kepabeanan.",
-    items: ["Fasilitas KITE", "Penangguhan Bea Masuk", "Impor Sementara (OB 23)", "Jaminan Kepabeanan"],
+    key: "custom-bond",
+    imageSrc: "/logos/cb.png",
     iconSrc: "/icons/custom-bond.svg",
-    imageTheme:
-      "bg-[radial-gradient(circle_at_30%_20%,rgba(139,29,29,0.14),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(11,11,11,0.10),transparent_60%)]",
+    title: { id: "Custom Bond", en: "Custom Bond" },
+    desc: {
+      id: "Solusi penjaminan yang disesuaikan dengan kebutuhan spesifik bisnis dan proyek Anda.",
+      en: "Tailored guarantee solutions aligned with your business and project requirements.",
+    },
+    bullets: {
+      id: ["Disesuaikan dengan kebutuhan", "Konsultasi mendalam", "Solusi inovatif"],
+      en: ["Tailored to your needs", "In-depth consultation", "Innovative solutions"],
+    },
   },
   {
-    title: "Asuransi Umum",
-    desc: "Asuransi Umum memberikan perlindungan komprehensif atas aset dan kewajiban serta memastikan keamanan finansial.",
-    items: [
-      "Marine Hull",
-      "Vehicle Insurance",
-      "Property Insurance",
-      "CAR/EAR",
-      "Third Party Liability",
-      "Marine Cargo",
-    ],
+    key: "asuransi-umum",
+    imageSrc: "/logos/asuransi.png",
     iconSrc: "/icons/asuransi-umum.svg",
-    imageTheme:
-      "bg-[radial-gradient(circle_at_30%_20%,rgba(11,11,11,0.12),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(139,29,29,0.10),transparent_60%)]",
+    title: { id: "Asuransi Umum", en: "General Insurance" },
+    desc: {
+      id: "Perlindungan menyeluruh untuk aset, properti, dan operasional bisnis Anda.",
+      en: "Comprehensive protection for your assets, property, and business operations.",
+    },
+    bullets: {
+      id: ["Cakupan komprehensif", "Klaim mudah dan cepat", "Premi terjangkau"],
+      en: ["Comprehensive coverage", "Easy and fast claims", "Affordable premiums"],
+    },
   },
 ];
 
-function splitInTwo<T>(items: T[]) {
-  const mid = Math.ceil(items.length / 2);
-  return [items.slice(0, mid), items.slice(mid)];
-}
-
 export default function ServicesPage() {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   return (
     <div className="min-h-screen bg-transparent">
       <Navbar />
       <main>
-        <section className="relative overflow-hidden bg-[var(--brand-soft)]">
-          <div className="absolute inset-0">
-            <div className="absolute -left-24 top-0 h-full w-[520px] rotate-[20deg] bg-[repeating-linear-gradient(135deg,rgba(139,29,29,0.16)_0_6px,transparent_6px_14px)] opacity-60" />
-          </div>
-          <div className="relative mx-auto max-w-6xl px-4 pt-24 pb-14 sm:px-6 sm:pt-28">
-            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-              <div>
-                <div className="text-sm font-medium text-black/50">
-                  {t("servicesPage.headerTitle")}
-                </div>
-                <h1 className="mt-3 text-4xl font-semibold tracking-tight text-black sm:text-5xl">
-                  {t("servicesPage.headerTitle")}
-                </h1>
-              </div>
-              <div className="text-sm text-black/60">
-                <Link href="/" className="hover:text-black">
-                  {t("common.home")}
-                </Link>
-                <span className="mx-2 text-black/30">›</span>
-                <span className="text-[var(--brand-brown)]">
-                  {t("servicesPage.headerBreadcrumb")}
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
+        <PageHero
+          breadcrumbLabel={t("common.services")}
+          title={t("servicesPage.heroTitle")}
+          description={t("servicesPage.heroDesc")}
+        />
 
-        <section className="bg-[var(--brand-surface)]">
-          <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20">
-            <div className="space-y-12 pt-4 sm:space-y-16 sm:pt-6">
-              {services.map((s, idx) => {
-                const [leftItems, rightItems] = splitInTwo(s.items);
-                const reverse = idx % 2 === 1;
+        <Section>
+          <Container>
+            <div className="text-center">
+              <div className="flex justify-center">
+                <Badge>{t("servicesPage.sectionLabel")}</Badge>
+              </div>
+              <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-black sm:text-4xl">
+                {t("servicesPage.sectionTitle")}
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-pretty text-sm leading-6 text-black/60 sm:text-base sm:leading-7">
+                {t("servicesPage.sectionSubtitle")}
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-6 lg:mt-10 md:grid-cols-2">
+              {services.map((s) => {
+                const title = locale === "en" ? s.title.en : s.title.id;
+                const desc = locale === "en" ? s.desc.en : s.desc.id;
+                const bullets = locale === "en" ? s.bullets.en : s.bullets.id;
 
                 return (
-                  <div
-                    key={s.title}
-                    className="grid gap-10 lg:grid-cols-2 lg:items-center"
+                  <Card
+                    key={s.key}
+                    className="group overflow-hidden transition-[box-shadow,border-color] duration-200 hover:border-black/20 hover:shadow-[var(--shadow-float)]"
                   >
-                    <div className={reverse ? "lg:order-2" : ""}>
-                      <div className="overflow-hidden rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] shadow-[0_22px_70px_-44px_rgba(0,0,0,0.35)]">
-                        <div className={`relative ${s.imageTheme}`}>
-                          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.20),transparent_45%)]" />
-                          <div className="aspect-[4/3] w-full">
-                            <div className="flex h-full w-full items-center justify-center">
-                              <div className="relative flex h-44 w-44 items-center justify-center rounded-[36px] border border-[var(--brand-border)] bg-white/55 shadow-[0_24px_80px_-56px_rgba(0,0,0,0.55)] backdrop-blur-sm sm:h-52 sm:w-52">
-                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(178,34,34,0.14),transparent_58%)]" />
-                                <div className="relative">
-                                  <Image alt={s.title} src={s.iconSrc} width={160} height={160} />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                    <div className="relative aspect-[16/9] bg-[var(--brand-soft)]">
+                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.55),transparent_42%,rgba(255,255,255,0.45))]" />
+                      <div className="absolute inset-0 p-8 sm:p-10">
+                        <div className="relative h-full w-full">
+                          <Image
+                            alt={title}
+                            src={s.imageSrc}
+                            fill
+                            sizes="(min-width: 1024px) 520px, (min-width: 768px) 50vw, 100vw"
+                            className="object-contain opacity-95"
+                          />
                         </div>
+                      </div>
+                      <div className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_10%)]">
+                        <Image alt={title} src={s.iconSrc} width={20} height={20} />
                       </div>
                     </div>
 
-                    <div className={reverse ? "lg:order-1" : ""}>
-                      <div className="max-w-xl">
-                        <div className="flex items-center gap-3">
-                          <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[var(--brand-border)] bg-[var(--brand-soft)]">
-                            <Image alt={s.title} src={s.iconSrc} width={24} height={24} />
-                          </span>
-                          <div className="text-xl font-semibold tracking-tight text-black">
-                            {s.title}
-                          </div>
-                        </div>
-
-                        <p className="mt-4 text-sm leading-6 text-black/60">
-                          {s.desc}
-                        </p>
-
-                        <div className="mt-6 grid gap-6 sm:grid-cols-2">
-                          <ul className="space-y-2 text-sm text-black/65">
-                            {leftItems.map((it) => (
-                              <li key={it} className="flex items-start gap-3">
-                                <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
-                                <span>{it}</span>
-                              </li>
-                            ))}
-                          </ul>
-                          <ul className="space-y-2 text-sm text-black/65">
-                            {rightItems.map((it) => (
-                              <li key={it} className="flex items-start gap-3">
-                                <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
-                                <span>{it}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                    <CardContent className="space-y-3">
+                      <div className="text-lg font-semibold tracking-tight text-black">
+                        {title}
                       </div>
-                    </div>
-                  </div>
+                      <p className="text-sm leading-6 text-black/60 line-clamp-2">
+                        {desc}
+                      </p>
+                      <ul className="space-y-2 text-sm text-black/70">
+                        {bullets.map((b) => (
+                          <li key={b} className="flex items-start gap-3">
+                            <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
+                            <span className="leading-6">{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
                 );
               })}
             </div>
-          </div>
-        </section>
+          </Container>
+        </Section>
+
+        <Section>
+          <Container>
+            <div className="text-center">
+              <div className="text-balance text-xl font-semibold tracking-tight text-black sm:text-2xl">
+                {t("servicesPage.ctaTitle")}
+              </div>
+              <div className="mt-5 flex justify-center">
+                <Button asChild size="lg">
+                  <Link href="/contact">{t("servicesPage.ctaButton")}</Link>
+                </Button>
+              </div>
+            </div>
+          </Container>
+        </Section>
       </main>
       <Footer />
     </div>

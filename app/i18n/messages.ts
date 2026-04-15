@@ -5,8 +5,8 @@ export const messages = {
     nav: {
       home: "Beranda",
       services: "Layanan",
-      about: "Tentang",
-      issuer: "Penerbit Bank & Asuransi",
+      about: "Tentang Kami",
+      issuer: "Penerbit",
       contact: "Kontak",
       cta: "Jadwalkan Panggilan",
       language: "Bahasa",
@@ -16,15 +16,17 @@ export const messages = {
     common: {
       home: "Beranda",
       services: "Layanan",
-      about: "Tentang",
+      about: "Tentang Kami",
       contact: "Kontak",
-      issuer: "Penerbit Bank & Asuransi",
+      issuer: "Penerbit",
       breadcrumbSeparator: "›",
       prev: "Sebelumnya",
       next: "Berikutnya",
     },
     issuer: {
       title: "Penerbit Bank & Asuransi",
+      heroDesc:
+        "Mitra terpercaya kami dalam menyediakan layanan penjaminan dan asuransi untuk mendukung kebutuhan bisnis Anda",
       partnerLabel: "Mitra Kerja Sama",
       partnerName: "PT Jasa Tania Tbk (Jastan)",
       partnerDesc:
@@ -76,9 +78,9 @@ export const messages = {
     },
     hero: {
       since: "Tim Bonding sejak 2023",
-      subtitle: "Jasa Surety Bond & Bank Garansi",
+      subtitle: "Solusi Penjaminan Terpercaya untuk Kebutuhan Finansial Anda",
       desc:
-        "BPR Bonding adalah perusahaan yang berfokus pada bidang Penjaminan dan Asuransi Umum.",
+        "Pendampingan end-to-end untuk Bank Garansi, Surety Bond, Custom Bond, dan Asuransi Umum dengan proses yang cepat, transparan, dan sesuai kebutuhan.",
       ctaServices: "Lihat Layanan",
       ctaConsult: "Konsultasi",
     },
@@ -97,12 +99,19 @@ export const messages = {
     servicesPage: {
       headerTitle: "Layanan",
       headerBreadcrumb: "Layanan",
-      sectionTitle: "Layanan Kami",
-      sectionSubtitle: "Tenang, kami dampingi proses Anda sampai tuntas.",
+      heroTitle: "Layanan Kami",
+      heroDesc:
+        "Berbagai solusi penjaminan profesional untuk mendukung pertumbuhan dan keberhasilan bisnis Anda",
+      sectionLabel: "Layanan Kami",
+      sectionTitle: "Solusi Penjaminan Terpadu",
+      sectionSubtitle:
+        "Kami menyediakan berbagai layanan penjaminan profesional untuk mendukung pertumbuhan dan keberhasilan bisnis Anda",
+      ctaTitle: "Butuh konsultasi untuk menentukan layanan yang tepat?",
+      ctaButton: "Hubungi Kami",
     },
     aboutPage: {
-      headerTitle: "Tentang",
-      headerBreadcrumb: "Tentang",
+      headerTitle: "Tentang Kami",
+      headerBreadcrumb: "Tentang Kami",
       aboutUs: "Tentang Kami",
       companyValues: "Nilai Perusahaan",
       branches: "Kantor Cabang",
@@ -144,7 +153,7 @@ export const messages = {
       home: "Home",
       services: "Services",
       about: "About",
-      issuer: "Bank and Insurance Issuer",
+      issuer: "Issuers",
       contact: "Contact",
       cta: "Book a Call",
       language: "Language",
@@ -156,13 +165,15 @@ export const messages = {
       services: "Services",
       about: "About",
       contact: "Contact",
-      issuer: "Bank and Insurance Issuer",
+      issuer: "Issuers",
       breadcrumbSeparator: "›",
       prev: "Previous",
       next: "Next",
     },
     issuer: {
       title: "Bank and Insurance Issuer",
+      heroDesc:
+        "Our trusted partners in providing surety and insurance services to support your business needs.",
       partnerLabel: "Strategic Partner",
       partnerName: "PT Jasa Tania Tbk (Jastan)",
       partnerDesc:
@@ -214,9 +225,9 @@ export const messages = {
     },
     hero: {
       since: "Bonding Team Since 2023",
-      subtitle: "Surety Bond & Bank Guarantee Services",
+      subtitle: "Trusted Guarantee Solutions for Your Financial Needs",
       desc:
-        "BPR Bonding is a company that focuses its business on the field of Guarantee & General Insurance Agencies.",
+        "End-to-end support for Bank Guarantees, Surety Bonds, Custom Bonds, and General Insurance with a fast and transparent process.",
       ctaServices: "View Services",
       ctaConsult: "Consultation",
     },
@@ -235,8 +246,15 @@ export const messages = {
     servicesPage: {
       headerTitle: "Services",
       headerBreadcrumb: "Services",
-      sectionTitle: "Our Services",
-      sectionSubtitle: "Worry less and go with confidence for your success",
+      heroTitle: "Our Services",
+      heroDesc:
+        "Professional guarantee solutions to support your business growth and success.",
+      sectionLabel: "Our Services",
+      sectionTitle: "Integrated Guarantee Solutions",
+      sectionSubtitle:
+        "We provide professional guarantee services to support your business growth and success.",
+      ctaTitle: "Need a consultation to choose the right service?",
+      ctaButton: "Contact Us",
     },
     aboutPage: {
       headerTitle: "About",

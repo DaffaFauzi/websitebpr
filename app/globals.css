@@ -12,6 +12,20 @@
   --brand-navy: #0b1220;
   --brand-navy-2: #0a162a;
   --brand-accent: #f2c30a;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --radius-sm: 14px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+  --radius-pill: 999px;
+  --shadow-soft: 0 12px 40px -28px rgba(0, 0, 0, 0.28);
+  --shadow-card: 0 18px 56px -34px rgba(0, 0, 0, 0.30);
+  --shadow-float: 0 30px 90px -54px rgba(0, 0, 0, 0.45);
 }
 
 @theme inline {
@@ -271,16 +285,32 @@ body {
   justify-content: center;
   min-width: 220px;
   height: 104px;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid var(--brand-border);
   background: var(--brand-surface);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.10);
+  box-shadow: var(--shadow-soft);
+}
+.logo-box-inner {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+}
+.logo-box img,
+.logo-box picture {
+  width: 100%;
+  height: 100%;
+}
+.logo-box img {
+  object-fit: contain;
 }
 @media (min-width: 640px) {
   .logo-box {
     min-width: 260px;
     height: 120px;
+  }
+  .logo-box-inner {
+    padding: 24px;
   }
 }
 

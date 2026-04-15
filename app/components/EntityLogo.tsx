@@ -61,7 +61,9 @@ export default function EntityLogo({
         onError={() => setBroken(true)}
         style={{
           transform:
-            meta.logoScale && meta.logoScale !== 1 ? `scale(${meta.logoScale})` : undefined,
+            meta.logoScale && meta.logoScale !== 1
+              ? `scale(${Math.min(1, Math.max(0.9, meta.logoScale))})`
+              : undefined,
           transformOrigin: "center",
         }}
         className={`h-full w-full object-contain ${r}`}

@@ -6,13 +6,14 @@ import { motion } from "framer-motion";
 
 import { Button } from "@/app/components/ui/button";
 import { Card, CardContent } from "@/app/components/ui/card";
+import { Container, Section } from "@/app/components/ui/section";
 import BrandLogo from "@/app/components/BrandLogo";
 
 export default function About() {
   return (
-    <section className="bg-[var(--brand-surface)]">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+    <Section>
+      <Container>
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -30,7 +31,7 @@ export default function About() {
               Surety Bond dan Asuransi Umum.
             </p>
 
-            <div className="mt-10">
+            <div className="mt-6 lg:mt-8">
               <Button asChild size="lg">
                 <Link href="/about">
                   Learn More <ArrowUpRight />
@@ -46,30 +47,22 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="order-2"
           >
-            <div className="rounded-[36px] border border-[var(--brand-border)] bg-[var(--brand-soft)] p-3 shadow-[0_30px_80px_rgba(0,0,0,0.10)]">
-              <div className="relative overflow-hidden rounded-[32px] bg-[radial-gradient(circle_at_25%_20%,rgba(139,29,29,0.18),transparent_55%),radial-gradient(circle_at_75%_60%,rgba(11,11,11,0.10),transparent_55%)]">
-                <div className="aspect-[4/3] w-full">
-                  <div className="flex h-full w-full items-center justify-center">
-                    <div className="relative rounded-[36px] border border-[var(--brand-border)] bg-white/55 px-10 py-8 shadow-[0_24px_80px_-56px_rgba(0,0,0,0.55)] backdrop-blur-sm">
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(178,34,34,0.12),transparent_58%)]" />
-                      <div className="relative flex items-center justify-center">
-                        <BrandLogo
-                          kind="full"
-                          height={56}
-                          width={200}
-                          className="drop-shadow-[0_18px_70px_rgba(0,0,0,0.25)]"
-                          priority
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div className="relative overflow-hidden rounded-[var(--radius-xl)] border border-[var(--brand-border)] bg-[var(--brand-soft)] shadow-[var(--shadow-soft)]">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(139,29,29,0.16),transparent_55%),radial-gradient(circle_at_75%_60%,rgba(11,11,11,0.08),transparent_60%)]" />
+              <div className="relative flex aspect-[4/3] items-center justify-center px-10 py-8 sm:px-12 sm:py-10">
+                <BrandLogo
+                  kind="full"
+                  height={56}
+                  width={200}
+                  className="drop-shadow-[0_18px_70px_rgba(0,0,0,0.18)]"
+                  priority
+                />
               </div>
             </div>
           </motion.div>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:mt-16 lg:grid-cols-2">
+        <div className="mt-6 grid gap-6 lg:mt-8 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -113,8 +106,8 @@ export default function About() {
             </Card>
           </motion.div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }
 

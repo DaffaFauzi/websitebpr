@@ -4,11 +4,11 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium leading-none",
+  "inline-flex items-center rounded-[var(--radius-pill)] border px-3 py-1 text-xs font-medium leading-none",
   {
     variants: {
       variant: {
-        default: "border-white/15 bg-white/10 text-white",
+        default: "border-black/10 bg-black/5 text-black/70",
         light:
           "border-[var(--brand-border)] bg-[var(--brand-soft)] text-black/70",
       },

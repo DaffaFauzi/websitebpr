@@ -91,7 +91,7 @@ export const logos: LogoMeta[] = [
   make("Bank Mandiri", "bank-pemerintah", ["default", "horizontal"], {
     assetStatus: "available",
     customSources: ["/logos/mandiri.png"],
-    logoScale: 0.95,
+    logoScale: 0.94,
   }),
   make("BNI", "bank-pemerintah", ["default", "horizontal"], {
     assetStatus: "available",

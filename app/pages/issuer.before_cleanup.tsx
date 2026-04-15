@@ -59,7 +59,7 @@ function MarqueeTrack({
   );
 }
 
-export default function IssuerPage() {
+export default function IssuerPageBeforeCleanup() {
   const { locale, t } = useI18n();
   const jastan = getLogoById("jastan");
   const categorySubtitles: Record<
@@ -178,19 +178,28 @@ export default function IssuerPage() {
                   <div key={cat.key}>
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                       <div>
-                        <h3 className="text-xl font-semibold tracking-tight text-black">
-                          {title}
-                        </h3>
+                        <h3 className="text-xl font-semibold tracking-tight text-black">{title}</h3>
                         <div className="mt-2 h-px w-12 bg-black/10" />
-                        <p className="mt-3 max-w-3xl text-sm leading-6 text-black/60">
-                          {subtitle}
-                        </p>
+                        <p className="mt-3 max-w-3xl text-sm leading-6 text-black/60">{subtitle}</p>
                       </div>
                     </div>
 
                     <div className="mt-6 space-y-4">
                       <MarqueeTrack items={left} direction="left" />
                       <MarqueeTrack items={right} direction="right" />
+                    </div>
+
+                    <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5">
+                      {items.map((meta) => (
+                        <div
+                          key={meta.id}
+                          className="group flex h-24 items-center justify-center rounded-[var(--radius-lg)] border border-black/10 bg-[var(--brand-surface)] px-5 shadow-[var(--shadow-soft)] transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-black/15 hover:shadow-[var(--shadow-float)] sm:h-28"
+                        >
+                          <div className="h-12 w-full sm:h-14">
+                            <EntityLogo meta={meta} size={256} rounded="xl" />
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 );

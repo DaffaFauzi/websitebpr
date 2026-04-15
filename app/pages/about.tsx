@@ -1,13 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
-import { Lightbulb, ShieldCheck, Star } from "lucide-react";
+import { Award, Building2, CheckCircle2, Lightbulb, ShieldCheck, Star, Users } from "lucide-react";
 
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
 import BrandLogo from "@/app/components/BrandLogo";
-import { Card, CardContent } from "@/app/components/ui/card";
+import { PageHero } from "@/app/components/ui/page-hero";
+import { Container, Section } from "@/app/components/ui/section";
+import Gallery from "@/app/components/Gallery";
 import { useI18n } from "@/app/i18n/I18nProvider";
 
 const values = [
@@ -31,6 +32,8 @@ const values = [
 export default function AboutPage() {
   const { locale, t } = useI18n();
   const [branchQuery, setBranchQuery] = useState("");
+  const [showAboutMore, setShowAboutMore] = useState(false);
+  const [showAllBranches, setShowAllBranches] = useState(false);
   const org = locale === "en"
     ? {
         director: {
@@ -108,142 +111,144 @@ export default function AboutPage() {
     return branches.filter((b) => `${b.name} ${b.addr} ${b.phone}`.toLowerCase().includes(q));
   }, [branchQuery, branches]);
 
+  const visibleBranches = useMemo(() => {
+    if (branchQuery.trim()) return filteredBranches;
+    return showAllBranches ? filteredBranches : filteredBranches.slice(0, 8);
+  }, [branchQuery, filteredBranches, showAllBranches]);
+
   return (
     <div className="min-h-screen bg-transparent">
       <Navbar />
       <main>
-        <section className="relative overflow-hidden bg-[var(--brand-soft)]">
-          <div className="absolute inset-0">
-            <div className="absolute -left-24 top-0 h-full w-[520px] rotate-[20deg] bg-[repeating-linear-gradient(135deg,rgba(139,29,29,0.16)_0_6px,transparent_6px_14px)] opacity-60" />
-          </div>
-          <div className="relative mx-auto max-w-6xl px-4 pt-24 pb-14 sm:px-6 sm:pt-28">
-            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-              <div>
-                <div className="text-sm font-medium text-black/50">
-                  {t("aboutPage.headerTitle")}
-                </div>
-                <h1 className="mt-3 text-4xl font-semibold tracking-tight text-black sm:text-5xl">
-                  {t("aboutPage.headerTitle")}
-                </h1>
-              </div>
-              <div className="text-sm text-black/60">
-                <Link href="/" className="hover:text-black">
-                  {t("common.home")}
-                </Link>
-                <span className="mx-2 text-black/30">›</span>
-                <span className="text-[var(--brand-brown)]">
-                  {t("aboutPage.headerBreadcrumb")}
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
+        <PageHero
+          breadcrumbLabel={t("common.about")}
+          title={locale === "en" ? "About Us" : "Tentang Kami"}
+          description={
+            locale === "en"
+              ? "Providing trusted, professional guarantee solutions focused on your business needs."
+              : "Menyediakan solusi penjaminan profesional yang terpercaya dan berorientasi pada kebutuhan bisnis Anda"
+          }
+        />
 
-        <section className="bg-[var(--brand-surface)]">
-          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-            <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
+        <Section>
+          <Container>
+            <div className="grid gap-6 lg:gap-8 lg:grid-cols-2 lg:items-center">
               <div>
-                <div className="text-xs font-semibold text-[var(--brand-brown)]">
-                  {t("aboutPage.aboutUs")}
-                </div>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-black sm:text-4xl">
-                  BPR Bonding
+                <h2 className="text-balance text-3xl font-semibold tracking-tight text-black sm:text-4xl">
+                  {locale === "en"
+                    ? "Professional and Trusted Guarantee Partner"
+                    : "Mitra Penjaminan Profesional dan Terpercaya"}
                 </h2>
-                <div className="mt-6 space-y-5 text-sm leading-7 text-black/65">
+                <div className="mt-5 space-y-5 text-sm leading-7 text-black/65">
                   <p>
-                    Perkenalkan kami PT. Buana Perkasa Rajanegara atau yang lebih
-                    dikenal dengan nama BPR Bonding adalah perusahaan yang fokus
-                    pada bisnis di bidang Lembaga Penjaminan & Asuransi Umum,
-                    yang berdiri berdasarkan legalitas perijinan Usaha Berbasis
-                    Resiko pada tanggal 20 Oktober 2023, dimana perusahaan kami
-                    dipercaya oleh Lembaga Penjaminan dan Asuransi untuk
-                    memasarkan produk Bank Garansi, Surety Bond dan Asuransi
-                    Umum.
+                    PT. Buana Perkasa Rajanegara (BPR Bonding) adalah perusahaan yang fokus di bidang
+                    Penjaminan dan Asuransi Umum, dipercaya untuk memasarkan produk Bank Garansi,
+                    Surety Bond, Custom Bond, dan Asuransi Umum.
                   </p>
-                  <p>
-                    BPR Bonding merupakan perusahaan yang profesional dengan
-                    didukung oleh tenaga ahli yang memiliki pengalaman dan
-                    sertifikasi di bidang Penjaminan dan Asuransi Umum.
-                  </p>
-                  <p>
-                    BPR Bonding adalah Perusahaan yang dapat didefinisikan
-                    secara umum memiliki peran sebagai penghubung atau perantara
-                    bagi Perusahaan Penyedia Barang atau Jasa, Penerima Jaminan
-                    dan Lembaga Penjaminan atau Asuransi.
-                  </p>
+                  {showAboutMore ? (
+                    <>
+                      <p>
+                        Berdiri sejak 20 Oktober 2023, kami didukung tenaga ahli berpengalaman dan tersertifikasi.
+                      </p>
+                      <p>
+                        Peran kami adalah sebagai penghubung antara penyedia barang/jasa, penerima jaminan,
+                        serta lembaga penjaminan atau asuransi untuk memastikan proses berjalan rapi dan tepat.
+                      </p>
+                    </>
+                  ) : null}
+                  <button
+                    type="button"
+                    onClick={() => setShowAboutMore((v) => !v)}
+                    className="inline-flex h-10 items-center rounded-[var(--radius-pill)] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-4 text-sm font-semibold text-black/70 transition-colors hover:text-black"
+                  >
+                    {showAboutMore ? "Tutup" : "Lihat selengkapnya"}
+                  </button>
+                </div>
+
+                <ul className="mt-6 grid gap-3 text-sm text-black/70 sm:grid-cols-2">
+                  {[
+                    "Validasi risiko lebih akurat",
+                    "Jaringan luas di seluruh Indonesia",
+                    "Dukungan tim profesional",
+                    "Proses yang efisien",
+                  ].map((x) => (
+                    <li key={x} className="flex items-start gap-3">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-[var(--brand-brown)]" />
+                      <span className="leading-6">{x}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                  {[
+                    { Icon: Users, value: "1000+", label: locale === "en" ? "Clients" : "Klien" },
+                    { Icon: Building2, value: "15+", label: locale === "en" ? "Years Experience" : "Tahun Pengalaman" },
+                    { Icon: Award, value: "98%", label: locale === "en" ? "Success Rate" : "Tingkat Keberhasilan" },
+                  ].map(({ Icon, value, label }) => (
+                    <div
+                      key={label}
+                      className="flex items-center gap-3 rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-[var(--brand-surface)] px-4 py-4 shadow-[var(--shadow-soft)]"
+                    >
+                      <span className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-[var(--brand-soft)] text-[var(--brand-brown)]">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <div>
+                        <div className="text-base font-semibold tracking-tight text-black">{value}</div>
+                        <div className="text-xs font-medium text-black/60">{label}</div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              <div className="overflow-hidden rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] shadow-[0_22px_70px_-44px_rgba(0,0,0,0.35)]">
-                <div className="relative bg-[radial-gradient(circle_at_30%_20%,rgba(139,29,29,0.16),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(11,11,11,0.10),transparent_60%)]">
-                  <div className="aspect-[4/3] w-full">
-                    <div className="flex h-full w-full items-center justify-center">
-                      <BrandLogo
-                        kind="full"
-                        height={64}
-                        width={240}
-                        className="drop-shadow-[0_24px_90px_rgba(0,0,0,0.22)]"
-                        priority
-                      />
-                    </div>
+              <div className="overflow-hidden rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] shadow-[var(--shadow-soft)]">
+                <div className="relative aspect-[4/3] w-full bg-[radial-gradient(circle_at_30%_20%,rgba(139,29,29,0.16),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(11,11,11,0.10),transparent_60%)]">
+                  <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.30),transparent_42%,rgba(255,255,255,0.18))] opacity-60" />
+                  <div className="relative flex h-full w-full items-center justify-center">
+                    <BrandLogo
+                      kind="full"
+                      height={64}
+                      width={240}
+                      className="drop-shadow-[0_24px_90px_rgba(0,0,0,0.22)]"
+                      priority
+                    />
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:items-start">
-              <div className="overflow-hidden rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] shadow-[0_22px_70px_-44px_rgba(0,0,0,0.35)]">
-                <div className="relative bg-[radial-gradient(circle_at_30%_20%,rgba(11,11,11,0.12),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(139,29,29,0.12),transparent_60%)]">
-                  <div className="aspect-[4/3] w-full">
-                    <div className="flex h-full w-full items-center justify-center">
-                      <BrandLogo
-                        kind="full"
-                        height={64}
-                        width={240}
-                        className="drop-shadow-[0_24px_90px_rgba(0,0,0,0.22)]"
-                        priority
-                      />
-                    </div>
-                  </div>
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              <div className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-7 py-8 shadow-[var(--shadow-soft)]">
+                <div className="text-sm font-semibold tracking-tight text-black">
+                  Menjadi perusahaan agen yang terbaik dan terpercaya serta berkontribusi dalam meningkatkan bisnis mitra
                 </div>
               </div>
 
-              <div className="grid gap-6 sm:grid-cols-2">
-                <Card className="border-[var(--brand-border)] bg-[var(--brand-surface)] shadow-none">
-                  <CardContent className="p-7">
-                    <div className="text-sm font-semibold tracking-tight text-black">
-                      VISION
-                    </div>
-                    <div className="mt-3 text-sm leading-7 text-black/65">
-                      Menjadi perusahaan agen yang terbaik dan terpercaya serta
-                      berkontribusi dalam meningkatkan bisnis mitra.
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-[var(--brand-border)] bg-[var(--brand-surface)] shadow-none">
-                  <CardContent className="p-7">
-                    <div className="text-sm font-semibold tracking-tight text-black">
-                      MISSION
-                    </div>
-                    <ul className="mt-3 space-y-3 text-sm leading-6 text-black/65">
-                      <li>Komitmen untuk memberikan layanan terbaik bagi mitra.</li>
-                      <li>
-                        Konsisten meningkatkan kemampuan SDM dan infrastruktur.
-                      </li>
-                      <li>
-                        Fokus menjaga kepercayaan dan memberi nilai tambah.
-                      </li>
-                    </ul>
-                  </CardContent>
-                </Card>
+              <div className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-7 py-8 shadow-[var(--shadow-soft)]">
+                <div className="text-sm font-semibold tracking-tight text-black">
+                  Komitmen untuk Memberikan yang Terbaik
+                </div>
+                <ul className="mt-4 space-y-3 text-sm leading-6 text-black/65">
+                  <li className="flex items-start gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
+                    <span>Komitmen untuk memberikan layanan terbaik bagi mitra.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
+                    <span>Konsisten meningkatkan kemampuan SDM dan infrastruktur.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
+                    <span>Fokus menjaga kepercayaan dan memberi nilai tambah.</span>
+                  </li>
+                </ul>
               </div>
             </div>
-          </div>
-        </section>
+          </Container>
+        </Section>
 
-        <section className="bg-[var(--brand-surface)]">
-          <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20">
+        <Section>
+          <Container className="pb-6 lg:pb-8" spacing="none">
             <div className="text-center">
               <h2 className="text-2xl font-semibold tracking-tight text-black sm:text-3xl">
                 {t("aboutPage.orgStructure")}
@@ -253,119 +258,69 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="mt-10 rounded-[36px] border border-[var(--brand-border)] bg-[var(--brand-soft)] p-6 sm:p-10">
-              <div className="hidden md:block">
-                <div className="relative flex justify-center">
-                  <div className="absolute left-1/2 top-full mt-4 h-10 w-px -translate-x-1/2 bg-black/10" />
-                  <div className="group relative overflow-hidden rounded-[28px] border border-[color-mix(in_oklab,var(--brand-brown),transparent_55%)] bg-[var(--brand-brown)] px-8 py-4 text-center text-white shadow-[0_22px_70px_-40px_rgba(0,0,0,0.55)] transition-transform duration-300 hover:-translate-y-0.5">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.20),transparent_55%)]" />
-                    <div className="relative">
-                      <div className="text-sm font-semibold">{org.director.title}</div>
-                      <div className="mt-1 text-sm text-white/85">{org.director.name}</div>
-                    </div>
+            <div className="mt-8 rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] p-6 shadow-[var(--shadow-soft)] sm:p-10">
+              <div className="mx-auto max-w-5xl">
+                <div className="flex justify-center">
+                  <div className="group relative flex w-full max-w-sm flex-col items-center overflow-hidden rounded-[22px] border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_6%)] p-6 text-center shadow-[0_18px_50px_-34px_rgba(0,0,0,0.30)]">
+                    <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,var(--brand-brown),rgba(139,29,29,0.18),transparent)] opacity-70" />
+                    <div className="text-sm font-semibold text-black/85">{org.director.title}</div>
+                    <div className="mt-1 text-sm text-black/60">{org.director.name}</div>
                   </div>
                 </div>
 
-                <div className="relative mx-auto mt-14 max-w-6xl">
-                  <div className="absolute left-10 right-10 top-3 h-px bg-black/10" />
-                  <div className="grid grid-cols-4 gap-6">
-                    {[org.ops, org.engManager, org.financeHead, org.engHead].map((r) => (
-                      <div key={r.title} className="flex justify-center">
-                        <span className="h-2 w-2 rounded-full bg-[var(--brand-brown)]/35" />
-                      </div>
-                    ))}
-                  </div>
+                <div className="relative mx-auto mt-6 max-w-4xl">
+                  <div className="mx-auto h-8 w-px bg-black/10" />
+                  <div className="hidden h-px w-full bg-black/10 sm:block" />
                 </div>
 
-                <div className="mt-6 grid grid-cols-4 gap-6">
+                <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                   {[org.ops, org.engManager, org.financeHead, org.engHead].map((r) => (
                     <div
                       key={r.title}
-                      className="group relative overflow-hidden rounded-[24px] border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_8%)] px-6 py-7 shadow-[0_18px_50px_-34px_rgba(0,0,0,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_80px_-44px_rgba(0,0,0,0.45)]"
+                      className="group relative flex flex-col items-center overflow-hidden rounded-[22px] border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_6%)] p-6 text-center shadow-[0_18px_50px_-34px_rgba(0,0,0,0.30)]"
                     >
-                      <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,var(--brand-brown),rgba(139,29,29,0.25),transparent)] opacity-70" />
-                      <div className="text-center text-sm font-semibold tracking-tight text-black/85">
-                        {r.title}
-                      </div>
-                      <div className="mt-2 text-center text-sm text-black/60">{r.name}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="space-y-4 md:hidden">
-                <div className="relative overflow-hidden rounded-[28px] border border-[color-mix(in_oklab,var(--brand-brown),transparent_55%)] bg-[var(--brand-brown)] px-8 py-4 text-center text-white shadow-[0_22px_70px_-40px_rgba(0,0,0,0.55)]">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.20),transparent_55%)]" />
-                  <div className="relative">
-                    <div className="text-sm font-semibold">{org.director.title}</div>
-                    <div className="mt-1 text-sm text-white/85">{org.director.name}</div>
-                  </div>
-                </div>
-                <div className="grid gap-4">
-                  {[org.ops, org.engManager, org.financeHead, org.engHead].map((r) => (
-                    <div
-                      key={r.title}
-                      className="relative overflow-hidden rounded-[24px] border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_8%)] px-6 py-6 shadow-[0_18px_50px_-34px_rgba(0,0,0,0.25)]"
-                    >
-                      <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,var(--brand-brown),rgba(139,29,29,0.25),transparent)] opacity-70" />
-                      <div className="text-center text-sm font-semibold tracking-tight text-black/85">
-                        {r.title}
-                      </div>
-                      <div className="mt-2 text-center text-sm text-black/60">{r.name}</div>
+                      <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,var(--brand-brown),rgba(139,29,29,0.18),transparent)] opacity-70" />
+                      <div className="text-sm font-semibold tracking-tight text-black/85">{r.title}</div>
+                      <div className="mt-2 text-sm text-black/60">{r.name}</div>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </Container>
+        </Section>
 
-        <section className="bg-[var(--brand-surface)]">
-          <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20">
+        <Section>
+          <Container className="pb-6 lg:pb-8" spacing="none">
             <div className="text-center">
               <h2 className="text-2xl font-semibold tracking-tight text-black sm:text-3xl">
                 {t("aboutPage.companyValues")}
               </h2>
             </div>
 
-            <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            <div className="mt-8 grid gap-6 lg:grid-cols-3">
               {values.map(({ title, desc, Icon }) => (
-                <Card
+                <div
                   key={title}
-                  className="border-[var(--brand-border)] bg-[var(--brand-surface)] shadow-none"
+                  className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-surface)] px-8 py-8 shadow-[var(--shadow-soft)]"
                 >
-                  <CardContent className="p-8">
-                    <div className="flex items-center justify-center">
-                      <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[var(--brand-border)] bg-[var(--brand-soft)] text-[var(--brand-brown)]">
-                        <Icon className="h-6 w-6" />
-                      </span>
-                    </div>
-                    <div className="mt-6 text-center text-sm font-semibold tracking-tight text-black">
-                      {title}
-                    </div>
-                    <div className="mt-3 text-center text-sm leading-6 text-black/65">
-                      {desc}
-                    </div>
-                  </CardContent>
-                </Card>
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-[var(--brand-soft)] text-[var(--brand-brown)]">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <div className="text-sm font-semibold tracking-tight text-black">{title}</div>
+                  </div>
+                  <div className="mt-4 text-sm leading-7 text-black/65">{desc}</div>
+                </div>
               ))}
             </div>
-          </div>
-        </section>
+          </Container>
+        </Section>
 
-        <section className="bg-[var(--brand-surface)]">
-          <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20">
-            <div className="rounded-[40px] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-6 py-10 sm:px-10 sm:py-12">
-              <div className="text-center">
-                <h2 className="text-2xl font-semibold tracking-tight text-black sm:text-3xl">
-                  {t("aboutPage.branches")}
-                </h2>
-                <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-black/60">
-                  {t("aboutPage.branchesDesc")}
-                </p>
-              </div>
-
-              <div className="mx-auto mt-8 max-w-2xl">
+        <Section>
+          <Container className="pb-6 lg:pb-8" spacing="none">
+            <div className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-6 py-6 shadow-[var(--shadow-soft)] sm:px-10 lg:py-8">
+              <div className="mx-auto max-w-2xl">
                 <input
                   value={branchQuery}
                   onChange={(e) => setBranchQuery(e.target.value)}
@@ -384,7 +339,10 @@ export default function AboutPage() {
                     </div>
                     <button
                       type="button"
-                      onClick={() => setBranchQuery("")}
+                      onClick={() => {
+                        setBranchQuery("");
+                        setShowAllBranches(false);
+                      }}
                       className="mt-3 inline-flex h-10 items-center justify-center rounded-full border border-[var(--brand-border)] bg-[var(--brand-soft)] px-4 text-sm font-semibold text-black/70 transition-colors hover:text-black"
                     >
                       {t("aboutPage.branchesClear")}
@@ -393,8 +351,17 @@ export default function AboutPage() {
                 ) : null}
               </div>
 
-              <div className="mt-10 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {filteredBranches.map((b) => (
+              <div className="text-center">
+                <h2 className="text-2xl font-semibold tracking-tight text-black sm:text-3xl">
+                  {t("aboutPage.branches")}
+                </h2>
+                <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-black/60">
+                  {t("aboutPage.branchesDesc")}
+                </p>
+              </div>
+
+              <div className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {visibleBranches.map((b) => (
                   <div
                     key={b.name}
                     className="group relative flex h-full flex-col overflow-hidden rounded-[22px] border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_6%)] p-6 shadow-[0_18px_50px_-34px_rgba(0,0,0,0.30)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_80px_-44px_rgba(0,0,0,0.45)]"
@@ -412,9 +379,23 @@ export default function AboutPage() {
                   </div>
                 ))}
               </div>
+
+              {!branchQuery.trim() && filteredBranches.length > 8 ? (
+                <div className="mt-8 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setShowAllBranches((v) => !v)}
+                    className="inline-flex h-11 items-center rounded-[var(--radius-pill)] border border-[var(--brand-border)] bg-[var(--brand-surface)] px-6 text-sm font-semibold text-black/75 transition-colors hover:text-black"
+                  >
+                    {showAllBranches ? "Tampilkan lebih sedikit" : "Lihat selengkapnya"}
+                  </button>
+                </div>
+              ) : null}
             </div>
-          </div>
-        </section>
+          </Container>
+        </Section>
+
+        <Gallery />
       </main>
       <Footer />
     </div>
