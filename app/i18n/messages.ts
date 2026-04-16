@@ -83,7 +83,7 @@ export const messages = {
       title: "Solusi Penjaminan Terpercaya",
       tagline: "Tagline resmi BPR Bonding",
       support:
-        "Pendampingan end-to-end untuk Bank Garansi, Surety Bond, Custom Bond, dan Asuransi Umum dengan proses yang rapi, transparan, dan sesuai kebutuhan.",
+        "Pendampingan end-to-end untuk Bank Garansi, Surety Bond, Custom Bond, dan Asuransi Umum dengan proses yang Terpercaya, Profesional, dan Inovatif.",
       ctaServices: "Lihat Layanan",
       ctaConsult: "Konsultasi",
     },

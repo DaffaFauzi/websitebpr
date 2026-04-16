@@ -82,21 +82,21 @@ export default function AboutPage() {
 
   const branches = useMemo(
     () => [
-      {name: "Cabang Aceh", addr: "Jl. Cut Nyan Dhien No. 464 Lamteuen Barat, Kec. Jaya Baru – Kota Banda Aceh", phone: "81167131313",},
-      { name: "Cabang Jambi", addr: "Alifia Residence Blok E, 05 Kel. Kenali Asam atas Kec. Kota Baru, Kota Jambi", phone: "81320028085" },
-      { name: "Cabang Lampung", addr: "Jl. Pulau singkep No. 126 Ruko E, kel. Sukarame Baru, Kec. SUkarame, Kota Bandar Lampung", phone: "85279627653" },
-      { name: "Cabang Banjarmasin", addr: "Komplek Palace Blok A No. 4 Tanta Hulu kec. Tanta Kab. Tabalong Kalimantan Selatan", phone: "8115133397" },
-      { name: "Cabang Bandung", addr: "Jl. H. sugandi no. 5 komp. Bumi manjahlega indah RT. 006 RW.013 kel. Manjahlega kec. Rancasari kota bandung1", phone: "85213599998" },
-      { name: "Cabang Pontianak", addr: "Jl. Kesehatan Gg. Amanah No. 11 ( rumah ke 2 sebelah kiri )Rt.001 Rw.012 Kel. Kota baru Kec. Pontianak selatan kota pontianak.", phone: "85252529191" },
-      { name: "Cabang Surabaya", addr: "JL. Krukah Tengah No. 73 Surabaya", phone: "81233774583" },
-      { name: "Cabang Balikpapan", addr: "Ruko Sepinggan Pratama Blok SQ3 – 11 Jl. Sepinggan Pratama, Sepinggan, Kec. Balikpapan Selatan, Kota Balikpapan", phone: "85321819290" },
-      { name: "Cabang Solo", addr: "JL. Ahmad Yani 40, Solo, Central Java The Sunan Hotel, Lobby Hotel Arcade I, 57143, Gilingan, Banjarsari, Surakarta City, Central Java 57134", phone: "81318253224" },
-      { name: "Cabang Makassar", addr: "Komplek Zamrud 2 Blok J No. 14, Jalan Adyaksa Baru, Kel Masale, Kec. Panakkukang Kota Makassar", phone: "85299216789" },
-      { name: "Cabang Palembang", addr: "Jl. Basuki Rahmat No. 1674 Rt. 025 Rw.006, Kel. Pahlawan Kec. Ilir Timur I Palembang – 30126", phone: "81373795859" },
-      { name: "Cabang Kendari", addr: "Jl. Sao-Sao, Kelurahan Bende, Kecamatan Kadia, Kota Kendari, Provinsi Sulawesi Tenggara", phone: "82258674205" },
-      { name: "Cabang Bali", addr: "Jl. Wani No1 Gerokgak Gede, Desa Delod Peken, Kec. Tabanan, Kab. Tabanan, Provinsi Bali", phone: "818135175" },
-      { name: "Cabang Mataram", addr: "Jl. Airlangga No.11x, Gomong, Kec. Selaparang, Kota Mataram, Nusa Tenggara Barat", phone: "82341507928" },
-      { name: "Cabang Batam", addr: "Komplek Bumi Riau Makmur Blok D No. 14, JL. Laksamana Bintan, Sungai Panas - Batam", phone: "82367081206" },
+      {name: "Cabang Aceh", addr: "Jl. Cut Nyan Dhien No. 464 Lamteuen Barat, Kec. Jaya Baru – Kota Banda Aceh", phone: "+62 81167131313",},
+      { name: "Cabang Jambi", addr: "Alifia Residence Blok E, 05 Kel. Kenali Asam atas Kec. Kota Baru, Kota Jambi", phone: "+62 81320028085" },
+      { name: "Cabang Lampung", addr: "Jl. Pulau singkep No. 126 Ruko E, kel. Sukarame Baru, Kec. SUkarame, Kota Bandar Lampung", phone: "+62 85279627653" },
+      { name: "Cabang Banjarmasin", addr: "Komplek Palace Blok A No. 4 Tanta Hulu kec. Tanta Kab. Tabalong Kalimantan Selatan", phone: "+62 8115133397" },
+      { name: "Cabang Bandung", addr: "Jl. H. sugandi no. 5 komp. Bumi manjahlega indah RT. 006 RW.013 kel. Manjahlega kec. Rancasari kota bandung1", phone: "+62 85213599998" },
+      { name: "Cabang Pontianak", addr: "Jl. Kesehatan Gg. Amanah No. 11 ( rumah ke 2 sebelah kiri )Rt.001 Rw.012 Kel. Kota baru Kec. Pontianak selatan kota pontianak.", phone: "+62 85252529191" },
+      { name: "Cabang Surabaya", addr: "JL. Krukah Tengah No. 73 Surabaya", phone: "+62 81233774583" },
+      { name: "Cabang Balikpapan", addr: "Ruko Sepinggan Pratama Blok SQ3 – 11 Jl. Sepinggan Pratama, Sepinggan, Kec. Balikpapan Selatan, Kota Balikpapan", phone: "+62 85321819290" },
+      { name: "Cabang Solo", addr: "JL. Ahmad Yani 40, Solo, Central Java The Sunan Hotel, Lobby Hotel Arcade I, 57143, Gilingan, Banjarsari, Surakarta City, Central Java 57134", phone: "+62 81318253224" },
+      { name: "Cabang Makassar", addr: "Komplek Zamrud 2 Blok J No. 14, Jalan Adyaksa Baru, Kel Masale, Kec. Panakkukang Kota Makassar", phone: "+62 85299216789" },
+      { name: "Cabang Palembang", addr: "Jl. Basuki Rahmat No. 1674 Rt. 025 Rw.006, Kel. Pahlawan Kec. Ilir Timur I Palembang – 30126", phone: "+62 81373795859" },
+      { name: "Cabang Kendari", addr: "Jl. Sao-Sao, Kelurahan Bende, Kecamatan Kadia, Kota Kendari, Provinsi Sulawesi Tenggara", phone: "+62 82258674205" },
+      { name: "Cabang Bali", addr: "Jl. Wani No1 Gerokgak Gede, Desa Delod Peken, Kec. Tabanan, Kab. Tabanan, Provinsi Bali", phone: "+62 818135175" },
+      { name: "Cabang Mataram", addr: "Jl. Airlangga No.11x, Gomong, Kec. Selaparang, Kota Mataram, Nusa Tenggara Barat", phone: "+62 82341507928" },
+      { name: "Cabang Batam", addr: "Komplek Bumi Riau Makmur Blok D No. 14, JL. Laksamana Bintan, Sungai Panas - Batam", phone: "+62 82367081206" },
       { name: "Cabang Medan", addr: " Jl. Sei Serayu No.85, Babura Sunggal, Kec. Medan Sunggal, Kota Medan, Sumatera Utara 20121.", phone: "+62 361 0000 0015" },
       { name: "Cabang Palu", addr: "Komplek Zamrud 2 Blok J No. 14, Jalan Adyaksa Baru, Kel Masale, Kec. Panakkukang Kota Makassar.", phone: "+62 411 0000 0016" },
       { name: "Cabang Maluku", addr: "Jl. Kabenti Desa Labuha Kec. Bacan Kab. Halmahera Selatan, Maluku.", phone: "+62 61 0000 0017" },
@@ -104,7 +104,8 @@ export default function AboutPage() {
     ],
     []
   );
-  const branchCount = branches.length;
+  const branchCount = '10+';
+  // const branchCount = branches.length;
 
   const filteredBranches = useMemo(() => {
     const q = branchQuery.trim().toLowerCase();
@@ -182,11 +183,11 @@ export default function AboutPage() {
 
                 <div className="mt-6 grid gap-4 sm:grid-cols-3">
                   {[
-                    { Icon: Users, value: "1000+", label: locale === "en" ? "Clients" : "Klien" },
+                    { Icon: Users, value: "10000+", label: locale === "en" ? "Clients" : "Klien" },
                     {
                       Icon: Building2,
                       value: `${branchCount}`,
-                      label: locale === "en" ? "Branches" : "Jumlah Cabang",
+                      label: locale === "en" ? "Branches" : "Cabang di seluruh Indonesia",
                     },
                     { Icon: Award, value: "98%", label: locale === "en" ? "Success Rate" : "Tingkat Keberhasilan" },
                   ].map(({ Icon, value, label }) => (

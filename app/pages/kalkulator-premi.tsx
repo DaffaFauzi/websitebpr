@@ -65,7 +65,7 @@ export default function PremiumCalculatorPage() {
       ? "Hello BPR Bonding, I would like to consult my premium estimation."
       : "Halo BPR Bonding, saya ingin konsultasi estimasi premi saya.";
 
-  const whatsappUrl = `https://wa.me/6282123038542?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = `https://wa.me/6281215003232?text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
     <div className="min-h-screen bg-transparent">

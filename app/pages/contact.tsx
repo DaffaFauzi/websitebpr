@@ -45,7 +45,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <div className="font-medium text-black/90">Telepon</div>
-                    <div className="mt-1">+62 82123038542</div>
+                    <div className="mt-1">+62 812 1500 3232</div>
                   </div>
                   <div>
                     <div className="font-medium text-black/90">Email</div>
@@ -76,7 +76,7 @@ export default function ContactPage() {
 
                   <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                     <Button asChild variant="outline" className="sm:flex-1">
-                      <a href="tel:+6282123038542">Telepon</a>
+                      <a href="tel:+6281215003232">Telepon</a>
                     </Button>
                     <Button asChild className="sm:flex-1">
                       <a href="mailto:bprbonding@gmail.com">Email</a>
