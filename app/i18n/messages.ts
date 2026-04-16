@@ -26,7 +26,7 @@ export const messages = {
       next: "Berikutnya",
     },
     issuer: {
-      title: "Penerbit Bank & Asuransi",
+      title: "Asuransi Penerbit & Bank",
       heroDesc:
         "Mitra terpercaya kami dalam menyediakan layanan penjaminan dan asuransi untuk mendukung kebutuhan bisnis Anda",
       partnerLabel: "Mitra Kerja Sama",
