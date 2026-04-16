@@ -71,8 +71,7 @@ export default function About() {
               <CardContent className="p-8">
                 <div className="text-sm font-medium text-black/50">Visi</div>
                 <p className="mt-3 text-base leading-7 text-black">
-                  Menjadi perusahaan agen yang terbaik dan terpercaya serta
-                  berkontribusi dalam meningkatkan bisnis mitra.
+                  Menjadi perusahaan agen yang terbaik dan terpercaya serta berkontribusi dalam meningkatkan bisnis mitra.
                 </p>
               </CardContent>
             </Card>

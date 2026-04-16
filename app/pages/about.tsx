@@ -150,10 +150,6 @@ export default function AboutPage() {
                       <p>
                         Didirikan pada 20 Oktober 2023, BPR Bonding didukung oleh tim profesional yang berpengalaman dan tersertifikasi, sehingga mampu memberikan layanan yang cepat, tepat, dan sesuai dengan standar industri. Kami memahami bahwa setiap kebutuhan klien memiliki karakteristik yang berbeda, oleh karena itu kami berkomitmen untuk memberikan solusi yang fleksibel dan tepat sasaran.
                       </p>
-                      <p>
-                        Peran kami adalah sebagai penghubung antara penyedia barang/jasa, penerima jaminan,
-                        serta lembaga penjaminan atau asuransi untuk memastikan proses berjalan rapi dan tepat.
-                      </p>
                     </>
                   ) : null}
                   <button
@@ -224,7 +220,7 @@ export default function AboutPage() {
             <div className="mt-8 grid gap-6 md:grid-cols-2">
               <div className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-7 py-8 shadow-[var(--shadow-soft)]">
                 <div className="text-sm font-semibold tracking-tight text-black">
-                  Menjadi perusahaan agen yang terbaik dan terpercaya serta berkontribusi dalam meningkatkan bisnis mitra
+                  Menjadi perusahaan agen yang terbaik dan terpercaya serta berkontribusi dalam meningkatkan bisnis mitra.
                 </div>
               </div>
 
