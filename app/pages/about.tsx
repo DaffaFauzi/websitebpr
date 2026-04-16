@@ -231,15 +231,15 @@ export default function AboutPage() {
                 <ul className="mt-4 space-y-3 text-sm leading-6 text-black/65">
                   <li className="flex items-start gap-3">
                     <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
-                    <span>Komitmen untuk memberikan layanan terbaik bagi mitra.</span>
+                    <span>Komitmen untuk memberikan layanan terbaik bagi para mitra.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
-                    <span>Konsisten meningkatkan kemampuan SDM dan infrastruktur.</span>
+                    <span>Secara Konsisten meningkatkan kemampuan sumber daya manusia dan infrastruktur untuk memberikan layanan terbaik kepada seluruh mitra.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
-                    <span>Fokus menjaga kepercayaan dan memberi nilai tambah.</span>
+                    <span>Fokus untuk menjaga kepercayaan dan memberikan nilai tambah bagi para pemangku kepentingan perusahaan.</span>
                   </li>
                 </ul>
               </div>

@@ -91,12 +91,10 @@ export default function About() {
                     Komitmen untuk memberikan layanan terbaik bagi para mitra.
                   </li>
                   <li>
-                    Secara konsisten meningkatkan kemampuan sumber daya manusia dan
-                    infrastruktur.
+                    Secara Konsisten meningkatkan kemampuan sumber daya manusia dan infrastruktur untuk memberikan layanan terbaik kepada seluruh mitra.
                   </li>
                   <li>
-                    Fokus menjaga kepercayaan dan memberi nilai tambah bagi para
-                    pemangku kepentingan.
+                    Fokus untuk menjaga kepercayaan dan memberikan nilai tambah bagi para pemangku kepentingan perusahaan.
                   </li>
                 </ul>
               </CardContent>
