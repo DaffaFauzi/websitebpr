@@ -143,14 +143,12 @@ export default function AboutPage() {
                 </h2>
                 <div className="mt-5 space-y-5 text-sm leading-7 text-black/65">
                   <p>
-                    PT. Buana Perkasa Rajanegara (BPR Bonding) adalah perusahaan yang fokus di bidang
-                    Penjaminan dan Asuransi Umum, dipercaya untuk memasarkan produk Bank Garansi,
-                    Surety Bond, Custom Bond, dan Asuransi Umum.
+                    PT. Buana Perkasa Rajanegara (BPR Bonding) adalah perusahaan yang bergerak di bidang penjaminan dan asuransi umum, dengan fokus pada penyediaan solusi yang terpercaya dan terintegrasi. Kami menghadirkan berbagai layanan seperti Bank Garansi, Surety Bond, Custom Bond, serta produk asuransi umum lainnya untuk mendukung kebutuhan bisnis klien secara menyeluruh.
                   </p>
                   {showAboutMore ? (
                     <>
                       <p>
-                        Berdiri sejak 20 Oktober 2023, kami didukung tenaga ahli berpengalaman dan tersertifikasi.
+                        Didirikan pada 20 Oktober 2023, BPR Bonding didukung oleh tim profesional yang berpengalaman dan tersertifikasi, sehingga mampu memberikan layanan yang cepat, tepat, dan sesuai dengan standar industri. Kami memahami bahwa setiap kebutuhan klien memiliki karakteristik yang berbeda, oleh karena itu kami berkomitmen untuk memberikan solusi yang fleksibel dan tepat sasaran.
                       </p>
                       <p>
                         Peran kami adalah sebagai penghubung antara penyedia barang/jasa, penerima jaminan,

@@ -47,7 +47,7 @@ export default function Contact() {
           >
             <div>
               <div className="font-semibold text-white">BPR Bonding</div>
-              <div className="text-white/70">(PT. Buana Perkasa Rajanegara)</div>
+              <div className="text-white/70">(PT Buana Perkasa Rajanegara)</div>
             </div>
             <div>
               <div className="font-semibold text-white">Alamat</div>
