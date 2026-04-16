@@ -42,7 +42,7 @@ export const messages = {
     footer: {
       tagline: "Keunggulan Asuransi",
       desc:
-        "Melindungi masa depan Anda dengan percaya diri. Kami menggabungkan nilai tradisional dan teknologi untuk menghadirkan solusi penjaminan dan asuransi yang andal.",
+        "PT. Buana Perkasa Rajanegara atau lebih dikenal sebagai BPR Bonding adalah perusahaan yang berfokus pada bisnis di bidang Agen Penjaminan & Asuransi Umum.",
       company: "Perusahaan",
       products: "Produk",
       resources: "Sumber Daya",
