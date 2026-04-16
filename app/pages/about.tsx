@@ -13,17 +13,17 @@ import { useI18n } from "@/app/i18n/I18nProvider";
 
 const values = [
   {
-    title: "Profesionalisme dan Integritas",
+    title: "Integritas dan Kepercayaan",
     desc: "Kami menjunjung tinggi nilai-nilai integritas dan profesionalisme dalam setiap aspek layanan kami. Nasabah dapat mempercayai bahwa bisnis mereka akan ditangani dengan penuh dedikasi dan kejujuran.",
     Icon: ShieldCheck,
   },
   {
-    title: "Teknologi dan Inovasi",
+    title: "Keunggulan Operasional",
     desc: "Kami terus mengadopsi inovasi dan teknologi terbaru dalam memberikan layanan. Hal ini memastikan bahwa kami selalu dapat memberikan solusi yang efisien dan responsif terhadap perkembangan bisnis dan kebutuhan nasabah.",
     Icon: Lightbulb,
   },
   {
-    title: "Komitmen terhadap Kepuasan Pelanggan",
+    title: "Kemitraan Strategis",
     desc: "Kami tidak hanya berkomitmen untuk memberikan layanan terbaik, tetapi juga untuk memastikan kepuasan pelanggan. Umpan balik dari pelanggan merupakan landasan utama dalam meningkatkan kualitas layanan kami secara berkelanjutan.",
     Icon: Star,
   },
