@@ -139,11 +139,18 @@ export const messages = {
       cta: "Konsultasikan Sekarang",
       disclaimer:
         "Hasil perhitungan ini merupakan estimasi dan dapat berbeda sesuai kebijakan masing-masing penerbit.",
+      suretyTypes: {
+        penawaran: "Jaminan Penawaran",
+        "uang-muka": "Jaminan Uang Muka",
+        pelaksanaan: "Jaminan Pelaksanaan",
+        pemeliharaan: "Jaminan Pemeliharaan",
+      },
       fields: {
-        projectValue: "Nilai Proyek",
-        projectPlaceholder: "Masukkan nilai proyek (Rp)",
-        guaranteeType: "Jenis Jaminan",
+        projectValue: "Nilai Jaminan",
+        projectPlaceholder: "Masukkan nilai jaminan (Rp)",
+        guaranteeType: "Jenis Produk",
         duration: "Durasi",
+        suretyType: "Jenis Jaminan",
       },
     },
     aboutPage: {
@@ -322,11 +329,18 @@ export const messages = {
       cta: "Consult Now",
       disclaimer:
         "This calculation is an estimate and may vary based on each issuer’s policy.",
+      suretyTypes: {
+        penawaran: "Bid Bond",
+        "uang-muka": "Advance Payment Bond",
+        pelaksanaan: "Performance Bond",
+        pemeliharaan: "Maintenance Bond",
+      },
       fields: {
-        projectValue: "Project Value",
-        projectPlaceholder: "Enter project value (IDR)",
-        guaranteeType: "Guarantee Type",
+        projectValue: "Guarantee Value",
+        projectPlaceholder: "Enter guarantee value (IDR)",
+        guaranteeType: "Product Type",
         duration: "Duration",
+        suretyType: "Bond Type",
       },
     },
     aboutPage: {
