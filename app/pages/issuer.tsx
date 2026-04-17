@@ -1,13 +1,65 @@
 "use client";
 
+import { useMemo } from "react";
+import { motion } from "framer-motion";
+
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
 import EntityLogo from "@/app/components/EntityLogo";
 import { PageHero } from "@/app/components/ui/page-hero";
 import { Badge } from "@/app/components/ui/badge";
-import { getLogoById, getLogosByCategory, logoCategories } from "@/app/data/logoCatalog";
+import { getLogoById, getLogosByCategory, logoCategories, type LogoMeta } from "@/app/data/logoCatalog";
 import { Container, Section } from "@/app/components/ui/section";
 import { useI18n } from "@/app/i18n/I18nProvider";
+
+function repeatToMin<T>(items: T[], min: number) {
+  if (items.length === 0) return [];
+  if (items.length >= min) return items;
+  const out: T[] = [];
+  for (let i = 0; i < min; i++) out.push(items[i % items.length]);
+  return out;
+}
+
+function MarqueeRow({
+  items,
+  direction,
+  durationSeconds,
+}: {
+  items: LogoMeta[];
+  direction: "left" | "right";
+  durationSeconds: number;
+}) {
+  const base = useMemo(() => repeatToMin(items, 14), [items]);
+  const loop = useMemo(() => [...base, ...base], [base]);
+  const xRange = direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"];
+
+  return (
+    <div className="relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--brand-border)] bg-[var(--brand-surface)] py-2">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[var(--brand-surface)] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[var(--brand-surface)] to-transparent" />
+      <motion.div
+        className="flex w-max cursor-grab gap-4 px-4 active:cursor-grabbing"
+        animate={{ x: xRange }}
+        transition={{ duration: durationSeconds, ease: "linear", repeat: Infinity }}
+        drag="x"
+        dragConstraints={{ left: -220, right: 220 }}
+        dragElastic={0.08}
+        dragMomentum={false}
+      >
+        {loop.map((meta, idx) => (
+          <div
+            key={`${meta.id}-${idx}`}
+            className="group flex h-24 w-52 items-center justify-center rounded-[var(--radius-lg)] border border-black/10 bg-[var(--brand-surface)] px-5 shadow-[var(--shadow-soft)] transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-black/15 hover:shadow-[var(--shadow-float)] sm:h-28"
+          >
+            <div className="h-12 w-full sm:h-14">
+              <EntityLogo meta={meta} size={256} rounded="xl" />
+            </div>
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
 
 export default function IssuerPage() {
   const { locale, t } = useI18n();
@@ -104,6 +156,8 @@ export default function IssuerPage() {
                 const title = locale === "en" ? cat.labelEn : cat.labelId;
                 const subtitle = locale === "en" ? categorySubtitles[cat.key].en : categorySubtitles[cat.key].id;
                 const items = getLogosByCategory(cat.key);
+                const topItems = items.filter((_, i) => i % 2 === 0);
+                const bottomItems = items.filter((_, i) => i % 2 === 1);
 
                 return (
                   <div key={cat.key}>
@@ -120,16 +174,25 @@ export default function IssuerPage() {
                     </div>
 
                     <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5">
-                      {items.map((meta) => (
-                        <div
-                          key={meta.id}
-                          className="group flex h-24 items-center justify-center rounded-[var(--radius-lg)] border border-black/10 bg-[var(--brand-surface)] px-5 shadow-[var(--shadow-soft)] transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-black/15 hover:shadow-[var(--shadow-float)] sm:h-28"
-                        >
-                          <div className="h-12 w-full sm:h-14">
-                            <EntityLogo meta={meta} size={256} rounded="xl" />
-                          </div>
+                      <div className="col-span-full">
+                        <div className="space-y-3">
+                          <MarqueeRow
+                            items={topItems.length ? topItems : items}
+                            direction="right"
+                            durationSeconds={cat.key === "bank-daerah" ? 30 : 26}
+                          />
+                          <MarqueeRow
+                            items={bottomItems.length ? bottomItems : items}
+                            direction="left"
+                            durationSeconds={cat.key === "bank-daerah" ? 32 : 28}
+                          />
                         </div>
-                      ))}
+                        <p className="mt-3 text-xs text-black/45">
+                          {locale === "en"
+                            ? "Tip: drag left or right while logos are moving."
+                            : "Tip: geser ke kiri atau kanan meskipun logo sedang berjalan."}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 );

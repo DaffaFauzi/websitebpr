@@ -38,7 +38,7 @@ export default function AboutPage() {
     ? {
         director: {
           title: "Director",
-          name: "Crishnia Nurbaiti",
+          name: "Chrisnia Nutbaiti",
         },
         ops: {
           title: "Operations Manager",
@@ -60,7 +60,7 @@ export default function AboutPage() {
     : {
         director: {
           title: "Direktur",
-          name: "Crishnia Nurbaiti",
+          name: "Chrisnia Nutbaiti",
         },
         ops: {
           title: "Manager Operasional",
@@ -76,7 +76,7 @@ export default function AboutPage() {
         },
         engHead: {
           title: "SPV Teknik",
-          name: "Lilik Amalia Putri",
+          name: "Lilik Amaliya Putri",
         },
       };
 
@@ -84,7 +84,7 @@ export default function AboutPage() {
     () => [
       {name: "Cabang Aceh", addr: "Jl. Cut Nyan Dhien No. 464 Lamteuen Barat, Kec. Jaya Baru – Kota Banda Aceh", phone: "+62 81167131313",},
       { name: "Cabang Jambi", addr: "Alifia Residence Blok E, 05 Kel. Kenali Asam atas Kec. Kota Baru, Kota Jambi", phone: "+62 81320028085" },
-      { name: "Cabang Lampung", addr: "Jl. Pulau singkep No. 126 Ruko E, kel. Sukarame Baru, Kec. SUkarame, Kota Bandar Lampung", phone: "+62 85279627653" },
+      { name: "Cabang Lampung", addr: "Jl. Pulau singkep No. 126 Ruko E, kel. Sukarame Baru, Kec. Sukarame, Kota Bandar Lampung", phone: "+62 85279627653" },
       { name: "Cabang Banjarmasin", addr: "Komplek Palace Blok A No. 4 Tanta Hulu kec. Tanta Kab. Tabalong Kalimantan Selatan", phone: "+62 8115133397" },
       { name: "Cabang Bandung", addr: "Jl. H. sugandi no. 5 komp. Bumi manjahlega indah RT. 006 RW.013 kel. Manjahlega kec. Rancasari kota bandung1", phone: "+62 85213599998" },
       { name: "Cabang Pontianak", addr: "Jl. Kesehatan Gg. Amanah No. 11 ( rumah ke 2 sebelah kiri )Rt.001 Rw.012 Kel. Kota baru Kec. Pontianak selatan kota pontianak.", phone: "+62 85252529191" },
@@ -183,21 +183,48 @@ export default function AboutPage() {
                       value: `${branchCount}`,
                       label: locale === "en" ? "Branches" : "Cabang di seluruh Indonesia",
                     },
-                    { Icon: Award, value: "98%", label: locale === "en" ? "Success Rate" : "Tingkat Keberhasilan" },
-                  ].map(({ Icon, value, label }) => (
-                    <div
-                      key={label}
-                      className="flex items-center gap-3 rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-[var(--brand-surface)] px-4 py-4 shadow-[var(--shadow-soft)]"
-                    >
-                      <span className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-[var(--brand-soft)] text-[var(--brand-brown)]">
-                        <Icon className="h-5 w-5" />
-                      </span>
-                      <div>
-                        <div className="text-base font-semibold tracking-tight text-black">{value}</div>
-                        <div className="text-xs font-medium text-black/60">{label}</div>
-                      </div>
-                    </div>
-                  ))}
+                    { Icon: Award, value: "99%", label: locale === "en" ? "Success Rate" : "Tingkat Keberhasilan" },
+                  ].map(({ Icon, value, label }) => {
+                    const isBranches = Icon === Building2;
+                    const content = (
+                      <>
+                        <span className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-[var(--brand-soft)] text-[var(--brand-brown)]">
+                          <Icon className="h-5 w-5" />
+                        </span>
+                        <div>
+                          <div className="text-base font-semibold tracking-tight text-black">{value}</div>
+                          <div className="text-xs font-medium text-black/60">{label}</div>
+                        </div>
+                      </>
+                    );
+
+                    if (!isBranches) {
+                      return (
+                        <div
+                          key={label}
+                          className="flex items-center gap-3 rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-[var(--brand-surface)] px-4 py-4 shadow-[var(--shadow-soft)]"
+                        >
+                          {content}
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <button
+                        key={label}
+                        type="button"
+                        onClick={() => {
+                          document.getElementById("about-branches")?.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                          });
+                        }}
+                        className="flex items-center gap-3 rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-[var(--brand-surface)] px-4 py-4 text-left shadow-[var(--shadow-soft)] transition-[transform,box-shadow,border-color] hover:-translate-y-0.5 hover:border-black/15 hover:shadow-[var(--shadow-float)]"
+                      >
+                        {content}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -217,29 +244,39 @@ export default function AboutPage() {
               </div>
             </div>
 
+            <div className="mt-10 text-center">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--brand-border)] bg-[var(--brand-soft)] px-4 py-2 text-xs font-semibold text-black/60">
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-brown)]" />
+                {locale === "en" ? "Vision & Mission" : "Visi & Misi"}
+              </div>
+            </div>
+
             <div className="mt-8 grid gap-6 md:grid-cols-2">
               <div className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-7 py-8 shadow-[var(--shadow-soft)]">
+                <div className="text-xs font-semibold text-black/55">
+                  {locale === "en" ? "VISION" : "VISI"}
+                </div>
                 <div className="text-sm font-semibold tracking-tight text-black">
                   Menjadi perusahaan agen yang terbaik dan terpercaya serta berkontribusi dalam meningkatkan bisnis mitra.
                 </div>
               </div>
 
               <div className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-7 py-8 shadow-[var(--shadow-soft)]">
-                <div className="text-sm font-semibold tracking-tight text-black">
-                  Komitmen untuk Memberikan yang Terbaik
+                <div className="text-xs font-semibold text-black/55">
+                  {locale === "en" ? "MISSION" : "MISI"}
                 </div>
                 <ul className="mt-4 space-y-3 text-sm leading-6 text-black/65">
                   <li className="flex items-start gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
-                    <span>Komitmen untuk memberikan layanan terbaik bagi para mitra.</span>
+                    <span className="mt-0.5 flex-none text-[var(--brand-brown)]">1.</span>
+                    <span><strong>Komitmen</strong> untuk memberikan layanan terbaik bagi para mitra.</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
-                    <span>Secara Konsisten meningkatkan kemampuan sumber daya manusia dan infrastruktur untuk memberikan layanan terbaik kepada seluruh mitra.</span>
+                    <span className="mt-0.5 flex-none text-[var(--brand-brown)]">2.</span>
+                    <span><strong>Secara Konsisten</strong> meningkatkan kemampuan sumber daya manusia dan infrastruktur untuk memberikan layanan terbaik kepada seluruh mitra.</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
-                    <span>Fokus untuk menjaga kepercayaan dan memberikan nilai tambah bagi para pemangku kepentingan perusahaan.</span>
+                    <span className="mt-0.5 flex-none text-[var(--brand-brown)]">3.</span>
+                    <span><strong>Fokus</strong> untuk menjaga kepercayaan dan memberikan nilai tambah bagi para pemangku kepentingan perusahaan.</span>
                   </li>
                 </ul>
               </div>
@@ -318,7 +355,7 @@ export default function AboutPage() {
         </Section>
 
         <Section>
-          <Container className="pb-6 lg:pb-8" spacing="none">
+          <Container className="pb-6 lg:pb-8" spacing="none" id="about-branches">
             <div className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-6 py-6 shadow-[var(--shadow-soft)] sm:px-10 lg:py-8">
               <div className="mx-auto max-w-2xl">
                 <input

@@ -23,7 +23,7 @@ export default function About() {
           >
             <div className="text-sm font-medium text-black/50">(01) About Us</div>
             <h2 className="mt-5 text-balance text-4xl font-semibold leading-[1.1] tracking-tight text-black sm:text-5xl">
-              Profesional, terpercaya, dan fokus pada kebutuhan penjaminan.
+              Profesional, Terpercaya, dan SIGAP dalam Memenuhi Kebutuhan Penjaminan.
             </h2>
             <p className="mt-6 text-pretty text-base leading-7 text-black/60">
               PT Buana Perkasa Rajanegara (BPR Bonding) adalah perusahaan yang bergerak di bidang penjaminan dan asuransi umum, dengan fokus pada penyediaan solusi yang terpercaya dan terintegrasi. Kami menghadirkan berbagai layanan seperti Bank Garansi, Surety Bond, Custom Bond, serta produk asuransi umum lainnya untuk mendukung kebutuhan bisnis klien secara menyeluruh.
