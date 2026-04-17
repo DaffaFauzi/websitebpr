@@ -14,17 +14,17 @@ import { useI18n } from "@/app/i18n/I18nProvider";
 const values = [
   {
     title: "Integritas dan Kepercayaan",
-    desc: "Kami menjunjung tinggi nilai-nilai integritas dan profesionalisme dalam setiap aspek layanan kami. Nasabah dapat mempercayai bahwa bisnis mereka akan ditangani dengan penuh dedikasi dan kejujuran.",
+    desc: "Kami membangun setiap hubungan bisnis di atas dasar kepercayaan. Dengan integritas yang tidak tergoyahkan dan komitmen terhadap transparansi, kami memastikan setiap layanan memberikan rasa aman.",
     Icon: ShieldCheck,
   },
   {
     title: "Keunggulan Operasional",
-    desc: "Kami terus mengadopsi inovasi dan teknologi terbaru dalam memberikan layanan. Hal ini memastikan bahwa kami selalu dapat memberikan solusi yang efisien dan responsif terhadap perkembangan bisnis dan kebutuhan nasabah.",
+    desc: "Kami tidak hanya memberikan layanan, tetapi memastikan setiap proses berjalan dengan presisi, kecepatan, dan ketepatan.",
     Icon: Lightbulb,
   },
   {
     title: "Kemitraan Strategis",
-    desc: "Kami tidak hanya berkomitmen untuk memberikan layanan terbaik, tetapi juga untuk memastikan kepuasan pelanggan. Umpan balik dari pelanggan merupakan landasan utama dalam meningkatkan kualitas layanan kami secara berkelanjutan.",
+    desc: "Kami menjalankan bisnis dengan menjunjung tinggi prinsip kehati-hatian, kepatuhan terhadap regulasi, serta tata kelola perusahaan yang baik.",
     Icon: Star,
   },
 ];
