@@ -41,14 +41,19 @@ function Track({
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[var(--brand-surface)] to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[var(--brand-surface)] to-transparent" />
       <div className="py-3">
-        <div className="marquee-track flex w-max gap-4" style={{ animation: anim, willChange: "transform" }}>
+        <div className="marquee-track flex w-max gap-6" style={{ animation: anim, willChange: "transform" }}>
           {loop.map((x, idx) => (
             <div
               key={`${x.id}-${idx}`}
-              className="group logo-box px-5 transition-transform duration-300 hover:-translate-y-0.5"
+              className="group logo-box px-6 transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-1"
             >
               <div className="logo-box-inner">
-                <EntityLogo meta={x} size={256} rounded="2xl" />
+                <EntityLogo
+                  meta={x}
+                  size={256}
+                  rounded="2xl"
+                  className="grayscale transition-[filter,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:grayscale-0 group-hover:scale-[1.03]"
+                />
               </div>
             </div>
           ))}
@@ -94,11 +99,10 @@ export default function HomePartnersMarquee() {
         </div>
 
         <div className="mt-8 space-y-4 bg-[var(--brand-surface)] py-2">
-          <Track items={items.left} direction="left" durationMs={26000} />
-          <Track items={items.right} direction="right" durationMs={28000} />
+          <Track items={items.left} direction="left" durationMs={36000} />
+          <Track items={items.right} direction="right" durationMs={40000} />
         </div>
       </Container>
     </Section>
   );
 }
-

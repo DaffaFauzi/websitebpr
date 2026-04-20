@@ -27,9 +27,15 @@ const containerVariants = cva("mx-auto px-4 sm:px-6", {
     },
     spacing: {
       none: "",
-      section: "py-6 lg:py-8",
-      hero: "pt-28 pb-6 sm:pt-32 lg:pb-8",
-      pageHeader: "pt-24 pb-6 sm:pt-28 lg:pb-8",
+
+      // 🔥 FIX UTAMA: lebih compact
+      section: "py-10 sm:py-12 lg:py-14",
+
+      // 🔥 HERO lebih rapat
+      hero: "pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14",
+
+      // 🔥 HEADER juga diperkecil
+      pageHeader: "pt-16 pb-6 sm:pt-18 sm:pb-8 lg:pt-20 lg:pb-10",
     },
   },
   defaultVariants: {
@@ -54,4 +60,3 @@ export function Container({
 }: React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof containerVariants>) {
   return <div className={cn(containerVariants({ width, spacing }), className)} {...props} />;
 }
-

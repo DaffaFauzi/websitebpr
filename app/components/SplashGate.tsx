@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
 import { Bot } from "lucide-react";
 import { useI18n } from "@/app/i18n/I18nProvider";
 
@@ -12,7 +11,6 @@ export default function SplashGate({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
   const { t } = useI18n();
 
   const timeoutsRef = useRef<number[]>([]);
@@ -22,16 +20,14 @@ export default function SplashGate({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (pathname !== "/") return;
-
     timeoutsRef.current.forEach((t) => window.clearTimeout(t));
     timeoutsRef.current = [];
 
     const seen = sessionStorage.getItem(STORAGE_KEY) === "1";
     if (seen) return;
 
-    const visibleMs = 3800;
-    const fadeMs = 550;
+    const visibleMs = 1600;
+    const fadeMs = 450;
 
     const t0 = window.setTimeout(() => {
       setActive(true);
@@ -52,7 +48,7 @@ export default function SplashGate({
       timeoutsRef.current.forEach((t) => window.clearTimeout(t));
       timeoutsRef.current = [];
     };
-  }, [pathname]);
+  }, []);
 
   const handleSkip = () => {
     if (typeof window === "undefined") return;

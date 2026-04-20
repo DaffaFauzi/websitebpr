@@ -95,7 +95,7 @@ export const messages = {
     },
     homePartners: {
       label: "Mitra",
-      title: "Penerbit rekanan yang dapat diandalkan.",
+      title: "Asuransi Penerbit & Bank.",
       subtitle:
         "Kami bekerja sama dengan bank dan asuransi penerbit untuk mendukung kebutuhan penjaminan Anda.",
     },
@@ -125,7 +125,7 @@ export const messages = {
       heroDesc:
         "Solusi penjaminan dan asuransi yang dirancang untuk mendukung kebutuhan bisnis Anda secara profesional dan terpercaya",
       sectionLabel: "Layanan Kami",
-      sectionTitle: "Solusi Penjaminan Terpadu",
+      sectionTitle: "",
       sectionSubtitle:
         "Kami menyediakan berbagai layanan penjaminan profesional untuk mendukung pertumbuhan dan keberhasilan bisnis Anda",
       ctaTitle: "Butuh konsultasi untuk menentukan layanan yang tepat?",

@@ -1,7 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useRef } from "react";
 
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
@@ -23,40 +22,128 @@ function repeatToMin<T>(items: T[], min: number) {
 function MarqueeRow({
   items,
   direction,
-  durationSeconds,
 }: {
   items: LogoMeta[];
   direction: "left" | "right";
-  durationSeconds: number;
 }) {
   const base = useMemo(() => repeatToMin(items, 14), [items]);
   const loop = useMemo(() => [...base, ...base], [base]);
-  const xRange = direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"];
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const isDraggingRef = useRef(false);
+  const dragStartXRef = useRef(0);
+  const dragStartScrollRef = useRef(0);
+  const inViewRef = useRef(true);
+  const motionOkRef = useRef(true);
+
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    if (direction === "right") {
+      el.scrollLeft = Math.max(0, el.scrollWidth / 2);
+    } else {
+      el.scrollLeft = 0;
+    }
+  }, [direction, loop.length]);
+
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    motionOkRef.current = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        inViewRef.current = entries.some((e) => e.isIntersecting);
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+
+    const handleVisibility = () => {
+      if (document.visibilityState !== "visible") inViewRef.current = false;
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    let raf = 0;
+    let last = performance.now();
+    const speed = 28;
+
+    const tick = (now: number) => {
+      const target = viewportRef.current;
+      raf = requestAnimationFrame(tick);
+      if (!target) return;
+      if (!motionOkRef.current) return;
+      if (!inViewRef.current) return;
+      const half = target.scrollWidth / 2;
+      if (!Number.isFinite(half) || half <= 0) return;
+
+      const dt = (now - last) / 1000;
+      last = now;
+
+      if (!isDraggingRef.current) {
+        const delta = speed * dt * (direction === "left" ? 1 : -1);
+        target.scrollLeft += delta;
+        if (direction === "left" && target.scrollLeft >= half) target.scrollLeft -= half;
+        if (direction === "right" && target.scrollLeft <= 0) target.scrollLeft += half;
+      }
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [direction, loop.length]);
 
   return (
     <div className="relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--brand-border)] bg-[var(--brand-surface)] py-2">
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[var(--brand-surface)] to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[var(--brand-surface)] to-transparent" />
-      <motion.div
-        className="flex w-max cursor-grab gap-4 px-4 active:cursor-grabbing"
-        animate={{ x: xRange }}
-        transition={{ duration: durationSeconds, ease: "linear", repeat: Infinity }}
-        drag="x"
-        dragConstraints={{ left: -220, right: 220 }}
-        dragElastic={0.08}
-        dragMomentum={false}
+      <div
+        ref={viewportRef}
+        className="no-scrollbar overflow-x-auto px-4"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        onPointerDown={(e) => {
+          const el = viewportRef.current;
+          if (!el) return;
+          isDraggingRef.current = true;
+          dragStartXRef.current = e.clientX;
+          dragStartScrollRef.current = el.scrollLeft;
+          (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
+        }}
+        onPointerMove={(e) => {
+          const el = viewportRef.current;
+          if (!el) return;
+          if (!isDraggingRef.current) return;
+          const dx = e.clientX - dragStartXRef.current;
+          el.scrollLeft = dragStartScrollRef.current - dx;
+        }}
+        onPointerUp={(e) => {
+          isDraggingRef.current = false;
+          (e.currentTarget as HTMLDivElement).releasePointerCapture(e.pointerId);
+        }}
+        onPointerCancel={() => {
+          isDraggingRef.current = false;
+        }}
       >
-        {loop.map((meta, idx) => (
-          <div
-            key={`${meta.id}-${idx}`}
-            className="group flex h-24 w-52 items-center justify-center rounded-[var(--radius-lg)] border border-black/10 bg-[var(--brand-surface)] px-5 shadow-[var(--shadow-soft)] transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-black/15 hover:shadow-[var(--shadow-float)] sm:h-28"
-          >
-            <div className="h-12 w-full sm:h-14">
-              <EntityLogo meta={meta} size={256} rounded="xl" />
+        <div className="flex w-max gap-6 py-3">
+          {loop.map((meta, idx) => (
+            <div
+              key={`${meta.id}-${idx}`}
+              className="group flex h-24 w-60 items-center justify-center rounded-[var(--radius-lg)] border border-black/10 bg-[var(--brand-surface)] px-6 shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-[transform,box-shadow,border-color] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-1 hover:border-black/15 hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)] sm:h-28 sm:w-64"
+            >
+              <div className="h-12 w-full sm:h-14">
+                <EntityLogo
+                  meta={meta}
+                  size={256}
+                  rounded="xl"
+                  className="grayscale transition-[filter,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:grayscale-0 group-hover:scale-[1.03]"
+                />
+              </div>
             </div>
-          </div>
-        ))}
-      </motion.div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -179,12 +266,10 @@ export default function IssuerPage() {
                           <MarqueeRow
                             items={topItems.length ? topItems : items}
                             direction="right"
-                            durationSeconds={cat.key === "bank-daerah" ? 30 : 26}
                           />
                           <MarqueeRow
                             items={bottomItems.length ? bottomItems : items}
                             direction="left"
-                            durationSeconds={cat.key === "bank-daerah" ? 32 : 28}
                           />
                         </div>
                         <p className="mt-3 text-xs text-black/45">

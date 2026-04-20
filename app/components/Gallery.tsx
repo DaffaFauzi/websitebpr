@@ -258,7 +258,7 @@ export default function Gallery() {
                           alt={label}
                           fill
                           sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw"
-                          className="object-cover"
+                          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-[1.06]"
                         />
                       ) : (
                         <div className={`h-full w-full ${photo.theme}`}>
