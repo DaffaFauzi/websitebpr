@@ -1,17 +1,14 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useMemo } from "react";
 import { Locale, messages } from "@/app/i18n/messages";
 
 type I18nContextValue = {
   locale: Locale;
-  setLocale: (locale: Locale) => void;
   t: (key: string) => string;
 };
 
 const I18nContext = createContext<I18nContextValue | null>(null);
-
-const STORAGE_KEY = "bpr_locale";
 
 function getByPath(obj: unknown, path: string): unknown {
   return path.split(".").reduce<unknown>((acc, part) => {
@@ -23,22 +20,7 @@ function getByPath(obj: unknown, path: string): unknown {
 }
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("id");
-
-  useEffect(() => {
-    const stored = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
-    if (stored === "id" || stored === "en") {
-      window.requestAnimationFrame(() => setLocaleState(stored));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    localStorage.setItem(STORAGE_KEY, locale);
-    document.documentElement.lang = locale === "id" ? "id" : "en";
-  }, [locale]);
-
-  const setLocale = (next: Locale) => setLocaleState(next);
+  const locale: Locale = "id";
 
   const t = useMemo(() => {
     return (key: string) => {
@@ -50,7 +32,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     };
   }, [locale]);
 
-  const value = useMemo<I18nContextValue>(() => ({ locale, setLocale, t }), [locale, t]);
+  const value = useMemo<I18nContextValue>(() => ({ locale, t }), [locale, t]);
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }

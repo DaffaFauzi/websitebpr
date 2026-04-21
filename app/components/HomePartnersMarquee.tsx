@@ -52,7 +52,7 @@ function Track({
                   meta={x}
                   size={256}
                   rounded="2xl"
-                  className="grayscale transition-[filter,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:grayscale-0 group-hover:scale-[1.03]"
+                  className="transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-[1.03]"
                 />
               </div>
             </div>
@@ -99,8 +99,8 @@ export default function HomePartnersMarquee() {
         </div>
 
         <div className="mt-8 space-y-4 bg-[var(--brand-surface)] py-2">
-          <Track items={items.left} direction="left" durationMs={36000} />
-          <Track items={items.right} direction="right" durationMs={40000} />
+          <Track items={items.left} direction="left" durationMs={52000} />
+          <Track items={items.right} direction="right" durationMs={56000} />
         </div>
       </Container>
     </Section>

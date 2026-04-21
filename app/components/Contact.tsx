@@ -11,6 +11,8 @@ import { useI18n } from "@/app/i18n/I18nProvider";
 
 export default function Contact() {
   const { t } = useI18n();
+  const officeAddress =
+    "Office Tower The Mansion Bougenville Tower Fontana Lt. 32 Unit BF-32B1 & BF-32B2, JI. Trembesi, Kec. Pademangan, Jkt Utara, Daerah Khusus Ibukota Jakarta 14410";
   return (
     <Section variant="brown" className="overflow-hidden">
       <Container>
@@ -51,9 +53,7 @@ export default function Contact() {
             </div>
             <div>
               <div className="font-semibold text-white">Alamat</div>
-              <div className="text-white/70">
-                Office Tower Fontana, The Mansion Bougenville, Lt. 51 unit BF 51 A1
-              </div>
+              <div className="text-white/70">{officeAddress}</div>
             </div>
             <div>
               <div className="font-semibold text-white">Telepon</div>

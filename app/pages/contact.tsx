@@ -12,14 +12,13 @@ import { Textarea } from "@/app/components/ui/textarea";
 import { useI18n } from "@/app/i18n/I18nProvider";
 
 export default function ContactPage() {
-  const { locale, t } = useI18n();
-  const mapsUrl = "https://share.google/GzEWjyau85RyMk1vf";
-  const mapsEmbed =
-    "https://www.google.com/maps?q=Office%20Tower%20Fontana%20The%20Mansion%20Bougenville%20Fontana%20Jl.%20Trembesi%20Blok%20D%20Pademangan%20Jakarta%20Utara&output=embed";
+  const { t } = useI18n();
+  const officeAddress =
+    "Office Tower The Mansion Bougenville Tower Fontana Lt. 32 Unit BF-32B1 & BF-32B2, JI. Trembesi, Kec. Pademangan, Jkt Utara, Daerah Khusus Ibukota Jakarta 14410";
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(officeAddress)}`;
+  const mapsEmbed = `https://www.google.com/maps?q=${encodeURIComponent(officeAddress)}&output=embed`;
   const intro =
-    locale === "en"
-      ? "Share your surety or insurance needs. Our team will help assess your requirements and recommend the right solution."
-      : "Sampaikan kebutuhan penjaminan atau asuransi Anda. Tim kami akan membantu analisa kebutuhan dan memberikan rekomendasi solusi terbaik.";
+    "Sampaikan kebutuhan penjaminan atau asuransi Anda. Tim kami akan membantu analisa kebutuhan dan memberikan rekomendasi solusi terbaik.";
   return (
     <div className="min-h-screen bg-transparent">
       <Navbar />
@@ -41,7 +40,7 @@ export default function ContactPage() {
                 <div className="mt-6 grid gap-5 text-sm text-black/65 sm:grid-cols-2">
                   <div>
                     <div className="font-medium text-black/90">Alamat</div>
-                    <div className="mt-1">Office Tower Fontana, The Mansion Bougenville, Lt. 51 unit BF 51 A1</div>
+                    <div className="mt-1">{officeAddress}</div>
                   </div>
                   <div>
                     <div className="font-medium text-black/90">Telepon</div>

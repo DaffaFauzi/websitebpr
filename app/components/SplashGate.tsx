@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Bot } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Shield } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useI18n } from "@/app/i18n/I18nProvider";
 
 const STORAGE_KEY = "bpr_splash_seen";
@@ -11,116 +12,178 @@ export default function SplashGate({
 }: {
   children: React.ReactNode;
 }) {
-  const { t } = useI18n();
-
-  const timeoutsRef = useRef<number[]>([]);
-
-  const [active, setActive] = useState(false);
-  const [hiding, setHiding] = useState(false);
+  const { locale } = useI18n();
+  const [isClient, setIsClient] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
+    setIsClient(true);
     if (typeof window === "undefined") return;
-    timeoutsRef.current.forEach((t) => window.clearTimeout(t));
-    timeoutsRef.current = [];
 
     const seen = sessionStorage.getItem(STORAGE_KEY) === "1";
-    if (seen) return;
+    if (seen) {
+      setShowSplash(false);
+      return;
+    }
 
-    const visibleMs = 1600;
-    const fadeMs = 450;
-
-    const t0 = window.setTimeout(() => {
-      setActive(true);
-      setHiding(false);
-    }, 0);
-    const t1 = window.setTimeout(() => {
-      setHiding(true);
-    }, visibleMs);
-    const t2 = window.setTimeout(() => {
+    const timer = window.setTimeout(() => {
+      setShowSplash(false);
       sessionStorage.setItem(STORAGE_KEY, "1");
-      setActive(false);
-      setHiding(false);
-    }, visibleMs + fadeMs);
+    }, 2100);
 
-    timeoutsRef.current = [t0, t1, t2];
-
-    return () => {
-      timeoutsRef.current.forEach((t) => window.clearTimeout(t));
-      timeoutsRef.current = [];
-    };
+    return () => window.clearTimeout(timer);
   }, []);
 
   const handleSkip = () => {
-    if (typeof window === "undefined") return;
+    setShowSplash(false);
     sessionStorage.setItem(STORAGE_KEY, "1");
-    setHiding(true);
-    window.setTimeout(() => {
-      setActive(false);
-      setHiding(false);
-    }, 350);
   };
 
-  const show = active;
+  if (!isClient) return null;
 
   return (
-    <>
-      {children}
-      {show ? (
-        <div
+    <AnimatePresence mode="wait">
+      {showSplash ? (
+        <motion.div
+          key="splash-screen"
           role="button"
           tabIndex={0}
           onClick={handleSkip}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") handleSkip();
           }}
-          className={[
-            "splash-animate",
-            "fixed inset-0 z-[100] flex items-center justify-center",
-            "bg-[var(--background)]",
-            "transition-opacity duration-500",
-            hiding ? "opacity-0 pointer-events-none" : "opacity-100",
-          ].join(" ")}
+          className="fixed inset-0 z-[999] flex items-center justify-center bg-[#F7F3EE] px-5"
+          initial={{ opacity: 1 }}
+          exit={{
+            opacity: 0,
+            filter: "blur(10px)",
+            transition: { duration: 0.6, ease: "easeInOut" },
+          }}
         >
-          <div className="relative mx-auto w-full max-w-md px-6">
-            <div className="mx-auto flex w-full max-w-sm flex-col items-center rounded-[44px] border border-[var(--brand-border)] bg-[var(--brand-surface)] px-8 py-12 shadow-[0_40px_120px_rgba(0,0,0,0.12)]">
-              <div className="relative">
-                <div className="flex h-20 w-20 items-center justify-center rounded-[22px] bg-[var(--brand-brown)] text-white shadow-[0_18px_50px_rgba(0,0,0,0.18)]">
-                  <Bot className="h-9 w-9" />
-                </div>
-                <div className="absolute -right-5 top-3">
-                  <span className="inline-block origin-[20%_80%] animate-[wave-hand_1.1s_ease-in-out_infinite] text-3xl">
-                    👋
-                  </span>
-                </div>
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(212,185,150,0.25),transparent_60%),radial-gradient(circle_at_30%_70%,rgba(139,29,29,0.08),transparent_55%)]" />
+            <div className="absolute inset-0 backdrop-blur-[2px]" />
+          </div>
+
+          <motion.div
+            className="relative mx-auto w-full max-w-sm"
+            initial={{ opacity: 0, scale: 0.94, y: 15, filter: "blur(10px)" }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              filter: "blur(0px)",
+            }}
+            transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+          >
+            <div className="mx-auto flex w-full flex-col items-center rounded-[32px] bg-white px-8 py-12 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.12),0_12px_40px_-10px_rgba(0,0,0,0.06)] backdrop-blur-[10px]">
+              <motion.div
+                className="relative"
+                initial={{ filter: "blur(8px)", scale: 0.9 }}
+                animate={{
+                  filter: "blur(0px)",
+                  scale: 1,
+                  y: [0, -4, 0],
+                }}
+                transition={{
+                  filter: { duration: 0.8, ease: "easeOut" },
+                  scale: { duration: 0.8, ease: "easeOut" },
+                  y: { duration: 3.2, repeat: Infinity, ease: "easeInOut" },
+                }}
+              >
+                <div className="absolute -inset-10 rounded-full bg-[radial-gradient(circle,rgba(242,195,10,0.3),transparent_70%)] blur-2xl" />
+                <motion.div className="relative flex h-[96px] w-[96px] items-center justify-center overflow-hidden rounded-[28px] bg-[#8f1a20] text-white shadow-[0_20px_50px_rgba(143,26,32,0.25)]">
+                  <Shield className="h-11 w-11" />
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    initial={{ x: "-100%" }}
+                    animate={{ x: "200%" }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "linear",
+                      delay: 0.5,
+                    }}
+                  />
+                </motion.div>
+              </motion.div>
+
+              <div className="mt-8 text-center">
+                <motion.div
+                  className="text-[24px] font-bold tracking-tight text-[#8f1a20] sm:text-[26px]"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.6 }}
+                >
+                  {locale === "th"
+                    ? "ยินดีต้อนรับสู่ BPR Bonding"
+                    : "Welcome to BPR Bonding"}
+                </motion.div>
+                <motion.div
+                  className="mt-3 text-[15px] font-medium leading-relaxed text-gray-600/90"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                >
+                  {locale === "th"
+                    ? "ปกป้องอนาคตของคุณด้วยความมั่นใจ"
+                    : "Protecting your future with confidence"}
+                </motion.div>
               </div>
 
-               <div className="mt-6 text-center">
-                <div className="text-xl font-semibold tracking-tight text-[var(--brand-brown)]">
-                  {t("splash.title")}
+              <div className="mt-10 w-full max-w-[240px]">
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
+                  <motion.div
+                    className="h-full rounded-full bg-gradient-to-r from-[#8f1a20] via-[#edcc16] to-[#edcc16]"
+                    initial={{ width: "0%", x: "-100%" }}
+                    animate={{ width: "100%", x: "0%" }}
+                    transition={{ duration: 2.1, ease: "easeInOut" }}
+                  />
                 </div>
-                <div className="mt-2 text-sm text-black/50">{t("splash.subtitle")}</div>
-              </div>
 
-              <div className="mt-10 w-full">
-                <div className="mx-auto h-0.5 w-44 rounded-full bg-black/10" />
-                <div className="mt-4 flex justify-center gap-2">
-                  {Array.from({ length: 3 }).map((_, idx) => (
-                    <span
+                <div className="mt-5 flex justify-center gap-2.5">
+                  {[0, 1, 2].map((idx) => (
+                    <motion.span
                       key={idx}
-                      className="h-2 w-2 rounded-full bg-[color-mix(in_oklab,var(--brand-brown),white_25%)] animate-[dot-pulse_1.1s_ease-in-out_infinite]"
-                      style={{ animationDelay: `${idx * 140}ms` }}
+                      className="h-2 w-2 rounded-full bg-[#edcc16]"
+                      animate={{
+                        y: [0, -6, 0],
+                        opacity: [0.4, 1, 0.4],
+                      }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: idx * 0.15,
+                      }}
                     />
                   ))}
                 </div>
               </div>
 
-              <div className="mt-8 text-xs text-black/45">
-                {t("splash.hint")}
-              </div>
+              <motion.div
+                className="mt-8 text-[13px] font-medium text-gray-400/80"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                {locale === "th"
+                  ? "กำลังเตรียมข้อมูล..."
+                  : "Preparing Your Experience..."}
+              </motion.div>
             </div>
-          </div>
-        </div>
-      ) : null}
-    </>
+          </motion.div>
+        </motion.div>
+      ) : (
+        <motion.div
+          key="main-content"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

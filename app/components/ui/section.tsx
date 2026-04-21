@@ -18,7 +18,7 @@ const sectionVariants = cva("w-full", {
   },
 });
 
-const containerVariants = cva("mx-auto px-4 sm:px-6", {
+const containerVariants = cva("mx-auto px-4 sm:px-6 lg:px-8", {
   variants: {
     width: {
       default: "max-w-6xl",
@@ -29,13 +29,13 @@ const containerVariants = cva("mx-auto px-4 sm:px-6", {
       none: "",
 
       // 🔥 FIX UTAMA: lebih compact
-      section: "py-10 sm:py-12 lg:py-14",
+      section: "py-8 sm:py-10 lg:py-12",
 
       // 🔥 HERO lebih rapat
-      hero: "pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14",
+      hero: "pt-6 pb-8 sm:pt-8 sm:pb-10 lg:pt-10 lg:pb-12",
 
       // 🔥 HEADER juga diperkecil
-      pageHeader: "pt-16 pb-6 sm:pt-18 sm:pb-8 lg:pt-20 lg:pb-10",
+      pageHeader: "pt-12 pb-5 sm:pt-14 sm:pb-6 lg:pt-16 lg:pb-8",
     },
   },
   defaultVariants: {

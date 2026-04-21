@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import {
   ArrowRight,
   PhoneCall,
@@ -107,17 +106,168 @@ export default function Hero() {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(139,29,29,0.12),transparent_55%),radial-gradient(circle_at_75%_60%,rgba(11,11,11,0.08),transparent_60%)]" />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.55),transparent_40%,rgba(255,255,255,0.50))]" />
               <div className="relative p-6 sm:p-8">
-                <div className="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--brand-border)] bg-white/55 shadow-[var(--shadow-soft)]">
-                  <div className="relative aspect-[4/3] w-full">
-                    <Image
-                      alt="BPR Bonding partnership"
-                      src="/images/hero-partnership.svg"
-                      fill
-                      priority
-                      sizes="(min-width: 1024px) 520px, (min-width: 768px) 50vw, 100vw"
-                      className="object-cover"
-                    />
+                <div className="relative mx-auto w-full max-w-lg aspect-square">
+                  <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[var(--radius-xl)]">
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(11,11,11,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(11,11,11,0.04)_1px,transparent_1px)] bg-[size:36px_36px] opacity-55" />
+                    <div className="absolute -left-20 -top-24 h-[320px] w-[320px] rounded-full bg-[radial-gradient(circle,rgba(242,195,10,0.20),transparent_60%)] blur-2xl" />
+                    <div className="absolute -bottom-28 -right-24 h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle,rgba(139,29,29,0.14),transparent_62%)] blur-2xl" />
+                    <div className="absolute left-[22%] top-[32%] h-1.5 w-1.5 rounded-full bg-[color-mix(in_oklab,var(--brand-brown),white_65%)] opacity-55" />
+                    <div className="absolute left-[64%] top-[22%] h-1.5 w-1.5 rounded-full bg-[color-mix(in_oklab,var(--brand-brown),white_65%)] opacity-45" />
+                    <div className="absolute left-[78%] top-[64%] h-1.5 w-1.5 rounded-full bg-[color-mix(in_oklab,var(--brand-brown),white_65%)] opacity-55" />
+                    <div className="absolute left-[36%] top-[76%] h-1.5 w-1.5 rounded-full bg-[color-mix(in_oklab,var(--brand-brown),white_65%)] opacity-40" />
                   </div>
+
+                  <motion.div className="absolute inset-0" style={{ perspective: 900 }}>
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center"
+                      style={{ transformStyle: "preserve-3d" }}
+                      animate={{ rotateY: [16, 48, 16], rotateZ: [-2, 2, -2] }}
+                      transition={{ duration: 5.4, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <motion.div
+                        className="relative flex h-56 w-56 items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-[#8f1a20] to-[#6b1418] shadow-[0_32px_80px_rgba(0,0,0,0.22)] sm:h-64 sm:w-64"
+                        animate={{ 
+                          y: [0, -10, 0], 
+                          rotate: [0, 1.2, 0],
+                        }}
+                        transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-tr from-[#edcc16]/20 to-transparent" />
+                        
+                        {/* Smoothly rotating central icon container */}
+                        <motion.div
+                          className="relative z-10 flex h-32 w-32 items-center justify-center rounded-2xl bg-white shadow-xl sm:h-36 sm:w-36"
+                          animate={{ 
+                            rotate: 360,
+                            scale: [1, 1.05, 1]
+                          }}
+                          transition={{ 
+                            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                            scale: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                          }}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="h-20 w-20 text-[#edcc16] sm:h-24 sm:w-24"
+                          >
+                            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                          </svg>
+                        </motion.div>
+
+                        <motion.div
+                          className="absolute inset-0 rounded-3xl border-4 border-[#edcc16]"
+                          animate={{ scale: [1, 1.12, 1] }}
+                          transition={{ duration: 1.85, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                      </motion.div>
+                    </motion.div>
+
+                    <motion.div
+                      className="absolute left-1/2 top-1/2"
+                      style={{ x: "-50%", y: "-50%" }}
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+                    >
+                      <motion.div
+                        className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-[0_22px_60px_rgba(0,0,0,0.18)] sm:h-16 sm:w-16"
+                        style={{ transform: "translateX(min(190px,34vw)) rotate(-16deg)" }}
+                        animate={{ rotate: -360, y: [0, -6, 0] }}
+                        transition={{
+                          rotate: { duration: 14, repeat: Infinity, ease: "linear" },
+                          y: { duration: 3.6, repeat: Infinity, ease: "easeInOut" },
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="h-7 w-7 text-[#edcc16] sm:h-8 sm:w-8"
+                        >
+                          <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
+                        </svg>
+                      </motion.div>
+                    </motion.div>
+
+                    <motion.div
+                      className="absolute left-1/2 top-1/2"
+                      style={{ x: "-50%", y: "-50%" }}
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+                    >
+                      <motion.div
+                        className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-[0_22px_60px_rgba(0,0,0,0.18)] sm:h-16 sm:w-16"
+                        style={{ transform: "translateX(min(190px,34vw)) rotate(10deg)" }}
+                        animate={{ rotate: -360, y: [0, 7, 0] }}
+                        transition={{
+                          rotate: { duration: 18, repeat: Infinity, ease: "linear" },
+                          y: { duration: 4.2, repeat: Infinity, ease: "easeInOut" },
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="h-7 w-7 text-[#8f1a20] sm:h-8 sm:w-8"
+                        >
+                          <path d="M21 15a4 4 0 0 1-4 4H7l-4 3V7a4 4 0 0 1 4-4h8" />
+                          <path d="M15 7h6" />
+                          <path d="M18 4v6" />
+                        </svg>
+                      </motion.div>
+                    </motion.div>
+
+                    <motion.div
+                      className="absolute left-1/2 top-1/2"
+                      style={{ x: "-50%", y: "-50%" }}
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
+                    >
+                      <motion.div
+                        className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-[0_22px_60px_rgba(0,0,0,0.18)] sm:h-16 sm:w-16"
+                        style={{ transform: "translateX(min(190px,34vw)) rotate(-8deg)" }}
+                        animate={{ rotate: -360, y: [0, -5, 0] }}
+                        transition={{
+                          rotate: { duration: 16, repeat: Infinity, ease: "linear" },
+                          y: { duration: 3.9, repeat: Infinity, ease: "easeInOut" },
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="h-7 w-7 text-[#edcc16] sm:h-8 sm:w-8"
+                        >
+                          <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                        </svg>
+                      </motion.div>
+                    </motion.div>
+                  </motion.div>
                 </div>
               </div>
 

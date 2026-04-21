@@ -22,13 +22,13 @@ const navItems = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { locale, setLocale, t } = useI18n();
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mt-4 flex items-center justify-between gap-3 rounded-[var(--radius-lg)] border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_20%)] px-3 py-3 backdrop-blur supports-[backdrop-filter]:bg-[color-mix(in_oklab,var(--brand-surface),transparent_35%)]">
+        <div className="my-2 flex items-center justify-between gap-3 rounded-[var(--radius-lg)] border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_20%)] px-3 py-2.5 backdrop-blur supports-[backdrop-filter]:bg-[color-mix(in_oklab,var(--brand-surface),transparent_35%)]">
           <Link href="/" className="flex items-center gap-3 pl-2">
             <BrandLogo
               kind="full"
@@ -67,35 +67,6 @@ export default function Navbar() {
               </Button>
             </div>
 
-            <div className="flex items-center rounded-[var(--radius-pill)] border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_30%)] p-1">
-              <button
-                type="button"
-                onClick={() => setLocale("id")}
-                aria-label={t("nav.indonesian")}
-                className={cn(
-                  "rounded-[var(--radius-pill)] px-3 py-1 text-xs font-semibold transition-colors",
-                  locale === "id"
-                    ? "bg-[var(--brand-brown)] text-white"
-                    : "text-black/60 hover:text-black hover:bg-black/5"
-                )}
-              >
-                ID
-              </button>
-              <button
-                type="button"
-                onClick={() => setLocale("en")}
-                aria-label={t("nav.english")}
-                className={cn(
-                  "rounded-[var(--radius-pill)] px-3 py-1 text-xs font-semibold transition-colors",
-                  locale === "en"
-                    ? "bg-[var(--brand-brown)] text-white"
-                    : "text-black/60 hover:text-black hover:bg-black/5"
-                )}
-              >
-                EN
-              </button>
-            </div>
-
             <button
               type="button"
               onClick={() => setOpen(true)}
@@ -123,7 +94,7 @@ export default function Navbar() {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: -12, opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
-              className="mx-auto mt-4 w-[calc(100%-2rem)] max-w-6xl rounded-[var(--radius-lg)] border border-[var(--brand-border)] bg-[var(--brand-surface)] shadow-[var(--shadow-float)]"
+              className="mx-auto mt-2 w-[calc(100%-2rem)] max-w-6xl rounded-[var(--radius-lg)] border border-[var(--brand-border)] bg-[var(--brand-surface)] shadow-[var(--shadow-float)]"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between gap-3 px-4 py-3">

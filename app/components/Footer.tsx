@@ -43,6 +43,8 @@ const sections = [
 
 export default function Footer() {
   const { t } = useI18n();
+  const officeAddress =
+    "Office Tower The Mansion Bougenville Tower\nFontana Lt. 32 Unit BF-32B1 & BF-32B2, JI. Trembesi, Kec. Pademangan, Jkt Utara,\nDaerah Khusus Ibukota Jakarta 14410";
   return (
     <footer className="bg-[var(--brand-black)] text-white">
       <Container spacing="none" className="py-6 lg:py-8">
@@ -69,7 +71,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 text-white/60" />
-                <span>Office Tower Fontana, The Mansion Bougenville</span>
+                <span className="whitespace-pre-line">{officeAddress}</span>
               </div>
             </div>
           </div>
