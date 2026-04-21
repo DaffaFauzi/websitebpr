@@ -21,16 +21,12 @@ type GalleryCategoryKey =
 
 type GalleryCategory = {
   key: GalleryCategoryKey;
-  labelId: string;
-  labelEn: string;
   theme: string;
 };
 
 type GalleryPhoto = {
   id: string;
   category: GalleryCategoryKey;
-  labelId: string;
-  labelEn: string;
   src?: string;
   theme: string;
 };
@@ -72,6 +68,7 @@ function StackedCategoryCard({
   const isCoarse = useIsCoarsePointer();
   const [hovered, setHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const { t } = useI18n();
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -104,15 +101,15 @@ function StackedCategoryCard({
       }`}
     >
       <div className="relative">
-        {/* Stacked Layer 1 - Most visible background */}
+        {/* Stacked Layer 1 (Only 1 background layer for 2 total layers) */}
         <motion.div
           aria-hidden
-          className="absolute inset-0 rounded-[24px] border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
+          className="absolute inset-0 rounded-[24px] border border-black/10 bg-white shadow-[0_15px_45px_rgba(0,0,0,0.12)]"
           animate={{
-            x: hovered ? -28 : -20,
-            y: hovered ? 24 : 18,
-            rotate: hovered ? -8 : -6,
-            scale: hovered ? 1.02 : 1
+            x: hovered ? -18 : -12,
+            y: hovered ? 16 : 10,
+            rotate: hovered ? -5 : -3,
+            scale: hovered ? 1.01 : 1
           }}
           transition={{ duration: 0.4, ease: [0.25, 0.8, 0.25, 1] }}
         >
@@ -130,62 +127,8 @@ function StackedCategoryCard({
             </div>
           ) : null}
         </motion.div>
-        
-        {/* Stacked Layer 2 - Middle layer */}
-        <motion.div
-          aria-hidden
-          className="absolute inset-0 rounded-[24px] border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
-          animate={{
-            x: hovered ? 28 : 20,
-            y: hovered ? 20 : 15,
-            rotate: hovered ? 8 : 6,
-            scale: hovered ? 1.02 : 1
-          }}
-          transition={{ duration: 0.4, ease: [0.25, 0.8, 0.25, 1] }}
-        >
-          {previewImages[1] ? (
-            <div className="absolute inset-0 overflow-hidden rounded-[24px]">
-              <Image
-                src={previewImages[1]}
-                alt={label}
-                fill
-                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                className="object-cover object-center opacity-70"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-            </div>
-          ) : null}
-        </motion.div>
 
-        {/* Stacked Layer 3 - Least visible background */}
-        <motion.div
-          aria-hidden
-          className="absolute inset-0 rounded-[24px] border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
-          animate={{
-            x: hovered ? -12 : -8,
-            y: hovered ? 16 : 12,
-            rotate: hovered ? -4 : -3,
-            scale: hovered ? 1.02 : 1
-          }}
-          transition={{ duration: 0.4, ease: [0.25, 0.8, 0.25, 1] }}
-        >
-          {previewImages[2] ? (
-            <div className="absolute inset-0 overflow-hidden rounded-[24px]">
-              <Image
-                src={previewImages[2]}
-                alt={label}
-                fill
-                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                className="object-cover object-center opacity-60"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-            </div>
-          ) : null}
-        </motion.div>
-
-        {/* Main Card - Premium glassmorphism effect */}
+        {/* Main Card */}
         <motion.div
           className="relative aspect-[4/5] w-full overflow-hidden rounded-[24px] border border-black/10 bg-white/95 shadow-[0_20px_60px_rgba(0,0,0,0.15)] backdrop-blur-[6px] transition-all duration-400 ease-[cubic-bezier(0.25,0.8,0.25,1)] group-hover:shadow-[0_25px_70px_rgba(0,0,0,0.2)] group-hover:-translate-y-2"
           style={{
@@ -198,7 +141,6 @@ function StackedCategoryCard({
           }}
           transition={{ duration: 0.4, ease: [0.25, 0.8, 0.25, 1] }}
         >
-          {/* Background with enhanced gradient overlay */}
           {coverSrc ? (
             <motion.div
               className="absolute inset-0"
@@ -217,65 +159,54 @@ function StackedCategoryCard({
                 loading="lazy"
                 onLoad={() => setImageLoaded(true)}
               />
-              {/* Enhanced gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent transition-all duration-400 group-hover:from-black/80" />
             </motion.div>
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
-              <div className="flex flex-col items-center gap-3 text-slate-400">
-                <motion.div
-                  animate={{ rotate: hovered ? 10 : 0 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <ImageOff className="h-8 w-8" />
-                </motion.div>
-                <span className="text-sm font-medium">Foto segera ditambahkan</span>
+            <div className="flex h-full items-center justify-center bg-gray-50 text-gray-400 text-sm">
+              <div className="flex flex-col items-center gap-2">
+                <ImageOff className="h-8 w-8 opacity-20" />
+                <span className="font-medium opacity-60">{t("homeGallery.empty")}</span>
               </div>
             </div>
           )}
 
-          {/* Modern glassmorphism label */}
-          <div className="absolute left-4 top-4">
-            <motion.div 
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/20 px-4 py-2 text-sm font-semibold text-white backdrop-blur-[6px]"
-              animate={{ scale: hovered ? 1.05 : 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <span className="h-2 w-2 rounded-full bg-white/80" />
-              {label}
-            </motion.div>
-          </div>
+          <div className="absolute inset-0 p-4 flex flex-col justify-between pointer-events-none">
+            <div className="flex justify-between items-start">
+              <motion.div 
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/20 px-4 py-2 text-sm font-semibold text-white backdrop-blur-[6px]"
+                animate={{ scale: hovered ? 1.05 : 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <span className="h-2 w-2 rounded-full bg-white/80" />
+                {label}
+              </motion.div>
 
-          {/* Enhanced search icon with modern design */}
-          <div className="absolute right-4 top-4">
-            <motion.div
-              animate={{ 
-                scale: hovered ? 1.1 : 1,
-                rotate: hovered ? 5 : 0
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <span className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/20 p-2.5 text-white backdrop-blur-[6px]">
-                <Search className="h-4 w-4" />
-              </span>
-            </motion.div>
-          </div>
+              <motion.div
+                animate={{ 
+                  scale: hovered ? 1.1 : 1,
+                  rotate: hovered ? 5 : 0
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <span className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/20 p-2.5 text-white backdrop-blur-[6px]">
+                  <Search className="h-4 w-4" />
+                </span>
+              </motion.div>
+            </div>
 
-          {/* Enhanced bottom info section */}
-          <div className="absolute bottom-4 left-4 right-4">
             <motion.div
               animate={{ y: hovered ? -4 : 0 }}
               transition={{ duration: 0.3 }}
+              className="space-y-3"
             >
               <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/20 px-3 py-1.5 text-xs font-semibold text-white/90 backdrop-blur-[6px]">
                 <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
-                {count} foto
+                {count} {t("homeGallery.photos")}
               </div>
-              <div className="mt-2 text-xs text-white/70">Klik untuk melihat galeri</div>
+              <div className="text-xs text-white/70">{t("homeGallery.clickToView")}</div>
             </motion.div>
           </div>
 
-          {/* Subtle glow effect on hover */}
           <motion.div
             className="absolute inset-0 rounded-[24px] bg-gradient-to-r from-transparent via-white/5 to-transparent"
             animate={{ opacity: hovered ? 1 : 0 }}
@@ -300,36 +231,26 @@ export default function Gallery() {
     () => [
       {
         key: "forum",
-        labelId: "Forum",
-        labelEn: "Forum",
         theme:
           "bg-[radial-gradient(circle_at_20%_15%,rgba(139,29,29,0.22),transparent_55%),radial-gradient(circle_at_85%_70%,rgba(11,11,11,0.14),transparent_60%)]",
       },
       {
         key: "kolaborasi",
-        labelId: "Kolaborasi Tim / Gathering",
-        labelEn: "Team Collaboration / Gathering",
         theme:
           "bg-[radial-gradient(circle_at_25%_20%,rgba(11,11,11,0.12),transparent_55%),radial-gradient(circle_at_80%_70%,rgba(139,29,29,0.18),transparent_60%)]",
       },
       {
         key: "kantor",
-        labelId: "Kantor / Office",
-        labelEn: "Office",
         theme:
           "bg-[radial-gradient(circle_at_60%_20%,rgba(139,29,29,0.20),transparent_58%),radial-gradient(circle_at_40%_85%,rgba(11,11,11,0.14),transparent_60%)]",
       },
       {
         key: "pelatihan",
-        labelId: "Pelatihan & Pengembangan",
-        labelEn: "Training & Development",
         theme:
           "bg-[radial-gradient(circle_at_30%_25%,rgba(11,11,11,0.12),transparent_55%),radial-gradient(circle_at_80%_70%,rgba(139,29,29,0.16),transparent_60%)]",
       },
       {
         key: "interaktif",
-        labelId: "Kegiatan Interaktif / Fun Activities",
-        labelEn: "Interactive Activities / Fun Activities",
         theme:
           "bg-[radial-gradient(circle_at_30%_25%,rgba(139,29,29,0.16),transparent_55%),radial-gradient(circle_at_80%_70%,rgba(11,11,11,0.12),transparent_60%)]",
       },
@@ -345,12 +266,9 @@ export default function Gallery() {
       srcMap: Record<number, string> = {}
     ) =>
       Array.from({ length: count }).map((_, idx) => {
-        const cat = categories.find((x) => x.key === category);
         return {
           id: `${category}-${idx + 1}`,
           category,
-          labelId: cat?.labelId ?? category,
-          labelEn: cat?.labelEn ?? category,
           src: srcMap[idx + 1],
           theme: baseTheme,
         };
@@ -393,6 +311,8 @@ export default function Gallery() {
           3: "/logos/interaktif3.jpg",
           4: "/logos/interaktif4.jpg",
           5: "/logos/interaktif5.jpeg",
+          6: "/logos/interaktif6.jpeg",
+          7: "/logos/interaktif7.jpeg",
         }
       ),
       ...make(
@@ -412,9 +332,15 @@ export default function Gallery() {
 
   useEffect(() => {
     if (!openCategory) return;
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
     };
   }, [openCategory]);
 
@@ -429,21 +355,16 @@ export default function Gallery() {
         setOpenCategory(null);
         return;
       }
+      const items = (photosByCategory.get(openCategory) ?? []).filter(p => p.src);
+      if (items.length === 0) return;
+
       if (e.key === "ArrowLeft") {
         e.preventDefault();
-        setActiveIndex((idx) => {
-          const items = photosByCategory.get(openCategory) ?? [];
-          if (items.length === 0) return 0;
-          return (idx - 1 + items.length) % items.length;
-        });
+        setActiveIndex((idx) => (idx - 1 + items.length) % items.length);
       }
       if (e.key === "ArrowRight") {
         e.preventDefault();
-        setActiveIndex((idx) => {
-          const items = photosByCategory.get(openCategory) ?? [];
-          if (items.length === 0) return 0;
-          return (idx + 1) % items.length;
-        });
+        setActiveIndex((idx) => (idx + 1) % items.length);
       }
     };
     window.addEventListener("keydown", handle);
@@ -453,7 +374,7 @@ export default function Gallery() {
   useEffect(() => {
     if (!openCategory) return;
     if (paused) return;
-    const items = photosByCategory.get(openCategory) ?? [];
+    const items = (photosByCategory.get(openCategory) ?? []).filter(p => p.src);
     if (items.length <= 1) return;
     const id = window.setInterval(() => {
       setActiveIndex((idx) => (idx + 1) % items.length);
@@ -467,10 +388,17 @@ export default function Gallery() {
     };
   }, []);
 
-  const activePhotos = openCategory ? photosByCategory.get(openCategory) ?? [] : [];
+  const activePhotos = useMemo(() => {
+    if (!openCategory) return [];
+    return (photosByCategory.get(openCategory) ?? []).filter(p => p.src);
+  }, [openCategory, photosByCategory]);
+
   const activePhoto = activePhotos[activeIndex];
 
   const openModal = (key: GalleryCategoryKey) => {
+    const validPhotos = (photosByCategory.get(key) ?? []).filter(p => p.src);
+    if (validPhotos.length === 0) return;
+    
     setFullscreen(false);
     setPaused(false);
     setActiveIndex(0);
@@ -505,28 +433,30 @@ export default function Gallery() {
         </motion.div>
 
         <motion.div
-          className="mt-6"
+          className="mt-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <div className="grid grid-cols-1 gap-4 min-[375px]:grid-cols-2 min-[768px]:grid-cols-3 min-[1024px]:grid-cols-3 xl:grid-cols-4 sm:gap-5">
+          <div className="flex flex-wrap justify-center gap-x-12 gap-y-16 lg:gap-x-20 lg:gap-y-20">
             {categories.map((cat) => {
-              const label = isEn ? cat.labelEn : cat.labelId;
-              const count = photosByCategory.get(cat.key)?.length ?? 0;
-              const coverSrc = (photosByCategory.get(cat.key) ?? []).find((p) => Boolean(p.src))?.src;
-              const previews = (photosByCategory.get(cat.key) ?? []).filter((p) => p.src).slice(0, 3).map((p) => p.src!);
+              const label = t(`homeGallery.categories.${cat.key}`);
+              const validPhotos = (photosByCategory.get(cat.key) ?? []).filter(p => p.src);
+              const count = validPhotos.length;
+              const coverSrc = validPhotos[0]?.src;
+              const previews = validPhotos.slice(0, 3).map((p) => p.src!);
               return (
-                <StackedCategoryCard
-                  key={cat.key}
-                  coverSrc={coverSrc}
-                  label={label}
-                  count={count}
-                  previewImages={previews}
-                  active={openCategory === cat.key}
-                  onOpen={() => openModal(cat.key)}
-                />
+                <div key={cat.key} className="w-full sm:w-[calc(45%-24px)] lg:w-[calc(30%-40px)] max-w-[320px]">
+                  <StackedCategoryCard
+                    coverSrc={coverSrc}
+                    label={label}
+                    count={count}
+                    previewImages={previews}
+                    active={openCategory === cat.key}
+                    onOpen={() => openModal(cat.key)}
+                  />
+                </div>
               );
             })}
           </div>
@@ -534,7 +464,7 @@ export default function Gallery() {
       </Container>
 
       <AnimatePresence>
-        {openCategory ? (
+        {openCategory && activePhotos.length > 0 ? (
           <motion.div
             className="fixed inset-0 z-[200] bg-black/70 backdrop-blur-[6px]"
             initial={{ opacity: 0 }}
@@ -546,7 +476,7 @@ export default function Gallery() {
             }}
           >
             <motion.div
-              className="relative mx-auto flex h-full w-full max-w-6xl flex-col px-4 py-6 sm:px-6"
+              className="relative mx-auto flex h-[100dvh] w-full max-w-6xl flex-col px-4 py-6 sm:px-6"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
@@ -555,15 +485,13 @@ export default function Gallery() {
               onPointerEnter={() => setPaused(true)}
               onPointerLeave={() => setPaused(false)}
             >
-              <div className="flex items-center justify-between gap-4">
+              <div className="flex-none flex items-center justify-between gap-4">
                 <div>
-                  <div className="text-xs font-semibold text-white/60">Perjalanan Kami dalam Gambar</div>
+                  <div className="text-xs font-semibold text-white/60">{t("homeGallery.journeyTitle")}</div>
                   <div className="mt-2 text-xl font-semibold tracking-tight text-white sm:text-2xl">
-                    {(isEn
-                      ? categories.find((c) => c.key === openCategory)?.labelEn
-                      : categories.find((c) => c.key === openCategory)?.labelId) ?? ""}
+                    {t(`homeGallery.categories.${openCategory}`)}
                   </div>
-                  <div className="mt-1 text-xs text-white/60">{activePhotos.length} foto</div>
+                  <div className="mt-1 text-xs text-white/60">{activePhotos.length} {t("homeGallery.photos")}</div>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -580,9 +508,9 @@ export default function Gallery() {
                 </div>
               </div>
 
-              <div className="mt-5 flex flex-1 flex-col gap-4">
-                <div className="relative mx-auto w-full max-w-[420px] overflow-hidden rounded-[28px] border border-white/10 bg-black/25">
-                  <div className="relative aspect-[3/4] w-full">
+              <div className="mt-5 flex flex-1 flex-col gap-4 min-h-0">
+                <div className="relative mx-auto w-full max-w-[420px] flex-1 min-h-0 overflow-hidden rounded-[28px] border border-white/10 bg-black/25">
+                  <div className="relative h-full w-full">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.10),transparent_55%),radial-gradient(circle_at_82%_78%,rgba(139,29,29,0.16),transparent_60%)]" />
 
                     <motion.div
@@ -625,19 +553,15 @@ export default function Gallery() {
                               animate={{ scale: 1 }}
                               transition={{ duration: 4.2, ease: [0.4, 0, 0.2, 1] }}
                             >
-                              {activePhoto.src ? (
+                              {activePhoto.src && (
                                 <Image
                                   src={activePhoto.src}
-                                  alt={isEn ? activePhoto.labelEn : activePhoto.labelId}
+                                  alt={t(`homeGallery.categories.${activePhoto.category}`)}
                                   fill
                                   priority
                                   sizes="(min-width: 1024px) 420px, 92vw"
                                   className="object-cover"
                                 />
-                              ) : (
-                                <div className={`h-full w-full ${activePhoto.theme}`}>
-                                  <div className="h-full w-full bg-[linear-gradient(120deg,rgba(255,255,255,0.26),transparent_44%,rgba(255,255,255,0.16))] opacity-70" />
-                                </div>
                               )}
                             </motion.div>
 
@@ -645,15 +569,15 @@ export default function Gallery() {
 
                             <div className="pointer-events-none absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-3 py-1 text-xs font-semibold text-white/85 backdrop-blur-[6px]">
                               <span>
-                                {clamp(activeIndex + 1, 1, Math.max(1, activePhotos.length))}/{Math.max(1, activePhotos.length)}
+                                {activeIndex + 1}/{activePhotos.length}
                               </span>
                               <span className="h-1 w-1 rounded-full bg-white/40" />
-                              <span>{isEn ? activePhoto.labelEn : activePhoto.labelId}</span>
+                              <span>{t(`homeGallery.categories.${activePhoto.category}`)}</span>
                             </div>
 
                             <div className="pointer-events-none absolute right-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-3 py-1 text-xs font-semibold text-white/80 backdrop-blur-[6px]">
                               <Maximize2 className="h-3.5 w-3.5" />
-                              Fullscreen
+                              {t("homeGallery.fullscreen")}
                             </div>
                           </motion.button>
                         ) : null}
@@ -678,7 +602,7 @@ export default function Gallery() {
                           setActiveIndex((i) => (i - 1 + items.length) % items.length);
                         }}
                         className="flex h-11 w-11 items-center justify-center rounded-[18px] border border-white/15 bg-white/10 text-white/85 transition-colors hover:bg-white/15"
-                        aria-label="Sebelumnya"
+                        aria-label={t("homeGallery.prev")}
                       >
                         <ChevronLeft className="h-5 w-5" />
                       </button>
@@ -694,7 +618,7 @@ export default function Gallery() {
                           setActiveIndex((i) => (i + 1) % items.length);
                         }}
                         className="flex h-11 w-11 items-center justify-center rounded-[18px] border border-white/15 bg-white/10 text-white/85 transition-colors hover:bg-white/15"
-                        aria-label="Berikutnya"
+                        aria-label={t("homeGallery.next")}
                       >
                         <ChevronRight className="h-5 w-5" />
                       </button>
@@ -702,10 +626,10 @@ export default function Gallery() {
                   </div>
                 </div>
 
-                <div className="rounded-[24px] border border-white/10 bg-black/20 p-3">
+                <div className="flex-none rounded-[24px] border border-white/10 bg-black/20 p-3">
                   <div className="no-scrollbar flex gap-2 overflow-x-auto pb-1">
                     {activePhotos.map((p, idx) => {
-                      const label = isEn ? p.labelEn : p.labelId;
+                      const label = t(`homeGallery.categories.${p.category}`);
                       const active = idx === activeIndex;
                       return (
                         <button
@@ -723,7 +647,7 @@ export default function Gallery() {
                           }`}
                           aria-label={label}
                         >
-                          {p.src ? (
+                          {p.src && (
                             <Image
                               src={p.src}
                               alt={label}
@@ -731,10 +655,6 @@ export default function Gallery() {
                               sizes="80px"
                               className="object-cover"
                             />
-                          ) : (
-                            <div className={`h-full w-full ${p.theme}`}>
-                              <div className="h-full w-full bg-[linear-gradient(120deg,rgba(255,255,255,0.18),transparent_44%,rgba(255,255,255,0.10))] opacity-70" />
-                            </div>
                           )}
                           <div className="absolute inset-0 bg-black/25" />
                           {active ? (
@@ -744,75 +664,49 @@ export default function Gallery() {
                       );
                     })}
                   </div>
-                  <div className="mt-2 flex items-center justify-between text-xs text-white/55">
+                  <div className="mt-2 flex items-center justify-between text-xs text-white/55 px-1">
                     <div className="inline-flex items-center gap-2">
                       <span className="h-1.5 w-1.5 rounded-full bg-white/50" />
                       {paused ? "Pause" : "Auto"}
                     </div>
-                    <div>Swipe • Arrow keys • ESC</div>
+                    <div>
+                      {activeIndex + 1} / {activePhotos.length}
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <AnimatePresence>
-                {fullscreen && activePhoto ? (
-                  <motion.div
-                    className="fixed inset-0 z-[260] bg-black/85"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
-                    onClick={() => {
-                      setFullscreen(false);
-                    }}
-                  >
-                    <motion.div
-                      className="relative mx-auto flex h-full w-full max-w-6xl items-center justify-center px-4 py-6"
-                      initial={{ opacity: 0, scale: 0.98 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.98 }}
-                      transition={{ duration: 0.34, ease: [0.4, 0, 0.2, 1] }}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <button
-                        type="button"
-                        onClick={() => setFullscreen(false)}
-                        className="absolute right-5 top-5 z-10 flex h-11 w-11 items-center justify-center rounded-[18px] border border-white/15 bg-white/10 text-white/85 transition-colors hover:bg-white/15"
-                        aria-label="Tutup"
-                      >
-                        <X className="h-5 w-5" />
-                      </button>
-
-                      <motion.div
-                        className="relative h-full w-full overflow-hidden rounded-[28px] border border-white/10 bg-black/30"
-                        drag
-                        dragElastic={0.08}
-                        dragMomentum={false}
-                        animate={{ scale: 1.01 }}
-                        transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
-                      >
-                        {activePhoto.src ? (
-                          <Image
-                            src={activePhoto.src}
-                            alt={isEn ? activePhoto.labelEn : activePhoto.labelId}
-                            fill
-                            priority
-                            sizes="100vw"
-                            className="object-contain"
-                          />
-                        ) : (
-                          <div className={`h-full w-full ${activePhoto.theme}`}>
-                            <div className="h-full w-full bg-[linear-gradient(120deg,rgba(255,255,255,0.20),transparent_44%,rgba(255,255,255,0.12))] opacity-70" />
-                          </div>
-                        )}
-                      </motion.div>
-                    </motion.div>
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
             </motion.div>
           </motion.div>
         ) : null}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {fullscreen && activePhoto && activePhoto.src && (
+          <motion.div
+            className="fixed inset-0 z-[300] bg-black flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setFullscreen(false)}
+          >
+            <div className="relative h-full w-full">
+              <Image
+                src={activePhoto.src}
+                alt={t(`homeGallery.categories.${activePhoto.category}`)}
+                fill
+                className="object-contain"
+                priority
+              />
+              <button
+                type="button"
+                className="absolute right-6 top-6 h-12 w-12 flex items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md"
+                onClick={() => setFullscreen(false)}
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+          </motion.div>
+        )}
       </AnimatePresence>
     </Section>
   );

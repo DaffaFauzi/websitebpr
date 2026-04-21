@@ -151,31 +151,14 @@ function MarqueeRow({
 export default function IssuerPage() {
   const { locale, t } = useI18n();
   const jastan = getLogoById("jastan");
-  const categorySubtitles: Record<
-    (typeof logoCategories)[number]["key"],
-    { id: string; en: string }
-  > = {
-    "bank-pemerintah": {
-      id: "Mitra bank nasional yang mendukung layanan penjaminan.",
-      en: "National banks supporting guarantee services.",
-    },
-    "bank-swasta": {
-      id: "Mitra bank swasta untuk kebutuhan penjaminan bisnis.",
-      en: "Private banks supporting business guarantees.",
-    },
-    "bank-daerah": {
-      id: "Mitra bank daerah untuk jangkauan layanan yang luas.",
-      en: "Regional banks enabling broader coverage.",
-    },
-    "asuransi-bumn": {
-      id: "Mitra BUMN dan anak BUMN untuk asuransi dan penjaminan.",
-      en: "SOE partners for insurance and surety.",
-    },
-    "asuransi-swasta": {
-      id: "Mitra asuransi dan penjaminan swasta yang terpercaya.",
-      en: "Trusted private insurance and surety partners.",
-    },
-  };
+
+  const highlights = [
+    t("issuer.partnerVerified"),
+    t("issuer.partnerCoverage"),
+    t("issuer.partnerCoordination"),
+    t("issuer.partnerSupport"),
+  ];
+
   return (
     <div className="min-h-screen bg-transparent">
       <Navbar />
@@ -205,12 +188,7 @@ export default function IssuerPage() {
                   </p>
 
                   <ul className="mt-5 grid gap-2 text-sm text-black/70 sm:grid-cols-2">
-                    {[
-                      locale === "en" ? "Verified partners" : "Mitra terverifikasi",
-                      locale === "en" ? "National coverage" : "Jangkauan nasional",
-                      locale === "en" ? "Clear coordination" : "Koordinasi jelas",
-                      locale === "en" ? "Operational support" : "Dukungan operasional",
-                    ].map((x) => (
+                    {highlights.map((x) => (
                       <li key={x} className="flex items-start gap-3">
                         <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[var(--brand-brown)]" />
                         <span className="leading-6">{x}</span>
@@ -241,43 +219,23 @@ export default function IssuerPage() {
             <div className="grid gap-10">
               {logoCategories.map((cat) => {
                 const title = locale === "en" ? cat.labelEn : cat.labelId;
-                const subtitle = locale === "en" ? categorySubtitles[cat.key].en : categorySubtitles[cat.key].id;
+                const subtitle = t(`issuer.categorySubtitles.${cat.key}`);
                 const items = getLogosByCategory(cat.key);
                 const topItems = items.filter((_, i) => i % 2 === 0);
                 const bottomItems = items.filter((_, i) => i % 2 === 1);
 
                 return (
                   <div key={cat.key}>
-                    <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-                      <div>
-                        <h3 className="text-xl font-semibold tracking-tight text-black">
-                          {title}
-                        </h3>
-                        <div className="mt-2 h-px w-12 bg-black/10" />
-                        <p className="mt-3 max-w-3xl text-sm leading-6 text-black/60">
-                          {subtitle}
-                        </p>
-                      </div>
+                    <div className="mb-6">
+                      <h3 className="text-xl font-bold tracking-tight text-black sm:text-2xl">
+                        {title}
+                      </h3>
+                      <p className="mt-2 text-sm text-black/60">{subtitle}</p>
                     </div>
 
-                    <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5">
-                      <div className="col-span-full">
-                        <div className="space-y-3">
-                          <MarqueeRow
-                            items={topItems.length ? topItems : items}
-                            direction="right"
-                          />
-                          <MarqueeRow
-                            items={bottomItems.length ? bottomItems : items}
-                            direction="left"
-                          />
-                        </div>
-                        <p className="mt-3 text-xs text-black/45">
-                          {locale === "en"
-                            ? "Tip: drag left or right while logos are moving."
-                            : "Tip: geser ke kiri atau kanan meskipun logo sedang berjalan."}
-                        </p>
-                      </div>
+                    <div className="grid gap-4">
+                      <MarqueeRow items={topItems} direction="left" />
+                      <MarqueeRow items={bottomItems} direction="right" />
                     </div>
                   </div>
                 );

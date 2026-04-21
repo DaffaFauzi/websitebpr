@@ -52,15 +52,15 @@ export default function Contact() {
               <div className="text-white/70">(PT Buana Perkasa Rajanegara)</div>
             </div>
             <div>
-              <div className="font-semibold text-white">Alamat</div>
+              <div className="font-semibold text-white">{t("contactSection.addressLabel")}</div>
               <div className="text-white/70">{officeAddress}</div>
             </div>
             <div>
-              <div className="font-semibold text-white">Telepon</div>
+              <div className="font-semibold text-white">{t("contactSection.phoneLabel")}</div>
               <div className="text-white/70">+62 812 1500 3232</div>
             </div>
             <div>
-              <div className="font-semibold text-white">Email</div>
+              <div className="font-semibold text-white">{t("contactSection.emailLabel")}</div>
               <div className="text-white/70">bprbonding@gmail.com</div>
             </div>
           </motion.div>

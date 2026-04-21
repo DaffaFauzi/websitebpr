@@ -5,102 +5,122 @@ import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { Button } from "@/app/components/ui/button";
-import { Card, CardContent } from "@/app/components/ui/card";
 import { Container, Section } from "@/app/components/ui/section";
 import BrandLogo from "@/app/components/BrandLogo";
+import { useI18n } from "@/app/i18n/I18nProvider";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
 
 export default function About() {
+  const { t } = useI18n();
+
   return (
     <Section>
       <Container>
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-12">
+          {/* Left Column: Text & CTA */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="order-1"
+            variants={containerVariants}
+            className="flex flex-col gap-6"
           >
-            <div className="text-sm font-medium text-black/50">(01) About Us</div>
-            <h2 className="mt-5 text-balance text-4xl font-semibold leading-[1.1] tracking-tight text-black sm:text-5xl">
-              Profesional, Terpercaya, dan SIGAP dalam Memenuhi Kebutuhan Penjaminan.
-            </h2>
-            <p className="mt-6 text-pretty text-base leading-7 text-black/60">
-              PT Buana Perkasa Rajanegara (BPR Bonding) adalah perusahaan yang bergerak di bidang penjaminan dan asuransi umum, dengan fokus pada penyediaan solusi yang terpercaya dan terintegrasi. Kami menghadirkan berbagai layanan seperti Bank Garansi, Surety Bond, Custom Bond, serta produk asuransi umum lainnya untuk mendukung kebutuhan bisnis klien secara menyeluruh.
-            </p>
+            <motion.div variants={itemVariants}>
+              <div className="text-sm font-medium text-black/50 tracking-wide">
+                {t("homeAbout.label")}
+              </div>
+            </motion.div>
+            
+            <motion.h1 variants={itemVariants} className="text-balance text-4xl sm:text-5xl lg:text-5xl font-bold leading-[1.1] tracking-tight text-black">
+              {t("homeAbout.title")}
+            </motion.h1>
 
-            <div className="mt-6 lg:mt-8">
-              <Button asChild size="lg">
+            <motion.p variants={itemVariants} className="text-base leading-relaxed text-black/70">
+              {t("aboutPage.contentA")}
+            </motion.p>
+
+            <motion.div variants={itemVariants} className="mt-2">
+              <Button asChild size="lg" className="bg-[var(--brand-brown)] hover:bg-[var(--brand-brown)]/90 rounded-full px-8">
                 <Link href="/about">
-                  Learn More <ArrowUpRight />
+                  {t("homeAbout.learnMore")} <ArrowUpRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-            </div>
+            </motion.div>
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+          {/* Right Column: Logo/Image Placeholder */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="order-2"
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+            className="h-full min-h-[300px] sm:min-h-[400px] rounded-[32px] border border-[var(--brand-border)] bg-gradient-to-br from-[#f2eee8] to-[#e4ded5] flex items-center justify-center p-8 shadow-[var(--shadow-soft)] relative overflow-hidden"
           >
-            <div className="relative overflow-hidden rounded-[var(--radius-xl)] border border-[var(--brand-border)] bg-[var(--brand-soft)] shadow-[var(--shadow-soft)]">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(139,29,29,0.16),transparent_55%),radial-gradient(circle_at_75%_60%,rgba(11,11,11,0.08),transparent_60%)]" />
-              <div className="relative flex aspect-[4/3] items-center justify-center px-10 py-8 sm:px-12 sm:py-10">
-                <BrandLogo
-                  kind="full"
-                  height={56}
-                  width={200}
-                  className="drop-shadow-[0_18px_70px_rgba(0,0,0,0.18)]"
-                  priority
-                />
-              </div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.6)_0%,rgba(255,255,255,0)_100%)]" />
+            <div className="relative z-10 scale-[1.5] sm:scale-[2]">
+              <BrandLogo />
             </div>
           </motion.div>
         </div>
 
-        <div className="mt-6 grid gap-6 lg:mt-8 lg:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <Card className="h-full border-[var(--brand-border)] bg-[var(--brand-surface)] shadow-none">
-              <CardContent className="p-8">
-                <div className="text-sm font-medium text-black/50">Visi</div>
-                <p className="mt-3 text-base leading-7 text-black">
-                  Menjadi perusahaan agen yang terbaik dan terpercaya serta berkontribusi dalam meningkatkan bisnis mitra.
-                </p>
-              </CardContent>
-            </Card>
+        {/* Bottom Section: Visi & Misi */}
+        <motion.div
+          className="grid gap-8 lg:grid-cols-2"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+        >
+          {/* Vision Column */}
+          <motion.div variants={itemVariants}>
+            <div className="h-full rounded-[32px] border border-[var(--brand-border)] bg-white p-8 sm:p-10 shadow-sm transition-shadow hover:shadow-md">
+              <h3 className="text-xl font-bold text-black mb-6">Visi</h3>
+              <p className="text-base text-black/70 leading-relaxed font-normal">
+                {t("homeAbout.visionDesc")}
+              </p>
+            </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <Card className="h-full border-[var(--brand-border)] bg-[var(--brand-surface)] shadow-none">
-              <CardContent className="p-8">
-                <div className="text-sm font-medium text-black/50">Misi</div>
-                <ul className="mt-3 list-inside list-disc space-y-3 text-sm leading-6 text-black/65">
-                  <li>
-                    Komitmen untuk memberikan layanan terbaik bagi para mitra.
-                  </li>
-                  <li>
-                    Secara Konsisten meningkatkan kemampuan sumber daya manusia dan infrastruktur untuk memberikan layanan terbaik kepada seluruh mitra.
-                  </li>
-                  <li>
-                    Fokus untuk menjaga kepercayaan dan memberikan nilai tambah bagi para pemangku kepentingan perusahaan.
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
+          {/* Mission Column */}
+          <motion.div variants={itemVariants}>
+            <div className="h-full rounded-[32px] border border-[var(--brand-border)] bg-white p-8 sm:p-10 shadow-sm transition-shadow hover:shadow-md">
+              <h3 className="text-xl font-bold text-black mb-6">Misi</h3>
+              <ul className="space-y-4">
+                <li className="flex gap-4 items-start">
+                  <span className="text-black/40 font-bold text-base mt-0.5">•</span>
+                  <span className="text-base text-black/70 leading-relaxed font-normal">{t("homeAbout.missionA")}</span>
+                </li>
+                <li className="flex gap-4 items-start">
+                  <span className="text-black/40 font-bold text-base mt-0.5">•</span>
+                  <span className="text-base text-black/70 leading-relaxed font-normal">{t("homeAbout.missionB")}</span>
+                </li>
+                <li className="flex gap-4 items-start">
+                  <span className="text-black/40 font-bold text-base mt-0.5">•</span>
+                  <span className="text-base text-black/70 leading-relaxed font-normal">{t("homeAbout.missionC")}</span>
+                </li>
+              </ul>
+            </div>
           </motion.div>
-        </div>
+        </motion.div>
       </Container>
     </Section>
   );

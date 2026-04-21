@@ -89,10 +89,10 @@ export default function Hero() {
             </motion.div>
 
             <motion.div variants={textVariants} className="mt-5 lg:mt-6 flex flex-wrap gap-2">
-              <Badge>Bank Garansi</Badge>
-              <Badge>Surety Bond</Badge>
-              <Badge>Custom Bond</Badge>
-              <Badge>Asuransi Umum</Badge>
+              <Badge>{t("footer.linkBankGaransi")}</Badge>
+              <Badge>{t("footer.linkSurety")}</Badge>
+              <Badge>{t("footer.linkCustomBond")}</Badge>
+              <Badge>{t("footer.linkGeneralInsurance")}</Badge>
             </motion.div>
           </motion.div>
 

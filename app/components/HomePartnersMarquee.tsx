@@ -93,7 +93,7 @@ export default function HomePartnersMarquee() {
           </div>
           <Button asChild size="lg" variant="outline">
             <Link href="/issuer">
-              {isEn ? "View all" : "Lihat Semua"} <ArrowUpRight />
+              {t("homePartners.viewAll")} <ArrowUpRight />
             </Link>
           </Button>
         </div>

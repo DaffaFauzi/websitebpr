@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { cn } from "@/lib/utils";
 import BrandLogo from "@/app/components/BrandLogo";
@@ -22,13 +22,35 @@ const navItems = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { t } = useI18n();
+  const { t, locale, setLocale } = useI18n();
   const [open, setOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="my-2 flex items-center justify-between gap-3 rounded-[var(--radius-lg)] border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_20%)] px-3 py-2.5 backdrop-blur supports-[backdrop-filter]:bg-[color-mix(in_oklab,var(--brand-surface),transparent_35%)]">
+    <header className="fixed top-0 z-50 w-full">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 w-full">
+        <motion.div 
+          className={cn(
+            "flex items-center justify-between gap-3 rounded-[var(--radius-lg)] border px-3 py-2.5 transition-all duration-300",
+            isScrolled 
+              ? "my-2 border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_5%)] shadow-[0_4px_20px_rgba(0,0,0,0.08)] backdrop-blur-md supports-[backdrop-filter]:bg-[color-mix(in_oklab,var(--brand-surface),transparent_15%)]"
+              : "my-2 border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_20%)] backdrop-blur supports-[backdrop-filter]:bg-[color-mix(in_oklab,var(--brand-surface),transparent_35%)]"
+          )}
+          initial={false}
+          animate={{
+            y: isScrolled ? 0 : 0,
+          }}
+          transition={{ duration: 0.3 }}
+        >
           <Link href="/" className="flex items-center gap-3 pl-2">
             <BrandLogo
               kind="full"
@@ -60,11 +82,36 @@ export default function Navbar() {
             })}
           </nav>
 
-          <div className="flex items-center gap-2">
-            <div className="hidden items-center gap-2 md:flex">
-              <Button asChild size="sm" variant="outline">
-                <Link href="/contact">{t("nav.contact")}</Link>
-              </Button>
+          <div className="flex items-center gap-3">
+            {/* Pill Language Switcher */}
+            <div className="hidden items-center relative bg-black/5 rounded-full p-1 md:flex">
+              {/* Sliding Background */}
+              <motion.div
+                className="absolute h-7 w-[44px] bg-[var(--brand-brown)] rounded-full shadow-sm"
+                initial={false}
+                animate={{
+                  x: locale === "id" ? 0 : 44,
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
+              <button
+                onClick={() => setLocale("id")}
+                className={cn(
+                  "relative z-10 w-[44px] h-7 flex items-center justify-center text-xs font-bold transition-colors duration-300",
+                  locale === "id" ? "text-white" : "text-black/50 hover:text-black"
+                )}
+              >
+                ID
+              </button>
+              <button
+                onClick={() => setLocale("en")}
+                className={cn(
+                  "relative z-10 w-[44px] h-7 flex items-center justify-center text-xs font-bold transition-colors duration-300",
+                  locale === "en" ? "text-white" : "text-black/50 hover:text-black"
+                )}
+              >
+                EN
+              </button>
             </div>
 
             <button
@@ -76,7 +123,7 @@ export default function Navbar() {
               <Menu className="h-5 w-5" />
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       <AnimatePresence>
@@ -136,12 +183,41 @@ export default function Navbar() {
                   })}
                 </div>
 
-                <div className="mt-4 grid gap-2">
-                  <Button asChild size="lg" className="w-full">
-                    <Link href="/contact" onClick={() => setOpen(false)}>
-                      {t("nav.contact")}
-                    </Link>
-                  </Button>
+                {/* Mobile Language Switcher */}
+                <div className="mt-4 flex items-center justify-between rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-black/5 p-2">
+                  <div className="flex items-center gap-2 pl-2 text-sm font-semibold text-black/60">
+                    <Globe className="h-4 w-4" />
+                    <span>{t("nav.language")}</span>
+                  </div>
+                  <div className="relative flex items-center bg-white/50 rounded-full p-1">
+                    {/* Sliding Background */}
+                    <motion.div
+                      className="absolute h-7 w-[52px] bg-[var(--brand-brown)] rounded-full shadow-sm"
+                      initial={false}
+                      animate={{
+                        x: locale === "id" ? 0 : 52,
+                      }}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                    <button
+                      onClick={() => setLocale("id")}
+                      className={cn(
+                        "relative z-10 w-[52px] h-7 flex items-center justify-center text-xs font-bold transition-colors duration-300",
+                        locale === "id" ? "text-white" : "text-black/50"
+                      )}
+                    >
+                      ID
+                    </button>
+                    <button
+                      onClick={() => setLocale("en")}
+                      className={cn(
+                        "relative z-10 w-[52px] h-7 flex items-center justify-center text-xs font-bold transition-colors duration-300",
+                        locale === "en" ? "text-white" : "text-black/50"
+                      )}
+                    >
+                      EN
+                    </button>
+                  </div>
                 </div>
               </div>
             </motion.div>

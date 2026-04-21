@@ -108,22 +108,12 @@ export const logos: LogoMeta[] = [
     customSources: ["/logos/bsi.png"],
     logoScale: 0.9,
   }),
-  make("Indonesia Eximbank", "bank-pemerintah", ["default", "horizontal"], {
-    assetStatus: "available",
-    customSources: ["/logos/eximbank.png"],
-    logoScale: 0.95,
-  }),
   make("BRI", "bank-pemerintah", ["default", "horizontal"], {
     assetStatus: "available",
     customSources: ["/logos/bri.png"],
     logoScale: 0.95,
   }),
 
-  make("Panin Dubai Syariah Bank", "bank-swasta", ["horizontal", "vertical", "default"], {
-    assetStatus: "available",
-    customSources: ["/logos/panin%20dubai.png"],
-    logoScale: 0.9,
-  }),
   make("OCBC Bank", "bank-swasta", ["horizontal", "default"], {
     assetStatus: "available",
     customSources: ["/logos/ocbc.png"],
@@ -132,26 +122,6 @@ export const logos: LogoMeta[] = [
   make("BCA", "bank-swasta", ["horizontal", "default"], {
     assetStatus: "available",
     customSources: ["/logos/bca.png"],
-    logoScale: 0.95,
-  }),
-  make("Danamon", "bank-swasta", ["horizontal", "default"], {
-    assetStatus: "available",
-    customSources: ["/logos/danamon.png"],
-    logoScale: 0.95,
-  }),
-  make("Bank Mega", "bank-swasta", ["horizontal", "default"], {
-    assetStatus: "available",
-    customSources: ["/logos/bank%20mega.png"],
-    logoScale: 0.95,
-  }),
-  make("KB Bukopin Syariah", "bank-swasta", ["horizontal", "default"], {
-    assetStatus: "available",
-    customSources: ["/logos/bokupon.png"],
-    logoScale: 0.95,
-  }),
-  make("Maybank", "bank-swasta", ["horizontal", "default"], {
-    assetStatus: "available",
-    customSources: ["/logos/maybank.png"],
     logoScale: 0.95,
   }),
 
@@ -314,11 +284,6 @@ export const logos: LogoMeta[] = [
     customSources: ["/logos/binagria.png"],
     logoScale: 0.95,
   }),
-  make("Asuransi Jasindo", "asuransi-bumn", ["default"], {
-    assetStatus: "available",
-    customSources: ["/logos/jasindosyariah.png"],
-    logoScale: 0.9,
-  }),
   make("Jasa Raharja Insurance", "asuransi-bumn", ["default"], {
     assetStatus: "available",
     customSources: ["/logos/jasaraharja.png"],
@@ -385,19 +350,9 @@ export const logos: LogoMeta[] = [
     customSources: ["/logos/bosowa.png"],
     logoScale: 0.95,
   }),
-  make("Videi General Insurance", "asuransi-swasta", ["default"], {
-    assetStatus: "available",
-    customSources: ["/logos/videi.png"],
-    logoScale: 0.95,
-  }),
   make("AGTagraha General Insurance", "asuransi-swasta", ["default"], {
     assetStatus: "available",
     customSources: ["/logos/arthagraha.png"],
-    logoScale: 0.95,
-  }),
-  make("PT Asuransi Bhakti Bayangkara", "asuransi-swasta", ["default"], {
-    assetStatus: "available",
-    customSources: ["/logos/bhakti.png"],
     logoScale: 0.95,
   }),
   make("ACA Asuransi", "asuransi-swasta", ["default"], {

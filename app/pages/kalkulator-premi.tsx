@@ -3,7 +3,6 @@
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Info } from "lucide-react";
 
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
@@ -66,8 +65,7 @@ function FloatingField({ label, children }: { label: string; children: ReactNode
 }
 
 export default function PremiumCalculatorPage() {
-  const { locale, t } = useI18n();
-  const isEn = locale === "en";
+  const { t } = useI18n();
 
   const [step, setStep] = useState<(typeof STEPS)[number]>(1);
   const [guaranteeValueDigits, setGuaranteeValueDigits] = useState("");
@@ -112,7 +110,7 @@ export default function PremiumCalculatorPage() {
 
   const suretyLabel = t(`calculatorPage.suretyTypes.${suretyType}`);
   const guaranteeTypeLabel = guaranteeType === "surety-bond" ? "Surety Bond" : "Bank Garansi";
-  const durationLabel = duration ? `${duration} ${isEn ? "Months" : "Bulan"}` : "-";
+  const durationLabel = duration ? `${duration} ${t("calculatorPage.months")}` : "-";
 
   const canGoNext =
     (step === 1 && isStep1Valid) ||
@@ -120,26 +118,14 @@ export default function PremiumCalculatorPage() {
     (step === 3 && isStep3Valid) ||
     (step === 4 && isStep4Valid);
 
-  const stepHint =
-    step === 1
-      ? isEn
-        ? "Enter guarantee value first."
-        : "Masukkan nilai jaminan terlebih dahulu."
-      : step === 2
-        ? isEn
-          ? "Select product type."
-          : "Pilih jenis produk."
-        : step === 3
-          ? isEn
-            ? "Select guarantee type."
-            : "Pilih jenis jaminan."
-          : isEn
-            ? "Select duration."
-            : "Pilih jangka waktu.";
+  const stepHint = t(`calculatorPage.stepHint${step}`);
 
-  const whatsappMessage = isEn
-    ? `Hello BPR Bonding, I want to apply. Guarantee value: ${formatRupiahInput(guaranteeValueDigits) || "-"}, product: ${guaranteeTypeLabel}, guarantee type: ${suretyLabel}, duration: ${durationLabel}.`
-    : `Halo BPR Bonding, saya ingin ajukan sekarang. Nilai jaminan: ${formatRupiahInput(guaranteeValueDigits) || "-"}, jenis produk: ${guaranteeTypeLabel}, jenis jaminan: ${suretyLabel}, jangka waktu: ${durationLabel}.`;
+  const whatsappMessage = t("calculatorPage.waMessage")
+    .replace("{val}", formatRupiahInput(guaranteeValueDigits) || "-")
+    .replace("{prod}", guaranteeTypeLabel)
+    .replace("{type}", suretyLabel)
+    .replace("{dur}", durationLabel);
+
   const whatsappUrl = `https://wa.me/6281215003232?text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
@@ -158,12 +144,10 @@ export default function PremiumCalculatorPage() {
               <CardContent className="space-y-7">
                 <div className="space-y-3">
                   <h2 className="text-xl font-semibold tracking-tight text-black sm:text-2xl">
-                    {isEn ? "Premium Estimation Wizard" : "Perhitungan Estimasi Premi"}
+                    {t("calculatorPage.wizardTitle")}
                   </h2>
                   <p className="text-sm leading-6 text-black/60">
-                    {isEn
-                      ? "Complete each step in order. Next step unlocks after the current step is valid."
-                      : "Isi setiap langkah secara berurutan. Langkah berikutnya akan terbuka setelah langkah saat ini valid."}
+                    {t("calculatorPage.wizardDesc")}
                   </p>
                   <div className="grid grid-cols-4 gap-2">
                     {STEPS.map((item) => {
@@ -184,7 +168,7 @@ export default function PremiumCalculatorPage() {
                                 : "border-[var(--brand-border)] bg-[var(--brand-surface)] text-black/40"
                           }`}
                         >
-                          {isEn ? `Step ${item}` : `Langkah ${item}`}
+                          {t("calculatorPage.stepLabel")} {item}
                         </div>
                       );
                     })}
@@ -229,7 +213,7 @@ export default function PremiumCalculatorPage() {
                           }}
                           className="h-10 w-full border-none bg-transparent px-1 text-sm font-medium text-black outline-none"
                         >
-                          <option value="bank-garansi">{isEn ? "Bank Guarantee" : "Bank Garansi"}</option>
+                          <option value="bank-garansi">Bank Garansi</option>
                           <option value="surety-bond">Surety Bond</option>
                         </select>
                       </FloatingField>
@@ -248,8 +232,8 @@ export default function PremiumCalculatorPage() {
                           className="h-10 w-full border-none bg-transparent px-1 text-sm font-medium text-black outline-none"
                         >
                           <option value="penawaran">{t("calculatorPage.suretyTypes.penawaran")}</option>
-                          <option value="pelaksanaan">{t("calculatorPage.suretyTypes.pelaksanaan")}</option>
                           <option value="uang-muka">{t("calculatorPage.suretyTypes.uang-muka")}</option>
+                          <option value="pelaksanaan">{t("calculatorPage.suretyTypes.pelaksanaan")}</option>
                           <option value="pemeliharaan">{t("calculatorPage.suretyTypes.pemeliharaan")}</option>
                         </select>
                       </FloatingField>
@@ -261,80 +245,75 @@ export default function PremiumCalculatorPage() {
                           id="duration"
                           value={duration}
                           onChange={(e) => {
-                            setDuration(e.target.value as DurationSelection);
-                            setAnimatedMinPremium(0);
-                            setAnimatedMaxPremium(0);
+                            setDuration(e.target.value as Duration);
                           }}
                           className="h-10 w-full border-none bg-transparent px-1 text-sm font-medium text-black outline-none"
                         >
                           <option value="" disabled>
-                            {isEn ? "Select duration" : "Pilih jangka waktu"}
+                            {t("calculatorPage.fields.duration")}
                           </option>
-                          <option value="3">{isEn ? "3 Months" : "3 Bulan"}</option>
-                          <option value="6">{isEn ? "6 Months" : "6 Bulan"}</option>
-                          <option value="9">{isEn ? "9 Months" : "9 Bulan"}</option>
-                          <option value="12">{isEn ? "12 Months" : "12 Bulan"}</option>
+                          <option value="3">3 {t("calculatorPage.months")}</option>
+                          <option value="6">6 {t("calculatorPage.months")}</option>
+                          <option value="9">9 {t("calculatorPage.months")}</option>
+                          <option value="12">12 {t("calculatorPage.months")}</option>
                         </select>
                       </FloatingField>
                     ) : null}
                   </motion.div>
                 </AnimatePresence>
 
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center justify-between pt-4">
                   <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setStep((s) => (s > 1 ? ((s - 1) as (typeof STEPS)[number]) : s))}
+                    variant="ghost"
+                    onClick={() => setStep((s) => Math.max(1, s - 1) as any)}
                     disabled={step === 1}
                   >
-                    {isEn ? "Back" : "Kembali"}
+                    {t("common.prev")}
                   </Button>
-                  <Button
-                    type="button"
-                    onClick={() => setStep((s) => (s < 4 ? ((s + 1) as (typeof STEPS)[number]) : s))}
-                    disabled={step === 4 || !canGoNext}
+
+                  <div className="flex flex-col items-end gap-2">
+                    <Button
+                      onClick={() => setStep((s) => Math.min(4, s + 1) as any)}
+                      disabled={!canGoNext || step === 4}
+                    >
+                      {t("common.next")}
+                    </Button>
+                    {!canGoNext && <span className="text-[10px] text-red-500/70">{stepHint}</span>}
+                  </div>
+                </div>
+
+                {isComplete && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-10 rounded-[28px] border border-[var(--brand-border)] bg-white p-8 shadow-[var(--shadow-float)]"
                   >
-                    {isEn ? "Next" : "Lanjut"}
-                  </Button>
-                  {!canGoNext ? <span className="text-xs text-red-500">{stepHint}</span> : null}
-                </div>
-
-                <div className="rounded-[var(--radius-lg)] border border-[var(--brand-border)] bg-[var(--brand-surface)] px-5 py-5 shadow-[var(--shadow-soft)]">
-                  <div className="text-sm font-semibold text-black/60">{t("calculatorPage.resultLabel")}</div>
-                  <div className="mt-2 text-3xl font-bold tracking-tight text-[var(--brand-brown)] sm:text-4xl">
-                    {estimationRange
-                      ? `${toCurrency(animatedMinPremium)} - ${toCurrency(animatedMaxPremium)}`
-                      : isEn
-                        ? "Select duration (Step 4) to see estimation."
-                        : "Selesaikan Semua Langkah Untuk Mengetahui Estimasi Premi."}
-                  </div>
-                  <div className="mt-3 grid gap-2 text-xs text-black/60 sm:grid-cols-2">
-                    <div>{isEn ? "Guarantee Value" : "Nilai Jaminan"}: {formatRupiahInput(guaranteeValueDigits) || "-"}</div>
-                    <div>{isEn ? "Product Type" : "Jenis Produk"}: {guaranteeTypeLabel}</div>
-                    <div>{isEn ? "Guarantee Type" : "Jenis Jaminan"}: {suretyLabel}</div>
-                    <div>{isEn ? "Duration" : "Jangka Waktu"}: {durationLabel}</div>
-                    {estimationRange ? (
-                      <>
-                      </>
-                    ) : null}
-                  </div>
-                  <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[var(--brand-border)] bg-[var(--brand-soft)] px-3 py-1 text-xs font-medium text-black/70">
-                    <Info className="h-3.5 w-3.5" />
-                    {isEn
-                      ? "Rate may vary based on bank policy."
-                      : "Rate dapat bervariasi sesuai kebijakan asuransi dan bank."}
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-                  <Button asChild size="lg">
-                    <a href={whatsappUrl} target="_blank" rel="noreferrer">
-                      {isEn ? "Apply Now" : "Ajukan Sekarang"}
-                    </a>
-                  </Button>
-                </div>
-
-                <p className="text-xs leading-5 text-black/50">{t("calculatorPage.disclaimer")}</p>
+                    <div className="text-center">
+                      <div className="text-sm font-medium text-black/50">
+                        {t("calculatorPage.resultLabel")}
+                      </div>
+                      <div className="mt-3 flex items-baseline justify-center gap-2">
+                        <span className="text-3xl font-bold tracking-tight text-black sm:text-4xl">
+                          {toCurrency(animatedMinPremium)}
+                        </span>
+                        <span className="text-lg font-medium text-black/30">—</span>
+                        <span className="text-3xl font-bold tracking-tight text-black sm:text-4xl">
+                          {toCurrency(animatedMaxPremium)}
+                        </span>
+                      </div>
+                      <p className="mt-5 text-xs leading-5 text-black/40">
+                        {t("calculatorPage.disclaimer")}
+                      </p>
+                      <div className="mt-8">
+                        <Button asChild size="lg" className="w-full sm:w-auto">
+                          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                            {t("calculatorPage.cta")}
+                          </a>
+                        </Button>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
               </CardContent>
             </Card>
           </Container>

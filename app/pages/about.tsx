@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Award, Building2, CheckCircle2, Lightbulb, ShieldCheck, Star, Users } from "lucide-react";
+import { Building2, CheckCircle2, Handshake, Search, ShieldCheck, Zap } from "lucide-react";
+import { motion } from "framer-motion";
 
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
@@ -11,78 +12,37 @@ import { Container, Section } from "@/app/components/ui/section";
 import Gallery from "@/app/components/Gallery";
 import { useI18n } from "@/app/i18n/I18nProvider";
 
-const values = [
-  {
-    title: "Integritas dan Kepercayaan",
-    desc: "Kami membangun setiap hubungan bisnis di atas dasar kepercayaan. Dengan integritas yang tidak tergoyahkan dan komitmen terhadap transparansi, kami memastikan setiap layanan memberikan rasa aman.",
-    Icon: ShieldCheck,
-  },
-  {
-    title: "Keunggulan Operasional",
-    desc: "Kami tidak hanya memberikan layanan, tetapi memastikan setiap proses berjalan dengan presisi, kecepatan, dan ketepatan.",
-    Icon: Lightbulb,
-  },
-  {
-    title: "Kemitraan Strategis",
-    desc: "Kami menjalankan bisnis dengan menjunjung tinggi prinsip kehati-hatian, kepatuhan terhadap regulasi, serta tata kelola perusahaan yang baik.",
-    Icon: Star,
-  },
-];
-
 export default function AboutPage() {
-  const { locale, t } = useI18n();
+  const { t } = useI18n();
   const [branchQuery, setBranchQuery] = useState("");
-  const [showAboutMore, setShowAboutMore] = useState(false);
   const [showAllBranches, setShowAllBranches] = useState(false);
-  const org = locale === "en"
-    ? {
-        director: {
-          title: "Director",
-          name: "Chrisnia Nutbaiti",
-        },
-        ops: {
-          title: "Operations Manager",
-          name: "Herlambang Sangsoko",
-        },
-        engManager: {
-          title: "Engineering Manager",
-          name: "Mesaliani Negara",
-        },
-        financeHead: {
-          title: "Finance Supervisor",
-          name: "Cucuk Suratningsih",
-        },
-        engHead: {
-          title: "Technical Supervisor",
-          name: "Lilik Amaliya Putri",
-        },
-      }
-    : {
-        director: {
-          title: "Direktur",
-          name: "Chrisnia Nutbaiti",
-        },
-        ops: {
-          title: "Manager Operasional",
-          name: "Herlambang Sangsoko",
-        },
-        engManager: {
-          title: "Manager Teknik",
-          name: "Mesaliani Negara",
-        },
-        financeHead: {
-          title: "SPV Keuangan",
-          name: "Cucuk Suratningsih",
-        },
-        engHead: {
-          title: "SPV Teknik",
-          name: "Lilik Amaliya Putri",
-        },
-      };
+
+  const org = {
+    director: {
+      title: t("aboutPage.orgRoles.director"),
+      name: "Chrisnia Nutbaiti",
+    },
+    ops: {
+      title: t("aboutPage.orgRoles.opsManager"),
+      name: "Herlambang Sangsoko",
+    },
+    engManager: {
+      title: t("aboutPage.orgRoles.engManager"),
+      name: "Mesaliani Negara",
+    },
+    financeHead: {
+      title: t("aboutPage.orgRoles.finSpv"),
+      name: "Cucuk Suratningsih",
+    },
+    engHead: {
+      title: t("aboutPage.orgRoles.techSpv"),
+      name: "Lilik Amaliya Putri",
+    },
+  };
 
   const branches = useMemo(
     () => [
-      {name: "Cabang Aceh", addr: "Jl. Cut Nyan Dhien No. 464 Lamteuen Barat, Kec. Jaya Baru – Kota Banda Aceh", phone: "+62 81167131313",},
+      { name: "Cabang Aceh", addr: "Jl. Cut Nyan Dhien No. 464 Lamteuen Barat, Kec. Jaya Baru – Kota Banda Aceh", phone: "+62 81167131313" },
       { name: "Cabang Jambi", addr: "Alifia Residence Blok E, 05 Kel. Kenali Asam atas Kec. Kota Baru, Kota Jambi", phone: "+62 81320028085" },
       { name: "Cabang Lampung", addr: "Jl. Pulau singkep No. 126 Ruko E, kel. Sukarame Baru, Kec. Sukarame, Kota Bandar Lampung", phone: "+62 85279627653" },
       { name: "Cabang Banjarmasin", addr: "Komplek Palace Blok A No. 4 Tanta Hulu kec. Tanta Kab. Tabalong Kalimantan Selatan", phone: "+62 8115133397" },
@@ -104,8 +64,6 @@ export default function AboutPage() {
     ],
     []
   );
-  const branchCount = '10+';
-  // const branchCount = branches.length;
 
   const filteredBranches = useMemo(() => {
     const q = branchQuery.trim().toLowerCase();
@@ -119,316 +77,326 @@ export default function AboutPage() {
   }, [branchQuery, filteredBranches, showAllBranches]);
 
   return (
-    <div className="min-h-screen bg-transparent">
+    <div className="min-h-screen bg-[#faf9f8]">
       <Navbar />
-      <main>
+      <main className="pb-20">
         <PageHero
-          breadcrumbLabel={t("common.about")}
-          title={locale === "en" ? "About Us" : "Tentang Kami"}
-          description={
-            locale === "en"
-              ? "Providing trusted, professional guarantee solutions focused on your business needs."
-              : "Menyediakan solusi penjaminan profesional yang terpercaya dan berorientasi pada kebutuhan bisnis Anda"
-          }
+          breadcrumbLabel={t("aboutPage.headerBreadcrumb")}
+          title={t("aboutPage.headerTitle")}
+          description={t("aboutPage.heroDesc")}
         />
 
-        <Section>
+        {/* Intro Section */}
+        <Section className="pt-0">
           <Container>
-            <div className="grid gap-6 lg:gap-8 lg:grid-cols-2 lg:items-center">
-              <div>
-                <h2 className="text-balance text-3xl font-semibold tracking-tight text-black sm:text-4xl">
-                  {locale === "en"
-                    ? "Professional and Trusted Guarantee Partner"
-                    : "Mitra Penjaminan Profesional dan Terpercaya"}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Left Column */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="flex flex-col gap-6"
+              >
+                <h2 className="text-3xl sm:text-4xl lg:text-4xl font-bold text-black leading-tight">
+                  Mitra Penjaminan<br />Profesional dan Terpercaya
                 </h2>
-                <div className="mt-5 space-y-5 text-sm leading-7 text-black/65">
-                  <p>
-                    PT. Buana Perkasa Rajanegara (BPR Bonding) adalah perusahaan yang bergerak di bidang penjaminan dan asuransi umum, dengan fokus pada penyediaan solusi yang terpercaya dan terintegrasi. Kami menghadirkan berbagai layanan seperti Bank Garansi, Surety Bond, Custom Bond, serta produk asuransi umum lainnya untuk mendukung kebutuhan bisnis klien secara menyeluruh.
-                  </p>
-                  {showAboutMore ? (
-                    <>
-                      <p>
-                        Didirikan pada 20 Oktober 2023, BPR Bonding didukung oleh tim profesional yang berpengalaman dan tersertifikasi, sehingga mampu memberikan layanan yang cepat, tepat, dan sesuai dengan standar industri. Kami memahami bahwa setiap kebutuhan klien memiliki karakteristik yang berbeda, oleh karena itu kami berkomitmen untuk memberikan solusi yang fleksibel dan tepat sasaran.
-                      </p>
-                    </>
-                  ) : null}
-                  <button
-                    type="button"
-                    onClick={() => setShowAboutMore((v) => !v)}
-                    className="inline-flex h-10 items-center rounded-[var(--radius-pill)] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-4 text-sm font-semibold text-black/70 transition-colors hover:text-black"
-                  >
-                    {showAboutMore ? "Tutup" : "Lihat selengkapnya"}
+                <p className="text-base text-black/70 leading-relaxed max-w-xl">
+                  {t("aboutPage.contentA")}
+                </p>
+
+                <div className="mt-2">
+                  <button className="rounded-full border border-black/20 bg-transparent px-6 py-2.5 text-sm font-semibold text-black hover:bg-black/5 transition-colors">
+                    {t("aboutPage.showMore")}
                   </button>
                 </div>
 
-                <ul className="mt-6 grid gap-3 text-sm text-black/70 sm:grid-cols-2">
-                  {[
-                    "Validasi risiko lebih akurat",
-                    "Jaringan luas di seluruh Indonesia",
-                    "Dukungan tim profesional",
-                    "Proses yang efisien",
-                  ].map((x) => (
-                    <li key={x} className="flex items-start gap-3">
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-[var(--brand-brown)]" />
-                      <span className="leading-6">{x}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-6 grid gap-4 sm:grid-cols-3">
-                  {[
-                    { Icon: Users, value: "10000+", label: locale === "en" ? "Clients" : "Klien" },
-                    {
-                      Icon: Building2,
-                      value: `${branchCount}`,
-                      label: locale === "en" ? "Branches" : "Cabang di seluruh Indonesia",
-                    },
-                    { Icon: Award, value: "99%", label: locale === "en" ? "Success Rate" : "Tingkat Keberhasilan" },
-                  ].map(({ Icon, value, label }) => {
-                    const isBranches = Icon === Building2;
-                    const content = (
-                      <>
-                        <span className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-[var(--brand-soft)] text-[var(--brand-brown)]">
-                          <Icon className="h-5 w-5" />
-                        </span>
-                        <div>
-                          <div className="text-base font-semibold tracking-tight text-black">{value}</div>
-                          <div className="text-xs font-medium text-black/60">{label}</div>
-                        </div>
-                      </>
-                    );
-
-                    if (!isBranches) {
-                      return (
-                        <div
-                          key={label}
-                          className="flex items-center gap-3 rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-[var(--brand-surface)] px-4 py-4 shadow-[var(--shadow-soft)]"
-                        >
-                          {content}
-                        </div>
-                      );
-                    }
-
-                    return (
-                      <button
-                        key={label}
-                        type="button"
-                        onClick={() => {
-                          document.getElementById("about-branches")?.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start",
-                          });
-                        }}
-                        className="flex items-center gap-3 rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-[var(--brand-surface)] px-4 py-4 text-left shadow-[var(--shadow-soft)] transition-[transform,box-shadow,border-color] hover:-translate-y-0.5 hover:border-black/15 hover:shadow-[var(--shadow-float)]"
-                      >
-                        {content}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="overflow-hidden rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] shadow-[var(--shadow-soft)]">
-                <div className="relative aspect-[4/3] w-full bg-[radial-gradient(circle_at_30%_20%,rgba(139,29,29,0.16),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(11,11,11,0.10),transparent_60%)]">
-                  <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.30),transparent_42%,rgba(255,255,255,0.18))] opacity-60" />
-                  <div className="relative flex h-full w-full items-center justify-center">
-                    <BrandLogo
-                      kind="full"
-                      height={64}
-                      width={240}
-                      className="drop-shadow-[0_24px_90px_rgba(0,0,0,0.22)]"
-                      priority
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-10 text-center">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--brand-border)] bg-[var(--brand-soft)] px-4 py-2 text-xs font-semibold text-black/60">
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-brown)]" />
-                {locale === "en" ? "Vision & Mission" : "Visi & Misi"}
-              </div>
-            </div>
-
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              <div className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-7 py-8 shadow-[var(--shadow-soft)]">
-                <div className="text-xs font-semibold text-black/55">
-                  {locale === "en" ? "VISION" : "VISI"}
-                </div>
-                <div className="text-sm font-semibold tracking-tight text-black">
-                  Menjadi perusahaan agen yang terbaik dan terpercaya serta berkontribusi dalam meningkatkan bisnis mitra.
-                </div>
-              </div>
-
-              <div className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-7 py-8 shadow-[var(--shadow-soft)]">
-                <div className="text-xs font-semibold text-black/55">
-                  {locale === "en" ? "MISSION" : "MISI"}
-                </div>
-                <ul className="mt-4 space-y-3 text-sm leading-6 text-black/65">
-                  <li className="flex items-start gap-3">
-                    <span className="mt-0.5 flex-none text-[var(--brand-brown)]">1.</span>
-                    <span><strong>Komitmen</strong> untuk memberikan layanan terbaik bagi para mitra.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-0.5 flex-none text-[var(--brand-brown)]">2.</span>
-                    <span><strong>Secara Konsisten</strong> meningkatkan kemampuan sumber daya manusia dan infrastruktur untuk memberikan layanan terbaik kepada seluruh mitra.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-0.5 flex-none text-[var(--brand-brown)]">3.</span>
-                    <span><strong>Fokus</strong> untuk menjaga kepercayaan dan memberikan nilai tambah bagi para pemangku kepentingan perusahaan.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </Container>
-        </Section>
-
-        <Section>
-          <Container className="pb-6 lg:pb-8" spacing="none">
-            <div className="text-center">
-              <h2 className="text-2xl font-semibold tracking-tight text-black sm:text-3xl">
-                {t("aboutPage.orgStructure")}
-              </h2>
-              <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-black/60">
-                Struktur organisasi BPR Bonding untuk mendukung layanan yang cepat dan profesional.
-              </p>
-            </div>
-
-            <div className="mt-8 rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] p-6 shadow-[var(--shadow-soft)] sm:p-10">
-              <div className="mx-auto max-w-5xl">
-                <div className="flex justify-center">
-                  <div className="group relative flex w-full max-w-sm flex-col items-center overflow-hidden rounded-[22px] border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_6%)] p-6 text-center shadow-[0_18px_50px_-34px_rgba(0,0,0,0.30)]">
-                    <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,var(--brand-brown),rgba(139,29,29,0.18),transparent)] opacity-70" />
-                    <div className="text-sm font-semibold text-black/85">{org.director.title}</div>
-                    <div className="mt-1 text-sm text-black/60">{org.director.name}</div>
-                  </div>
-                </div>
-
-                <div className="relative mx-auto mt-6 max-w-4xl">
-                  <div className="mx-auto h-8 w-px bg-black/10" />
-                  <div className="hidden h-px w-full bg-black/10 sm:block" />
-                </div>
-
-                <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                  {[org.ops, org.engManager, org.financeHead, org.engHead].map((r) => (
-                    <div
-                      key={r.title}
-                      className="group relative flex flex-col items-center overflow-hidden rounded-[22px] border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_6%)] p-6 text-center shadow-[0_18px_50px_-34px_rgba(0,0,0,0.30)]"
-                    >
-                      <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,var(--brand-brown),rgba(139,29,29,0.18),transparent)] opacity-70" />
-                      <div className="text-sm font-semibold tracking-tight text-black/85">{r.title}</div>
-                      <div className="mt-2 text-sm text-black/60">{r.name}</div>
+                {/* Highlights Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                  {t("aboutPage.highlights").map((highlight: string, idx: number) => (
+                    <div key={idx} className="flex items-center gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-[var(--brand-brown)] flex-shrink-0" />
+                      <span className="text-sm font-medium text-black/80">{highlight}</span>
                     </div>
                   ))}
                 </div>
-              </div>
+
+                {/* Stats Pills */}
+                <div className="flex flex-wrap items-center gap-4 mt-6">
+                  <div className="flex items-center gap-3 rounded-full border border-[var(--brand-border)] bg-white px-4 py-2 shadow-sm">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--brand-brown)]">
+                      <Building2 className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <div className="text-lg font-bold text-black leading-none">10000+</div>
+                      <div className="text-[10px] uppercase font-bold text-black/50 mt-1">{t("aboutPage.stats.clients")}</div>
+                    </div>
+                  </div>
+                  <button 
+                    type="button"
+                    onClick={() => document.getElementById('about-branches')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="flex items-center gap-3 rounded-full border border-[var(--brand-border)] bg-white px-4 py-2 shadow-sm transition-colors hover:bg-black/5 text-left"
+                  >
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--brand-brown)] transition-colors">
+                      <Building2 className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <div className="text-lg font-bold text-black leading-none">10+</div>
+                      <div className="text-[10px] uppercase font-bold text-black/50 mt-1">Cabang</div>
+                    </div>
+                  </button>
+                  <div className="flex items-center gap-3 rounded-full border border-[var(--brand-border)] bg-white px-4 py-2 shadow-sm">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--brand-brown)]">
+                      <ShieldCheck className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <div className="text-lg font-bold text-black leading-none">99%</div>
+                      <div className="text-[10px] uppercase font-bold text-black/50 mt-1">{t("aboutPage.stats.successRate")}</div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Right Column: Image */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="h-[400px] lg:h-[500px] w-full rounded-[32px] border border-[var(--brand-border)] bg-gradient-to-br from-[#f2eee8] to-[#e4ded5] flex items-center justify-center p-8 shadow-[var(--shadow-soft)] relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.6)_0%,rgba(255,255,255,0)_100%)]" />
+                <div className="relative z-10 scale-[1.5] sm:scale-[2]">
+                  <BrandLogo />
+                </div>
+              </motion.div>
             </div>
           </Container>
         </Section>
 
-        <Section>
-          <Container className="pb-6 lg:pb-8" spacing="none">
-            <div className="text-center">
-              <h2 className="text-2xl font-semibold tracking-tight text-black sm:text-3xl">
-                {t("aboutPage.companyValues")}
-              </h2>
+        {/* Visi Misi Section */}
+        <Section className="pt-0">
+          <Container>
+            <div className="flex flex-col items-center mb-6">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--brand-border)] bg-[var(--brand-soft)] px-4 py-2 text-xs font-semibold text-black/60">
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-brown)]" />
+                {t("aboutPage.visionMission")}
+              </div>
             </div>
 
-            <div className="mt-8 grid gap-6 lg:grid-cols-3">
-              {values.map(({ title, desc, Icon }) => (
-                <div
-                  key={title}
-                  className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-surface)] px-8 py-8 shadow-[var(--shadow-soft)]"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-md)] border border-[var(--brand-border)] bg-[var(--brand-soft)] text-[var(--brand-brown)]">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <div className="text-sm font-semibold tracking-tight text-black">{title}</div>
-                  </div>
-                  <div className="mt-4 text-sm leading-7 text-black/65">{desc}</div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="rounded-[32px] border border-[var(--brand-border)] bg-[#f4f1ed] p-8 lg:p-12 shadow-[var(--shadow-soft)]"
+            >
+              <div className="grid gap-12 lg:grid-cols-2">
+                <div>
+                  <h3 className="text-xl font-bold text-black mb-4">Visi</h3>
+                  <p className="text-base text-black/70 leading-relaxed font-normal">
+                    Menjadi perusahaan agen yang terbaik dan terpercaya serta berkontribusi dalam meningkatkan bisnis mitra.
+                  </p>
                 </div>
+                <div>
+                  <h3 className="text-xl font-bold text-black mb-4">Misi</h3>
+                  <ul className="space-y-4">
+                    <li className="flex gap-4 items-start">
+                      <span className="text-[var(--brand-brown)] font-bold text-base mt-0.5">•</span>
+                      <span className="text-base text-black/70 leading-relaxed font-normal">Komitmen untuk memberikan layanan terbaik bagi para mitra.</span>
+                    </li>
+                    <li className="flex gap-4 items-start">
+                      <span className="text-[var(--brand-brown)] font-bold text-base mt-0.5">•</span>
+                      <span className="text-base text-black/70 leading-relaxed font-normal">Secara Konsisten meningkatkan kemampuan sumber daya manusia dan infrastruktur untuk memberikan layanan terbaik kepada seluruh mitra.</span>
+                    </li>
+                    <li className="flex gap-4 items-start">
+                      <span className="text-[var(--brand-brown)] font-bold text-base mt-0.5">•</span>
+                      <span className="text-base text-black/70 leading-relaxed font-normal">Fokus untuk menjaga kepercayaan dan memberikan nilai tambah bagi para pemangku kepentingan perusahaan.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+          </Container>
+        </Section>
+
+        {/* Struktur Organisasi Section */}
+        <Section className="pt-0">
+          <Container>
+            <div className="flex flex-col items-center mb-8">
+              <h2 className="text-3xl font-bold text-black mb-2">{t("aboutPage.orgStructure")}</h2>
+              <p className="text-sm text-black/50">Struktur organisasi BPR Bonding untuk mendukung layanan yang cepat dan profesional.</p>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="rounded-[32px] border border-[var(--brand-border)] bg-[#f4f1ed] p-8 lg:p-16 shadow-[var(--shadow-soft)]"
+            >
+              <div className="flex flex-col items-center gap-12">
+                {/* Director */}
+                <div className="relative flex flex-col items-center">
+                  <div className="z-10 relative flex h-[90px] w-64 flex-col items-center justify-center rounded-[20px] border border-black/5 bg-white p-4 text-center shadow-sm overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-[#8B1D1D] to-transparent opacity-90" />
+                    <div className="text-sm font-bold text-black">
+                      {org.director.title}
+                    </div>
+                    <div className="mt-1 text-xs text-black/60">{org.director.name}</div>
+                  </div>
+                  {/* Vertical line down */}
+                  <div className="absolute top-full h-12 w-[1.5px] bg-black/10" />
+                </div>
+
+                {/* Subordinates */}
+                <div className="relative flex w-full flex-col items-center">
+                  {/* Horizontal line connecting all 4 */}
+                  <div className="absolute top-0 h-[1.5px] w-full lg:w-[90%] bg-black/10" />
+
+                  <div className="grid w-full lg:w-[90%] grid-cols-2 lg:grid-cols-4 gap-6 pt-12">
+                    {[org.ops, org.engManager, org.financeHead, org.engHead].map((role) => (
+                      <div key={role.name} className="relative flex flex-col items-center">
+                        {/* Vertical line up to connector */}
+                        <div className="absolute -top-12 h-12 w-[1.5px] bg-black/10" />
+                        <div className="z-10 relative flex h-[90px] w-full flex-col items-center justify-center rounded-[20px] border border-black/5 bg-white p-4 text-center shadow-sm transition-transform hover:-translate-y-1 overflow-hidden">
+                          <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-[#8B1D1D] to-transparent opacity-90" />
+                          <div className="text-[11px] font-bold text-black">
+                            {role.title}
+                          </div>
+                          <div className="mt-1.5 text-[11px] text-black/60">{role.name}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </Container>
+        </Section>
+
+        {/* Nilai Perusahaan Section */}
+        <Section className="pt-0">
+          <Container>
+            <div className="flex flex-col items-center mb-10">
+              <h2 className="text-3xl font-bold text-black">{t("aboutPage.companyValues")}</h2>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-3">
+              {[
+                { title: t("aboutPage.visionTitle"), desc: t("aboutPage.visionDesc"), Icon: ShieldCheck },
+                { title: t("aboutPage.opsTitle"), desc: t("aboutPage.opsDesc"), Icon: Zap },
+                { title: t("aboutPage.partnershipTitle"), desc: t("aboutPage.partnershipDesc"), Icon: Handshake },
+              ].map(({ title, desc, Icon }, idx) => (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="rounded-[32px] border border-[var(--brand-border)] bg-white p-8 shadow-sm transition-shadow hover:shadow-md"
+                >
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--brand-soft)] text-[var(--brand-brown)]">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-xl font-bold text-black mb-3">{title}</h3>
+                  <p className="text-sm leading-relaxed text-black/70 font-normal">{desc}</p>
+                </motion.div>
               ))}
             </div>
           </Container>
         </Section>
 
-        <Section>
-          <Container className="pb-6 lg:pb-8" spacing="none" id="about-branches">
-            <div className="rounded-[28px] border border-[var(--brand-border)] bg-[var(--brand-soft)] px-6 py-6 shadow-[var(--shadow-soft)] sm:px-10 lg:py-8">
-              <div className="mx-auto max-w-2xl">
+        {/* Kantor Cabang Section */}
+        <Section className="pt-0">
+          <Container>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="rounded-[32px] border border-[var(--brand-border)] bg-[#f4f1ed] p-8 lg:p-12 shadow-[var(--shadow-soft)]"
+            >
+              <div className="mx-auto max-w-xl mb-10 relative">
+                <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-black/40" />
                 <input
+                  type="text"
                   value={branchQuery}
                   onChange={(e) => setBranchQuery(e.target.value)}
-                  aria-label={t("aboutPage.branchesSearch")}
                   placeholder={t("aboutPage.branchesSearch")}
-                  className="h-12 w-full rounded-full border border-[var(--brand-border)] bg-[var(--brand-surface)] px-5 text-sm text-black/80 outline-none placeholder:text-black/40 focus:border-[color-mix(in_oklab,var(--brand-brown),transparent_65%)] focus:ring-2 focus:ring-[color-mix(in_oklab,var(--brand-brown),transparent_80%)]"
+                  className="h-12 w-full rounded-full border border-white/40 bg-white/60 pl-12 pr-4 text-sm font-medium text-black placeholder:text-black/40 shadow-sm backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand-brown)]/20"
                 />
-
-                {branchQuery.trim() && filteredBranches.length === 0 ? (
-                  <div className="mt-4 rounded-2xl border border-[var(--brand-border)] bg-[var(--brand-surface)] px-5 py-4 text-sm">
-                    <div className="font-semibold text-black/85">
-                      {t("aboutPage.branchesNotFoundTitle")}
-                    </div>
-                    <div className="mt-1 text-black/60">
-                      {t("aboutPage.branchesNotFoundHint")}
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setBranchQuery("");
-                        setShowAllBranches(false);
-                      }}
-                      className="mt-3 inline-flex h-10 items-center justify-center rounded-full border border-[var(--brand-border)] bg-[var(--brand-soft)] px-4 text-sm font-semibold text-black/70 transition-colors hover:text-black"
-                    >
-                      {t("aboutPage.branchesClear")}
-                    </button>
-                  </div>
-                ) : null}
               </div>
 
-              <div className="text-center">
-                <h2 className="text-2xl font-semibold tracking-tight text-black sm:text-3xl">
-                  {t("aboutPage.branches")}
-                </h2>
-                <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-black/60">
-                  {t("aboutPage.branchesDesc")}
-                </p>
+              <div className="flex flex-col items-center mb-10 text-center">
+                <h2 className="text-2xl font-bold text-black mb-2">{t("aboutPage.branches")}</h2>
+                <p className="text-sm text-black/60">{t("aboutPage.branchesDesc")}</p>
               </div>
 
-              <div className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {visibleBranches.map((b) => (
-                  <div
-                    key={b.name}
-                    className="group relative flex h-full flex-col overflow-hidden rounded-[22px] border border-[var(--brand-border)] bg-[color-mix(in_oklab,var(--brand-surface),transparent_6%)] p-6 shadow-[0_18px_50px_-34px_rgba(0,0,0,0.30)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_80px_-44px_rgba(0,0,0,0.45)]"
-                  >
-                    <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,var(--brand-brown),rgba(139,29,29,0.18),transparent)] opacity-70" />
-                    <div className="text-sm font-semibold tracking-tight text-black/90">
-                      {b.name}
-                    </div>
-                    <div className="mt-2 flex-1 text-sm leading-6 text-black/65">{b.addr}</div>
-                    <div className="mt-auto pt-4">
-                      <div className="inline-flex items-center rounded-full border border-[var(--brand-border)] bg-[var(--brand-surface)] px-4 py-2 text-sm font-medium text-black/70">
-                        {b.phone}
+              {filteredBranches.length > 0 ? (
+                <>
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    {visibleBranches.map((b) => (
+                      <div
+                        key={b.name}
+                        className="flex flex-col justify-between rounded-[24px] border border-[var(--brand-border)] bg-white p-6 shadow-sm transition-[transform,box-shadow] hover:-translate-y-1 hover:shadow-md"
+                      >
+                        <div>
+                          <div className="text-sm font-bold text-black mb-2">
+                            {b.name}
+                          </div>
+                          <p className="text-[11px] leading-relaxed text-black/60 mb-4">{b.addr}</p>
+                        </div>
+                        <div className="inline-flex self-start items-center gap-2 rounded-full border border-black/5 px-3 py-1.5 text-[10px] font-bold text-black/70">
+                          {b.phone}
+                        </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
-                ))}
-              </div>
 
-              {!branchQuery.trim() && filteredBranches.length > 8 ? (
-                <div className="mt-8 flex justify-center">
+                  {!branchQuery.trim() && filteredBranches.length > 8 && (
+                    <div className="mt-10 flex justify-center">
+                      {!showAllBranches ? (
+                        <button
+                          type="button"
+                          onClick={() => setShowAllBranches(true)}
+                          className="inline-flex h-11 items-center rounded-full border border-[var(--brand-border)] bg-white px-6 text-sm font-semibold text-black/70 shadow-sm transition-colors hover:text-black hover:bg-black/5"
+                        >
+                          {t("aboutPage.showAll")}
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setShowAllBranches(false);
+                            document.getElementById('about-branches')?.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                          className="inline-flex h-11 items-center rounded-full border border-[var(--brand-border)] bg-white px-6 text-sm font-semibold text-black/70 shadow-sm transition-colors hover:text-black hover:bg-black/5"
+                        >
+                          Tampilkan Lebih Sedikit
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-10 text-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black/20 mb-4 shadow-sm">
+                    <Search className="h-5 w-5" />
+                  </div>
+                  <h3 className="text-base font-bold text-black">
+                    {t("aboutPage.branchesNotFoundTitle")}
+                  </h3>
+                  <p className="mt-1 text-xs text-black/50">
+                    {t("aboutPage.branchesNotFoundHint")}
+                  </p>
                   <button
                     type="button"
-                    onClick={() => setShowAllBranches((v) => !v)}
-                    className="inline-flex h-11 items-center rounded-[var(--radius-pill)] border border-[var(--brand-border)] bg-[var(--brand-surface)] px-6 text-sm font-semibold text-black/75 transition-colors hover:text-black"
+                    onClick={() => setBranchQuery("")}
+                    className="mt-4 text-xs font-semibold text-[var(--brand-brown)] hover:underline"
                   >
-                    {showAllBranches ? "Tampilkan lebih sedikit" : "Lihat selengkapnya"}
+                    {t("aboutPage.branchesClear")}
                   </button>
                 </div>
-              ) : null}
-            </div>
+              )}
+            </motion.div>
           </Container>
         </Section>
 

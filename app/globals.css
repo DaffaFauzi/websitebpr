@@ -48,10 +48,12 @@ body {
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system,
     Segoe UI, Roboto, Arial, Noto Sans, "Apple Color Emoji", "Segoe UI Emoji";
   overflow-x: hidden;
+  padding-top: 76px;
 }
 
 html {
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 @keyframes marquee-left {
@@ -319,6 +321,52 @@ html {
   }
 }
 
+/* Scroll-based animations */
+@keyframes slide-up-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.scroll-fade {
+  animation: slide-up-fade 0.6s ease-out forwards;
+}
+
+.scroll-slide-left {
+  animation: slide-in-left 0.6s ease-out forwards;
+}
+
+.scroll-slide-right {
+  animation: slide-in-right 0.6s ease-out forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
     animation: none !important;
@@ -343,6 +391,11 @@ html {
   }
   .logo-loop-left,
   .logo-loop-right {
+    animation: none !important;
+  }
+  .scroll-fade,
+  .scroll-slide-left,
+  .scroll-slide-right {
     animation: none !important;
   }
 }
