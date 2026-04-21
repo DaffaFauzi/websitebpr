@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 import { Button } from "@/app/components/ui/button";
 import { Container, Section } from "@/app/components/ui/section";
 import BrandLogo from "@/app/components/BrandLogo";
 import { useI18n } from "@/app/i18n/I18nProvider";
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -20,7 +20,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
