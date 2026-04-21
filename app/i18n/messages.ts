@@ -192,5 +192,11 @@ export const messages = {
       contact: "Kontak",
     },
   },
-  en: {},
+  en: {
+    splash: {
+      title: "Welcome to BPR Bonding",
+      subtitle: "Protecting your future with confidence",
+      hint: "Preparing Your Experience...",
+    },
+  },
 } as const;

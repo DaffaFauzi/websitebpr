@@ -12,7 +12,7 @@ export default function SplashGate({
 }: {
   children: React.ReactNode;
 }) {
-  const { locale } = useI18n();
+  const { locale, t } = useI18n();
   const [isClient, setIsClient] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
 
@@ -115,9 +115,7 @@ export default function SplashGate({
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  {locale === "th"
-                    ? "ยินดีต้อนรับสู่ BPR Bonding"
-                    : "Welcome to BPR Bonding"}
+                  {t("splash.title") || "Welcome to BPR Bonding"}
                 </motion.div>
                 <motion.div
                   className="mt-3 text-[15px] font-medium leading-relaxed text-gray-600/90"
@@ -125,9 +123,7 @@ export default function SplashGate({
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.6 }}
                 >
-                  {locale === "th"
-                    ? "ปกป้องอนาคตของคุณด้วยความมั่นใจ"
-                    : "Protecting your future with confidence"}
+                  {t("splash.subtitle") || "Protecting your future with confidence"}
                 </motion.div>
               </div>
 
@@ -167,9 +163,7 @@ export default function SplashGate({
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                {locale === "th"
-                  ? "กำลังเตรียมข้อมูล..."
-                  : "Preparing Your Experience..."}
+                {t("splash.hint") || "Preparing Your Experience..."}
               </motion.div>
             </div>
           </motion.div>
