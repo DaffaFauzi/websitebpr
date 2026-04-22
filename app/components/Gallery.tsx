@@ -560,7 +560,7 @@ export default function Gallery() {
                                   fill
                                   priority
                                   sizes="(min-width: 1024px) 420px, 92vw"
-                                  className="object-cover"
+                                  className="object-contain"
                                 />
                               )}
                             </motion.div>
