@@ -4,7 +4,7 @@
 Mulai berlaku: [isi tanggal]
 
 Perubahan struktur organisasi BPR Bonding ditetapkan sebagai berikut:
-- Direktur: Chrisnia Nutbaiti
+- Direktur: Chrisnia Nurbaiti
 - Manager Teknik: Mesaliani Negara
 - Kepala Divisi Keuangan: Cucuk Suratningsih
 - Kepala Divisi Teknik: Lilik Amaliya Putri

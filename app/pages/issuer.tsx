@@ -7,7 +7,12 @@ import Navbar from "@/app/components/Navbar";
 import EntityLogo from "@/app/components/EntityLogo";
 import { PageHero } from "@/app/components/ui/page-hero";
 import { Badge } from "@/app/components/ui/badge";
-import { getLogoById, getLogosByCategory, logoCategories, type LogoMeta } from "@/app/data/logoCatalog";
+import {
+  getLogoById,
+  getLogosByCategory,
+  type LogoMeta,
+  logoCategories,
+} from "@/app/data/logoCatalog";
 import { Container, Section } from "@/app/components/ui/section";
 import { useI18n } from "@/app/i18n/I18nProvider";
 
@@ -136,7 +141,7 @@ function MarqueeRow({
                 <EntityLogo
                   meta={meta}
                   size={256}
-                  rounded="xl"
+                  rounded="none"
                   className="transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-[1.03]"
                 />
               </div>
@@ -151,6 +156,11 @@ function MarqueeRow({
 export default function IssuerPage() {
   const { locale, t } = useI18n();
   const jastan = getLogoById("jastan");
+
+  const bankPrivateMeta = useMemo(
+    () => logoCategories.find((x) => x.key === "bank-swasta"),
+    []
+  );
 
   const highlights = [
     t("issuer.partnerVerified"),
@@ -201,7 +211,7 @@ export default function IssuerPage() {
                   <div className="mx-auto max-w-sm rounded-[var(--radius-xl)] border border-[var(--brand-border)] bg-[var(--brand-surface)] p-6 shadow-[var(--shadow-float)]">
                     <div className="flex justify-center">
                       <div className="h-28 w-full sm:h-32">
-                        {jastan ? <EntityLogo meta={jastan} size={512} rounded="2xl" /> : null}
+                        {jastan ? <EntityLogo meta={jastan} size={512} rounded="none" /> : null}
                       </div>
                     </div>
                     <div className="mt-4 text-center text-xs font-medium text-black/55">
@@ -218,19 +228,44 @@ export default function IssuerPage() {
           <Container>
             <div className="grid gap-10">
               {logoCategories.map((cat) => {
+                if (cat.key === "bank-swasta") return null;
+
                 const title = locale === "en" ? cat.labelEn : cat.labelId;
                 const subtitle = t(`issuer.categorySubtitles.${cat.key}`);
-                const items = getLogosByCategory(cat.key);
+                const items =
+                  cat.key === "bank-pemerintah"
+                    ? (() => {
+                        const government = getLogosByCategory("bank-pemerintah");
+                        const priv = getLogosByCategory("bank-swasta");
+                        const uniq = new Map<string, LogoMeta>();
+                        for (const m of [...government, ...priv]) uniq.set(m.id, m);
+                        return Array.from(uniq.values());
+                      })()
+                    : getLogosByCategory(cat.key);
                 const topItems = items.filter((_, i) => i % 2 === 0);
                 const bottomItems = items.filter((_, i) => i % 2 === 1);
 
+                const mergedTitle =
+                  cat.key === "bank-pemerintah"
+                    ? locale === "en"
+                      ? `${cat.labelEn} & ${bankPrivateMeta?.labelEn ?? "Private Banks"}`
+                      : `${cat.labelId} & ${bankPrivateMeta?.labelId ?? "Bank Swasta"}`
+                    : title;
+
+                const mergedSubtitle =
+                  cat.key === "bank-pemerintah"
+                    ? locale === "en"
+                      ? "Combined government and private banking partners supporting guarantee services."
+                      : "Gabungan mitra bank pemerintah dan bank swasta yang mendukung layanan penjaminan."
+                    : subtitle;
+
                 return (
-                  <div key={cat.key}>
+                  <div key={cat.key === "bank-pemerintah" ? "bank-pemerintah-bank-swasta" : cat.key}>
                     <div className="mb-6">
                       <h3 className="text-xl font-bold tracking-tight text-black sm:text-2xl">
-                        {title}
+                        {mergedTitle}
                       </h3>
-                      <p className="mt-2 text-sm text-black/60">{subtitle}</p>
+                      <p className="mt-2 text-sm text-black/60">{mergedSubtitle}</p>
                     </div>
 
                     <div className="grid gap-4">

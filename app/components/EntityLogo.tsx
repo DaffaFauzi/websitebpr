@@ -19,7 +19,7 @@ export default function EntityLogo({
   meta: LogoMeta;
   size?: 48 | 128 | 256 | 512;
   className?: string;
-  rounded?: "lg" | "xl" | "2xl";
+  rounded?: "none" | "lg" | "xl" | "2xl";
 }) {
   const [broken, setBroken] = useState(false);
   const srcs = useMemo(() => getPreferredLogoSources(meta, size), [meta, size]);
@@ -28,7 +28,13 @@ export default function EntityLogo({
   const svg = srcs.find((x) => x.endsWith(".svg"));
   const fallback = svg ?? png ?? webp ?? srcs[0];
   const r =
-    rounded === "lg" ? "rounded-lg" : rounded === "2xl" ? "rounded-2xl" : "rounded-xl";
+    rounded === "none"
+      ? ""
+      : rounded === "lg"
+        ? "rounded-lg"
+        : rounded === "2xl"
+          ? "rounded-2xl"
+          : "rounded-xl";
 
   if (meta.assetStatus !== "available" || broken) {
     return (
@@ -50,7 +56,7 @@ export default function EntityLogo({
   }
 
   return (
-    <picture className={`block h-full w-full overflow-hidden ${className ?? ""}`}>
+    <picture className={`block h-full w-full ${r ? "overflow-hidden" : ""} ${className ?? ""}`}>
       {webp ? <source srcSet={webp} type="image/webp" /> : null}
       {png ? <source srcSet={png} type="image/png" /> : null}
       <img

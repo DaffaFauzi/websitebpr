@@ -20,7 +20,7 @@ export default function AboutPage() {
   const org = {
     director: {
       title: t("aboutPage.orgRoles.director"),
-      name: "Chrisnia Nutbaiti",
+      name: "Chrisnia Nurbaiti",
     },
     ops: {
       title: t("aboutPage.orgRoles.opsManager"),
@@ -132,9 +132,13 @@ export default function AboutPage() {
                       <div className="text-[10px] uppercase font-bold text-black/50 mt-1">{t("aboutPage.stats.clients")}</div>
                     </div>
                   </div>
-                  <button 
+                  <button
                     type="button"
-                    onClick={() => document.getElementById('about-branches')?.scrollIntoView({ behavior: 'smooth' })}
+                    onClick={() =>
+                      document
+                        .getElementById("branches")
+                        ?.scrollIntoView({ behavior: "smooth", block: "start" })
+                    }
                     className="flex items-center gap-3 rounded-full border border-[var(--brand-border)] bg-white px-4 py-2 shadow-sm transition-colors hover:bg-black/5 text-left"
                   >
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--brand-brown)] transition-colors">
@@ -306,7 +310,7 @@ export default function AboutPage() {
         </Section>
 
         {/* Kantor Cabang Section */}
-        <Section className="pt-0">
+        <Section id="branches" className="scroll-mt-[100px] pt-0">
           <Container>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -366,7 +370,9 @@ export default function AboutPage() {
                           type="button"
                           onClick={() => {
                             setShowAllBranches(false);
-                            document.getElementById('about-branches')?.scrollIntoView({ behavior: 'smooth' });
+                            document
+                              .getElementById("branches")
+                              ?.scrollIntoView({ behavior: "smooth", block: "start" });
                           }}
                           className="inline-flex h-11 items-center rounded-full border border-[var(--brand-border)] bg-white px-6 text-sm font-semibold text-black/70 shadow-sm transition-colors hover:text-black hover:bg-black/5"
                         >
